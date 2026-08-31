@@ -48,6 +48,7 @@ export const serviceCategoriesData: ServiceCategory[] = [
         shortDesc: 'Cardless cash withdrawal via dynamic UPI QR scan.',
         iconName: 'QrCode',
         badge: 'QR Cash',
+        imageSrc: '/images/Aps.svg',
         features: ['Dynamic QR Code', 'Zero Skimming Risk', 'Instant Webhooks', 'High Success Rate'],
         popular: true,
         link: '#upi-cash'
@@ -58,6 +59,7 @@ export const serviceCategoriesData: ServiceCategory[] = [
         shortDesc: 'Cash drop & EMI collection for 120+ NBFCs and delivery partners.',
         iconName: 'Briefcase',
         badge: '120+ NBFCs',
+        imageSrc: '/images/Cms.svg',
         features: ['120+ Tie-ups', 'OTP Verification', 'Instant Receipt', 'High Volume'],
         popular: false,
         link: '#cms'
@@ -78,6 +80,7 @@ export const serviceCategoriesData: ServiceCategory[] = [
         shortDesc: 'Secure cross-border money transfers to Nepal.',
         iconName: 'Globe',
         badge: 'Cross-Border',
+        imageSrc: '/images/Inmt.svg',
         features: ['Everest & Prabhu Bank', 'Cash Pickup & Wallet', 'RBI Compliant', 'Best FX Rates'],
         popular: false,
         link: '#indo-nepal'
@@ -108,6 +111,7 @@ export const serviceCategoriesData: ServiceCategory[] = [
         shortDesc: 'Instant bill fetch and pay across 200+ power discoms.',
         iconName: 'Lightbulb',
         badge: '200+ Discoms',
+        imageSrc: '/images/Bbps.svg',
         features: ['Instant Bill Fetch', 'Real-Time Receipt', 'Bill Reminders', 'Direct Margin'],
         popular: true,
         link: '#electricity'

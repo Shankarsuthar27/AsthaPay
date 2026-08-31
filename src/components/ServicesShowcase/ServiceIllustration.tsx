@@ -118,11 +118,11 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
 
   return (
     <div
-      className={`w-full h-36 rounded-xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-3 relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-300 select-none`}
+      className={`w-full h-56 sm:h-60 rounded-2xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-4 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm`}
     >
       {/* Abstract Background Vectors */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-35 pointer-events-none"
+        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -134,35 +134,35 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
       </svg>
 
       {/* Ambient Lighting Spheres */}
-      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/70 blur-lg pointer-events-none" />
-      <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-white/60 blur-lg pointer-events-none" />
+      <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/80 blur-xl pointer-events-none" />
+      <div className="absolute -bottom-6 -left-6 w-28 h-28 rounded-full bg-white/70 blur-xl pointer-events-none" />
 
       {/* Decorative Rotating Geometric Accents */}
-      <div className="absolute top-2 left-3 w-8 h-8 rounded-full border border-dashed border-slate-300/60 animate-[spin_12s_linear_infinite] pointer-events-none" />
-      <div className="absolute bottom-2 right-3 w-6 h-6 rounded-lg border border-slate-300/50 rotate-12 pointer-events-none" />
+      <div className="absolute top-3 left-4 w-10 h-10 rounded-full border border-dashed border-slate-300/60 animate-[spin_12s_linear_infinite] pointer-events-none" />
+      <div className="absolute bottom-3 right-4 w-8 h-8 rounded-lg border border-slate-300/50 rotate-12 pointer-events-none" />
 
       {/* Main Centered Icon Badge with Glow and 3D Layering */}
       <div className="relative flex flex-col items-center">
         <div
-          className="w-16 h-16 rounded-2xl bg-white shadow-soft-md border border-slate-100/90 flex items-center justify-center text-brand-navy group-hover:text-brand-coral group-hover:shadow-coral-glow transition-all duration-300 relative z-10"
+          className="w-20 h-20 rounded-2xl bg-white shadow-soft-md border border-slate-100/90 flex items-center justify-center text-brand-navy group-hover:text-brand-coral group-hover:shadow-coral-glow transition-all duration-300 relative z-10"
           style={{
-            boxShadow: `0 8px 20px -4px ${theme.glow}`,
+            boxShadow: `0 10px 25px -5px ${theme.glow}`,
           }}
         >
           <DynamicIcon
             name={iconName}
-            className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
+            className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
           />
 
           {/* Mini Status Indicator */}
-          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[7px] text-white font-black shadow-sm">
+          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-black shadow-sm">
             ✓
           </span>
         </div>
 
         {/* Category Pill Tag */}
         <span
-          className={`mt-2 text-[9px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-full border ${theme.pillColor} shadow-2xs relative z-10`}
+          className={`mt-3 text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${theme.pillColor} shadow-2xs relative z-10`}
         >
           {categoryId.toUpperCase()} • API READY
         </span>

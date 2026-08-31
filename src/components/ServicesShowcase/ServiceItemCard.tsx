@@ -22,10 +22,10 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 p-5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group min-w-[280px] sm:min-w-[310px] max-w-sm flex-1 hover:scale-105 select-none"
+      className="bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 p-5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group min-w-[280px] sm:min-w-[310px] w-[290px] sm:w-[320px] h-[520px] sm:h-[540px] hover:scale-105 select-none shrink-0"
     >
       {/* Top Tag & Status */}
-      <div className="flex items-center justify-between w-full mb-3 z-10">
+      <div className="flex items-center justify-between w-full mb-2 z-10">
         {service.badge ? (
           <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20">
             {service.badge}
@@ -44,7 +44,7 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
       </div>
 
       {/* Centered Graphic/Vector Illustration */}
-      <div className="w-full mb-4">
+      <div className="w-full mb-3 shrink-0">
         <ServiceIllustration
           serviceId={service.id}
           categoryId={categoryId}
@@ -54,7 +54,7 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
       </div>
 
       {/* Bold Card Title Below Graphic */}
-      <div className="mb-3 text-center w-full">
+      <div className="mb-2 text-center w-full min-h-[50px] flex flex-col justify-start">
         <h4 className="text-base font-bold text-brand-navy group-hover:text-brand-coral transition-colors duration-200 line-clamp-1">
           {service.title}
         </h4>
@@ -64,19 +64,21 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
       </div>
 
       {/* Feature Bullet Points */}
-      {service.features && service.features.length > 0 && (
-        <div className="space-y-1.5 my-2 w-full border-t border-slate-100 pt-3 text-left">
-          {service.features.slice(0, 3).map((feat, idx) => (
+      <div className="space-y-1.5 my-1.5 w-full border-t border-slate-100 pt-2.5 text-left min-h-[68px]">
+        {service.features && service.features.length > 0 ? (
+          service.features.slice(0, 3).map((feat, idx) => (
             <div key={idx} className="flex items-center gap-2 text-[11px] text-slate-600">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
               <span className="truncate">{feat}</span>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="text-[11px] text-slate-400 italic">Enterprise 99.9% Uptime SLA</div>
+        )}
+      </div>
 
       {/* Card Action Link: Blue Button (Explore ->) */}
-      <div className="pt-3 w-full flex items-center justify-between text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors border-t border-slate-100">
+      <div className="pt-2.5 w-full flex items-center justify-between text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors border-t border-slate-100 mt-auto">
         <span className="flex items-center gap-1">
           Explore Service
         </span>
