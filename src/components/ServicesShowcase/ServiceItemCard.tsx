@@ -22,7 +22,7 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 p-5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group min-w-[280px] sm:min-w-[310px] w-[290px] sm:w-[320px] h-[520px] sm:h-[540px] hover:scale-105 select-none shrink-0"
+      className="bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 p-4 sm:p-5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group w-[275px] sm:w-[320px] min-w-[275px] sm:min-w-[310px] h-[510px] sm:h-[540px] hover:scale-[1.03] select-none shrink-0"
     >
       {/* Top Tag & Status */}
       <div className="flex items-center justify-between w-full mb-2 z-10">

@@ -47,7 +47,7 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
   return (
     <div
       id={category.id}
-      className="bg-[#f2f7fc] rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-200/80 my-8 sm:my-10 shadow-soft-sm transition-all duration-300 relative scroll-mt-40"
+      className="bg-[#f2f7fc] rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 border border-slate-200/80 my-6 sm:my-10 shadow-soft-sm transition-all duration-300 relative scroll-mt-40"
     >
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-slate-200/80 mb-6">
