@@ -26,28 +26,28 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({ channel }) => {
         </div>
 
         {/* Laptop Dashboard UI Content */}
-        <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
+        <div className="p-5 space-y-4">
           {/* Top stats strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
               <div className="text-[10px] text-slate-400 uppercase">Today&apos;s Volume</div>
-              <div className="text-base sm:text-lg font-black text-white">₹ 14,82,900</div>
+              <div className="text-lg font-black text-white">₹ 14,82,900</div>
               <div className="text-[10px] text-emerald-400">↑ 18.4% vs yesterday</div>
             </div>
             <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
               <div className="text-[10px] text-slate-400 uppercase">Active Retailers</div>
-              <div className="text-base sm:text-lg font-black text-white">1,482</div>
+              <div className="text-lg font-black text-white">1,482</div>
               <div className="text-[10px] text-blue-400">98.2% online</div>
             </div>
             <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
               <div className="text-[10px] text-slate-400 uppercase">Commission Earned</div>
-              <div className="text-base sm:text-lg font-black text-brand-coral">₹ 28,450</div>
+              <div className="text-lg font-black text-brand-coral">₹ 28,450</div>
               <div className="text-[10px] text-slate-400">Auto settled</div>
             </div>
           </div>
 
           {/* Quick Action Tiles */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+          <div className="grid grid-cols-4 gap-2 text-center text-xs">
             <div className="p-2.5 rounded-xl bg-brand-coral/15 border border-brand-coral/30 font-bold text-white flex flex-col items-center gap-1">
               <Fingerprint className="w-5 h-5 text-brand-coral" />
               <span>AePS 2.0</span>

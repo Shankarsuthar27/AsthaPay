@@ -83,7 +83,7 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
   if (imageSrc) {
     return (
       <div
-        className="w-full h-52 sm:h-60 rounded-2xl bg-gradient-to-b from-[#EDF5FF] via-[#F4F8FE] to-[#E5F0FF] border border-blue-100/90 flex items-center justify-center p-2.5 sm:p-3 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm"
+        className="w-full h-56 sm:h-60 rounded-2xl bg-gradient-to-b from-[#EDF5FF] via-[#F4F8FE] to-[#E5F0FF] border border-blue-100/90 flex items-center justify-center p-3 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm"
       >
         {/* Subtle grid pattern background */}
         <svg
@@ -118,7 +118,7 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
 
   return (
     <div
-      className={`w-full h-52 sm:h-60 rounded-2xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-3.5 sm:p-4 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm`}
+      className={`w-full h-56 sm:h-60 rounded-2xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-4 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm`}
     >
       {/* Abstract Background Vectors */}
       <svg

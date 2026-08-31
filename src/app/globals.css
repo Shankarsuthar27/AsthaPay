@@ -13,16 +13,10 @@
   html {
     scroll-behavior: smooth;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   body {
     @apply bg-gradient-to-b from-[#EEF5FF] via-white to-[#F8FAFC] text-slate-900 antialiased selection:bg-brand-coral/20 selection:text-brand-coral;
-    overflow-x: hidden;
-    max-width: 100vw;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 }
 
