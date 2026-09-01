@@ -38,7 +38,7 @@ export const StickyTabBar: React.FC<StickyTabBarProps> = ({ activeTab, onTabClic
   }, [activeTab]);
 
   return (
-    <div className="sticky top-[54px] sm:top-[60px] md:top-[68px] z-40 bg-white/95 backdrop-blur-md border-y border-slate-200/80 shadow-soft-sm py-2 sm:py-3 transition-all">
+    <div className="sticky top-[50px] sm:top-[58px] lg:top-[64px] z-40 bg-white/95 backdrop-blur-md border-y border-slate-200/80 shadow-soft-sm py-2 sm:py-2.5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={containerRef}
