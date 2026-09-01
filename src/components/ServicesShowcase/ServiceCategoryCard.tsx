@@ -81,15 +81,11 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
   };
 
   const handleWheel = (e: React.WheelEvent) => {
+    // Only handle horizontal wheel or shift+wheel; never hijack vertical wheel/scroll
     if (!scrollContainerRef.current) return;
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && e.deltaY !== 0) {
-      const container = scrollContainerRef.current;
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      if (
-        (e.deltaY > 0 && container.scrollLeft < maxScroll - 2) ||
-        (e.deltaY < 0 && container.scrollLeft > 2)
-      ) {
-        container.scrollLeft += e.deltaY * 0.85;
+    if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      if (e.deltaX !== 0) {
+        scrollContainerRef.current.scrollLeft += e.deltaX;
         checkScrollability();
       }
     }
@@ -98,7 +94,7 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
   return (
     <div
       id={category.id}
-      className="bg-[#f2f7fc] rounded-3xl p-5 sm:p-7 md:p-9 border border-slate-200/80 my-7 sm:my-9 shadow-soft-sm transition-all duration-300 relative scroll-mt-36"
+      className="bg-[#f2f7fc] rounded-3xl p-5 sm:p-7 md:p-9 border border-slate-200/80 my-7 sm:my-9 shadow-soft-sm transition-all duration-300 relative scroll-mt-28 sm:scroll-mt-36"
     >
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-slate-200/80 mb-5">
@@ -176,9 +172,13 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
           onWheel={handleWheel}
-          className={`flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 px-1 no-scrollbar scroll-smooth snap-x touch-pan-x select-none ${
+          className={`flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 px-1 no-scrollbar scroll-smooth snap-x select-none overscroll-x-contain ${
             isMouseDown ? 'cursor-grabbing' : 'cursor-grab'
           }`}
+          style={{
+            touchAction: 'pan-x pan-y',
+            WebkitOverflowScrolling: 'touch',
+          }}
         >
           {category.services.map((service) => (
             <div key={service.id} className="snap-start shrink-0">

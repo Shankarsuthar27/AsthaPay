@@ -15,26 +15,35 @@ export const StickyTabBar: React.FC<StickyTabBarProps> = ({ activeTab, onTabClic
   const containerRef = useRef<HTMLDivElement>(null);
   const activeTabRef = useRef<HTMLButtonElement>(null);
 
-  // Auto-scroll active tab into view in horizontal container on mobile/small screens
+  // Auto-scroll active tab into view in horizontal container on mobile/small screens without hijacking window scroll
   useEffect(() => {
     if (activeTabRef.current && containerRef.current) {
       const container = containerRef.current;
       const tab = activeTabRef.current;
-      const containerRect = container.getBoundingClientRect();
-      const tabRect = tab.getBoundingClientRect();
+      const tabOffsetLeft = tab.offsetLeft;
+      const tabWidth = tab.offsetWidth;
+      const containerWidth = container.offsetWidth;
+      const currentScrollLeft = container.scrollLeft;
 
-      if (tabRect.left < containerRect.left || tabRect.right > containerRect.right) {
-        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      // Only scroll horizontally if active tab is outside or near edge of view
+      const isVisible =
+        tabOffsetLeft >= currentScrollLeft + 20 &&
+        tabOffsetLeft + tabWidth <= currentScrollLeft + containerWidth - 20;
+
+      if (!isVisible) {
+        const targetScrollLeft = tabOffsetLeft - (containerWidth / 2) + (tabWidth / 2);
+        container.scrollTo({ left: Math.max(0, targetScrollLeft), behavior: 'smooth' });
       }
     }
   }, [activeTab]);
 
   return (
-    <div className="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-md border-y border-slate-200/80 shadow-soft-sm py-3 transition-all">
+    <div className="sticky top-[54px] sm:top-[60px] md:top-[68px] z-40 bg-white/95 backdrop-blur-md border-y border-slate-200/80 shadow-soft-sm py-2 sm:py-3 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={containerRef}
-          className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth"
+          className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth overscroll-x-contain"
+          style={{ touchAction: 'pan-x pan-y', WebkitOverflowScrolling: 'touch' }}
         >
           {serviceCategoriesData.map((category) => {
             const isActive = activeTab === category.id;

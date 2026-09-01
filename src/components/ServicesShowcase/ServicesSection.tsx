@@ -55,12 +55,13 @@ export const ServicesSection: React.FC = () => {
 
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 150;
+      const isMobile = window.innerWidth < 640;
+      const headerOffset = isMobile ? 110 : 150;
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - headerOffset;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth',
       });
     }
