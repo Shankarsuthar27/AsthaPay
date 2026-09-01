@@ -15,32 +15,32 @@ export const CalculatorWidget: React.FC = () => {
   const estimatedMonthlyCommission = (monthlyTransactions * avgTicketSize * 0.0035);
 
   return (
-    <div className="bg-gradient-to-br from-brand-navy via-brand-navy-card to-brand-navy-deep rounded-3xl p-6 sm:p-10 text-white shadow-soft-xl border border-slate-700/80 my-16">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div className="bg-gradient-to-br from-brand-navy via-brand-navy-card to-brand-navy-deep rounded-3xl p-5 sm:p-8 text-white shadow-soft-xl border border-slate-700/80 my-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
         {/* Left Inputs */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-coral/20 text-brand-coral text-xs font-bold mb-2">
-              <Calculator className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-coral/20 text-brand-coral text-[11px] font-bold mb-1.5">
+              <Calculator className="w-3 h-3" />
               <span>ROI & Commission Estimator</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-white">
+            <h3 className="text-xl sm:text-2xl font-black text-white">
               Estimate Your Network Earnings
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1">
+            <p className="text-xs text-slate-300 mt-1">
               Adjust network size and transaction volume to project monthly GTV and commission yield.
             </p>
           </div>
 
           {/* Sliders */}
-          <div className="space-y-5 bg-white/5 p-5 rounded-2xl border border-white/10">
+          <div className="space-y-4 bg-white/5 p-4 rounded-2xl border border-white/10">
             {/* Slider 1: Retailers Count */}
             <div>
-              <div className="flex items-center justify-between text-xs font-bold mb-1.5">
+              <div className="flex items-center justify-between text-[11px] font-bold mb-1">
                 <span className="text-slate-300 flex items-center gap-1.5">
-                  <Users className="w-4 h-4 text-brand-coral" /> Active Retail Outlets:
+                  <Users className="w-3.5 h-3.5 text-brand-coral" /> Active Retail Outlets:
                 </span>
-                <span className="text-brand-coral text-sm font-black">{retailersCount} Stores</span>
+                <span className="text-brand-coral text-xs font-black">{retailersCount} Stores</span>
               </div>
               <input
                 type="range"
@@ -49,9 +49,9 @@ export const CalculatorWidget: React.FC = () => {
                 step="5"
                 value={retailersCount}
                 onChange={(e) => setRetailersCount(Number(e.target.value))}
-                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-coral"
+                className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-coral"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+              <div className="flex justify-between text-[9px] text-slate-500 mt-0.5">
                 <span>5 Stores</span>
                 <span>250 Stores</span>
                 <span>500+ Stores</span>
@@ -60,11 +60,11 @@ export const CalculatorWidget: React.FC = () => {
 
             {/* Slider 2: Daily Tx Per Retailer */}
             <div>
-              <div className="flex items-center justify-between text-xs font-bold mb-1.5">
+              <div className="flex items-center justify-between text-[11px] font-bold mb-1">
                 <span className="text-slate-300 flex items-center gap-1.5">
-                  <TrendingUp className="w-4 h-4 text-emerald-400" /> Daily Transactions per Store:
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-400" /> Daily Transactions per Store:
                 </span>
-                <span className="text-emerald-400 text-sm font-black">{dailyTxPerRetailer} Tx/day</span>
+                <span className="text-emerald-400 text-xs font-black">{dailyTxPerRetailer} Tx/day</span>
               </div>
               <input
                 type="range"
@@ -73,9 +73,9 @@ export const CalculatorWidget: React.FC = () => {
                 step="5"
                 value={dailyTxPerRetailer}
                 onChange={(e) => setDailyTxPerRetailer(Number(e.target.value))}
-                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+              <div className="flex justify-between text-[9px] text-slate-500 mt-0.5">
                 <span>5 Tx</span>
                 <span>50 Tx</span>
                 <span>100 Tx</span>
@@ -84,11 +84,11 @@ export const CalculatorWidget: React.FC = () => {
 
             {/* Slider 3: Avg Ticket Size */}
             <div>
-              <div className="flex items-center justify-between text-xs font-bold mb-1.5">
+              <div className="flex items-center justify-between text-[11px] font-bold mb-1">
                 <span className="text-slate-300 flex items-center gap-1.5">
-                  <DollarSign className="w-4 h-4 text-amber-400" /> Average Transaction Size:
+                  <DollarSign className="w-3.5 h-3.5 text-amber-400" /> Average Transaction Size:
                 </span>
-                <span className="text-amber-400 text-sm font-black">₹ {avgTicketSize.toLocaleString()}</span>
+                <span className="text-amber-400 text-xs font-black">₹ {avgTicketSize.toLocaleString()}</span>
               </div>
               <input
                 type="range"
@@ -97,9 +97,9 @@ export const CalculatorWidget: React.FC = () => {
                 step="500"
                 value={avgTicketSize}
                 onChange={(e) => setAvgTicketSize(Number(e.target.value))}
-                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                className="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+              <div className="flex justify-between text-[9px] text-slate-500 mt-0.5">
                 <span>₹500</span>
                 <span>₹5,000</span>
                 <span>₹10,000</span>
@@ -109,34 +109,34 @@ export const CalculatorWidget: React.FC = () => {
         </div>
 
         {/* Right Output Card */}
-        <div className="lg:col-span-5 bg-[#0F284A] p-6 sm:p-8 rounded-3xl border border-slate-600/80 shadow-2xl flex flex-col justify-between space-y-6">
+        <div className="lg:col-span-5 bg-[#0F284A] p-5 sm:p-6 rounded-3xl border border-slate-600/80 shadow-2xl flex flex-col justify-between space-y-4">
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
               Projected Monthly Network Yield
             </span>
 
             {/* Big Commission Earnings Number */}
-            <div className="mt-2">
-              <div className="text-3xl sm:text-4xl font-black text-brand-coral">
+            <div className="mt-1.5">
+              <div className="text-2xl sm:text-3xl font-black text-brand-coral">
                 ₹ {Math.round(estimatedMonthlyCommission).toLocaleString('en-IN')}
               </div>
-              <div className="text-xs text-emerald-400 font-semibold mt-1">
+              <div className="text-[11px] text-emerald-400 font-semibold mt-0.5">
                 ✓ Estimated Monthly Gross Commission
               </div>
             </div>
           </div>
 
           {/* Breakdown Pills */}
-          <div className="space-y-2.5 pt-2 border-t border-slate-700">
-            <div className="flex justify-between text-xs">
+          <div className="space-y-2 pt-2 border-t border-slate-700">
+            <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Monthly Transactions:</span>
               <span className="font-bold text-white">{monthlyTransactions.toLocaleString()} Tx/mo</span>
             </div>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Monthly GTV Handled:</span>
               <span className="font-bold text-white">₹ {monthlyGTV.toFixed(2)} Crore</span>
             </div>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-[11px]">
               <span className="text-slate-400">Annualized Earnings:</span>
               <span className="font-bold text-amber-300">
                 ₹ {Math.round(estimatedMonthlyCommission * 12).toLocaleString('en-IN')}
@@ -146,10 +146,10 @@ export const CalculatorWidget: React.FC = () => {
 
           <a
             href="#demo"
-            className="w-full py-3.5 rounded-full bg-brand-coral hover:bg-brand-coral-hover text-white text-xs font-bold shadow-coral-glow transition-all flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-full bg-brand-coral hover:bg-brand-coral-hover text-white text-[11px] font-bold shadow-coral-glow transition-all flex items-center justify-center gap-1.5"
           >
             <span>Start Earning With AsthaPay</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </div>

@@ -12,42 +12,42 @@ export const Footer: React.FC = () => {
         {/* Top Grid: Company Info + 6 Link Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           {/* Left Column: Brand & Corporate Details (4 cols) */}
-          <div className="lg:col-span-4 space-y-5">
-            <BrandLogo variant="dark" size="lg" />
+          <div className="lg:col-span-4 space-y-4">
+            <BrandLogo variant="dark" size="md" />
 
-            <p className="text-slate-300 leading-relaxed text-xs">
+            <p className="text-slate-300 leading-relaxed text-[11.5px]">
               AsthaPay powers 50,000+ retail banking agents and ₹5,000+ Cr in monthly volume with turnkey white-label and API infrastructure.
             </p>
 
             {/* Compliance Badges */}
-            <div className="flex flex-wrap gap-2 pt-1">
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-emerald-400 text-[11px] font-bold">
-                <ShieldCheck className="w-3.5 h-3.5" /> PCI-DSS Level 1
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-emerald-400 text-[10px] font-bold">
+                <ShieldCheck className="w-3 h-3" /> PCI-DSS Level 1
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-blue-400 text-[11px] font-bold">
-                <Lock className="w-3.5 h-3.5" /> ISO 27001
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-blue-400 text-[10px] font-bold">
+                <Lock className="w-3 h-3" /> ISO 27001
               </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-amber-400 text-[11px] font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" /> NPCI Registered
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-amber-400 text-[10px] font-bold">
+                <CheckCircle2 className="w-3 h-3" /> NPCI Registered
               </span>
             </div>
 
             {/* Contact & Corporate Office */}
-            <div className="space-y-2.5 pt-2 text-slate-400 text-xs">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-brand-coral shrink-0 mt-0.5" />
+            <div className="space-y-2 pt-1 text-slate-400 text-[11px]">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-brand-coral shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-slate-200">HQ:</strong> DLF Cyber City, Phase III, Gurugram, Haryana - 122002
                 </div>
               </div>
-              <div className="flex items-center gap-2.5 pt-1">
-                <Phone className="w-4 h-4 text-brand-coral shrink-0" />
+              <div className="flex items-center gap-2 pt-0.5">
+                <Phone className="w-3.5 h-3.5 text-brand-coral shrink-0" />
                 <a href="tel:+918001234567" className="text-slate-200 hover:text-brand-coral font-bold transition-colors">
                   +91 1800 123 4567
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-brand-coral shrink-0" />
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
                 <a href="mailto:support@asthapay.in" className="text-slate-200 hover:text-brand-coral transition-colors">
                   support@asthapay.in
                 </a>
@@ -56,24 +56,24 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Right Columns: Multi-Column Platform & Quick Links (8 cols) */}
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
             {footerSections.map((sec, idx) => (
-              <div key={idx} className="space-y-3">
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-2">
+              <div key={idx} className="space-y-2.5">
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-1.5">
                   {sec.title}
                 </h4>
-                <ul className="space-y-2">
+                <ul className="space-y-1.5">
                   {sec.links.map((link, lIdx) => (
                     <li key={lIdx}>
                       <a
                         href={link.href}
-                        className="hover:text-brand-coral transition-colors flex items-center justify-between group"
+                        className="hover:text-brand-coral transition-colors flex items-center justify-between group text-[11px]"
                       >
                         <span className="group-hover:translate-x-0.5 transition-transform">
                           {link.label}
                         </span>
                         {link.badge && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.2 bg-brand-coral/20 text-brand-coral rounded">
+                          <span className="text-[8px] font-bold px-1 py-0.2 bg-brand-coral/20 text-brand-coral rounded">
                             {link.badge}
                           </span>
                         )}

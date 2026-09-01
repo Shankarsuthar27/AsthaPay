@@ -15,12 +15,21 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftStart = useRef(0);
 
   const checkScrollability = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 10);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      const totalScrollable = scrollWidth - clientWidth;
+      const progress = totalScrollable > 0 ? (scrollLeft / totalScrollable) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
     }
   };
 
@@ -28,7 +37,7 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
     checkScrollability();
     const el = scrollContainerRef.current;
     if (el) {
-      el.addEventListener('scroll', checkScrollability);
+      el.addEventListener('scroll', checkScrollability, { passive: true });
       window.addEventListener('resize', checkScrollability);
       return () => {
         el.removeEventListener('scroll', checkScrollability);
@@ -39,96 +48,178 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
 
   const handleScroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
+      const scrollAmount = direction === 'left' ? -340 : 340;
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    isDragging.current = true;
+    setIsMouseDown(true);
+    startX.current = e.pageX - scrollContainerRef.current.offsetLeft;
+    scrollLeftStart.current = scrollContainerRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDragging.current = false;
+    setIsMouseDown(false);
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    setIsMouseDown(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.4;
+    scrollContainerRef.current.scrollLeft = scrollLeftStart.current - walk;
+    checkScrollability();
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    if (!scrollContainerRef.current) return;
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && e.deltaY !== 0) {
+      const container = scrollContainerRef.current;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (
+        (e.deltaY > 0 && container.scrollLeft < maxScroll - 2) ||
+        (e.deltaY < 0 && container.scrollLeft > 2)
+      ) {
+        container.scrollLeft += e.deltaY * 0.85;
+        checkScrollability();
+      }
     }
   };
 
   return (
     <div
       id={category.id}
-      className="bg-[#f2f7fc] rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-200/80 my-8 sm:my-10 shadow-soft-sm transition-all duration-300 relative scroll-mt-40"
+      className="bg-[#f2f7fc] rounded-3xl p-5 sm:p-7 md:p-9 border border-slate-200/80 my-7 sm:my-9 shadow-soft-sm transition-all duration-300 relative scroll-mt-36"
     >
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-slate-200/80 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-slate-200/80 mb-5">
         <div>
           {/* Highlight pill / Category Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-xs font-bold mb-2.5">
-            <DynamicIcon name={category.iconName} className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-[11px] font-bold mb-2">
+            <DynamicIcon name={category.iconName} className="w-3 h-3" />
             <span>{category.highlightPill}</span>
           </div>
 
           {/* Red/Coral Bold Section Title */}
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-red-500 tracking-tight flex items-center gap-2.5">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-red-500 tracking-tight flex items-center gap-2">
             <span>{category.title}</span>
           </h3>
 
           {/* Concise 1-2 line subtitle */}
-          <p className="text-sm sm:text-base text-slate-600 max-w-3xl mt-2 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1.5 font-normal leading-relaxed">
             {category.shortDesc}
           </p>
         </div>
 
-        {/* Carousel Arrow Navigation Buttons */}
+        {/* Carousel Arrow Navigation Buttons & Hint */}
         <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
-          <button
-            onClick={() => handleScroll('left')}
-            disabled={!canScrollLeft}
-            className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200 ${
-              canScrollLeft
-                ? 'bg-white hover:bg-slate-100 text-brand-navy border-slate-200 shadow-sm hover:scale-105 active:scale-95 cursor-pointer'
-                : 'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-50'
-            }`}
-            aria-label={`Scroll ${category.title} left`}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => handleScroll('right')}
-            disabled={!canScrollRight}
-            className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200 ${
-              canScrollRight
-                ? 'bg-white hover:bg-slate-100 text-brand-navy border-slate-200 shadow-sm hover:scale-105 active:scale-95 cursor-pointer'
-                : 'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-50'
-            }`}
-            aria-label={`Scroll ${category.title} right`}
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          <div className="hidden sm:flex items-center gap-1 text-[10.5px] font-medium text-slate-500 bg-white/80 px-2.5 py-1 rounded-full border border-slate-200/80 shadow-2xs">
+            <span>Slide to explore</span>
+            <span className="font-bold text-brand-navy">({category.services.length})</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => handleScroll('left')}
+              disabled={!canScrollLeft}
+              className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-200 ${
+                canScrollLeft
+                  ? 'bg-white hover:bg-slate-100 text-brand-navy border-slate-200 shadow-sm hover:scale-105 active:scale-95 cursor-pointer'
+                  : 'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-50'
+              }`}
+              aria-label={`Scroll ${category.title} left`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => handleScroll('right')}
+              disabled={!canScrollRight}
+              className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-200 ${
+                canScrollRight
+                  ? 'bg-white hover:bg-brand-coral hover:text-white text-brand-navy border-slate-200 shadow-sm hover:scale-105 active:scale-95 cursor-pointer'
+                  : 'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-50'
+              }`}
+              aria-label={`Scroll ${category.title} right`}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Service Cards Horizontal Carousel / Grid */}
-      <div
-        ref={scrollContainerRef}
-        className="flex gap-5 sm:gap-6 overflow-x-auto pb-4 pt-2 px-1 no-scrollbar scroll-smooth snap-x touch-pan-x"
-      >
-        {category.services.map((service) => (
-          <div key={service.id} className="snap-start shrink-0">
-            <ServiceItemCard
-              service={service}
-              categoryId={category.id}
-            />
-          </div>
-        ))}
+      {/* Service Cards Horizontal Carousel Container */}
+      <div className="relative group/carousel">
+        {/* Left Gradient Edge Fade */}
+        {canScrollLeft && (
+          <div className="absolute left-0 inset-y-0 w-10 bg-gradient-to-r from-[#f2f7fc] to-transparent z-10 pointer-events-none transition-opacity duration-300" />
+        )}
+
+        {/* Right Gradient Edge Fade */}
+        {canScrollRight && (
+          <div className="absolute right-0 inset-y-0 w-10 bg-gradient-to-l from-[#f2f7fc] to-transparent z-10 pointer-events-none transition-opacity duration-300" />
+        )}
+
+        {/* Horizontal Scrollable Row */}
+        <div
+          ref={scrollContainerRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onWheel={handleWheel}
+          className={`flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 px-1 no-scrollbar scroll-smooth snap-x touch-pan-x select-none ${
+            isMouseDown ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
+        >
+          {category.services.map((service) => (
+            <div key={service.id} className="snap-start shrink-0">
+              <ServiceItemCard
+                service={service}
+                categoryId={category.id}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll Progress Bar */}
+      <div className="w-full bg-slate-200/70 h-1 rounded-full overflow-hidden mt-1 mb-3">
+        <div
+          className="bg-brand-coral h-full rounded-full transition-all duration-150"
+          style={{ width: `${Math.max(15, scrollProgress)}%` }}
+        />
       </div>
 
       {/* Bottom Category Details & API CTA */}
-      <div className="mt-6 pt-5 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <div className="pt-3 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-[11px] text-slate-600">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span className="font-semibold text-slate-700">
             {category.services.length} Turnkey APIs • 99.99% SLA
           </span>
         </div>
 
-        <a
-          href="#demo"
-          className="font-bold text-brand-coral hover:text-brand-coral-hover flex items-center gap-1.5 transition-colors group"
-        >
-          <span>Explore {category.navTitle} APIs</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-        </a>
+        <div className="flex items-center gap-4">
+          <span className="text-[10px] text-slate-400 hidden sm:inline">
+            ← Drag or click arrows to side scroll →
+          </span>
+          <a
+            href="#demo"
+            className="font-bold text-brand-coral hover:text-brand-coral-hover flex items-center gap-1 transition-colors group"
+          >
+            <span>Explore {category.navTitle} APIs</span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
       </div>
     </div>
   );

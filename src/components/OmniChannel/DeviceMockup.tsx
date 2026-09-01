@@ -13,55 +13,55 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({ channel }) => {
     return (
       <div className="w-full bg-[#0F223D] rounded-2xl border border-slate-700/80 shadow-2xl overflow-hidden text-white">
         {/* Laptop Browser Header */}
-        <div className="bg-[#0A182B] px-4 py-3 flex items-center justify-between border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-rose-500" />
-            <div className="w-3 h-3 rounded-full bg-amber-500" />
-            <div className="w-3 h-3 rounded-full bg-emerald-500" />
-            <span className="text-[11px] text-slate-400 font-mono ml-2">portal.yourbrandfintech.com</span>
+        <div className="bg-[#0A182B] px-3.5 py-2.5 flex items-center justify-between border-b border-slate-800">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+            <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+            <span className="text-[10px] text-slate-400 font-mono ml-2">portal.yourbrandfintech.com</span>
           </div>
-          <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
+          <span className="text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
             SSL 256-BIT SECURE
           </span>
         </div>
 
         {/* Laptop Dashboard UI Content */}
-        <div className="p-5 space-y-4">
+        <div className="p-4 space-y-3">
           {/* Top stats strip */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
-              <div className="text-[10px] text-slate-400 uppercase">Today&apos;s Volume</div>
-              <div className="text-lg font-black text-white">₹ 14,82,900</div>
-              <div className="text-[10px] text-emerald-400">↑ 18.4% vs yesterday</div>
+          <div className="grid grid-cols-3 gap-2.5">
+            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
+              <div className="text-[9px] text-slate-400 uppercase">Today&apos;s Volume</div>
+              <div className="text-base font-black text-white">₹ 14,82,900</div>
+              <div className="text-[9px] text-emerald-400">↑ 18.4% vs yesterday</div>
             </div>
-            <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
-              <div className="text-[10px] text-slate-400 uppercase">Active Retailers</div>
-              <div className="text-lg font-black text-white">1,482</div>
-              <div className="text-[10px] text-blue-400">98.2% online</div>
+            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
+              <div className="text-[9px] text-slate-400 uppercase">Active Retailers</div>
+              <div className="text-base font-black text-white">1,482</div>
+              <div className="text-[9px] text-blue-400">98.2% online</div>
             </div>
-            <div className="bg-[#132C4E] p-3 rounded-xl border border-slate-700/60">
-              <div className="text-[10px] text-slate-400 uppercase">Commission Earned</div>
-              <div className="text-lg font-black text-brand-coral">₹ 28,450</div>
-              <div className="text-[10px] text-slate-400">Auto settled</div>
+            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
+              <div className="text-[9px] text-slate-400 uppercase">Commission Earned</div>
+              <div className="text-base font-black text-brand-coral">₹ 28,450</div>
+              <div className="text-[9px] text-slate-400">Auto settled</div>
             </div>
           </div>
 
           {/* Quick Action Tiles */}
-          <div className="grid grid-cols-4 gap-2 text-center text-xs">
-            <div className="p-2.5 rounded-xl bg-brand-coral/15 border border-brand-coral/30 font-bold text-white flex flex-col items-center gap-1">
-              <Fingerprint className="w-5 h-5 text-brand-coral" />
+          <div className="grid grid-cols-4 gap-2 text-center text-[11px]">
+            <div className="p-2 rounded-xl bg-brand-coral/15 border border-brand-coral/30 font-bold text-white flex flex-col items-center gap-1">
+              <Fingerprint className="w-4 h-4 text-brand-coral" />
               <span>AePS 2.0</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-blue-500/15 border border-blue-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <CreditCard className="w-5 h-5 text-blue-400" />
+            <div className="p-2 rounded-xl bg-blue-500/15 border border-blue-500/30 font-bold text-white flex flex-col items-center gap-1">
+              <CreditCard className="w-4 h-4 text-blue-400" />
               <span>Micro ATM</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <RefreshCw className="w-5 h-5 text-emerald-400" />
+            <div className="p-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 font-bold text-white flex flex-col items-center gap-1">
+              <RefreshCw className="w-4 h-4 text-emerald-400" />
               <span>DMT Remit</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+            <div className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 font-bold text-white flex flex-col items-center gap-1">
+              <Sparkles className="w-4 h-4 text-amber-400" />
               <span>BBPS Pay</span>
             </div>
           </div>
@@ -72,61 +72,61 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({ channel }) => {
 
   if (channel.id === 'android-app') {
     return (
-      <div className="max-w-[320px] mx-auto bg-slate-950 rounded-[40px] p-3 border-4 border-slate-800 shadow-2xl text-white relative">
+      <div className="max-w-[300px] mx-auto bg-slate-950 rounded-[36px] p-2.5 border-4 border-slate-800 shadow-2xl text-white relative">
         {/* Phone Notch & Status Bar */}
-        <div className="flex items-center justify-between px-4 pt-1 pb-2 text-[10px] text-slate-400">
+        <div className="flex items-center justify-between px-3.5 pt-1 pb-1.5 text-[9.5px] text-slate-400">
           <span>09:41</span>
-          <div className="w-20 h-4 bg-slate-900 rounded-full mx-auto" />
-          <div className="flex items-center gap-1.5">
-            <Wifi className="w-3 h-3" />
-            <Battery className="w-3 h-3" />
+          <div className="w-16 h-3.5 bg-slate-900 rounded-full mx-auto" />
+          <div className="flex items-center gap-1">
+            <Wifi className="w-2.5 h-2.5" />
+            <Battery className="w-2.5 h-2.5" />
           </div>
         </div>
 
         {/* Mobile App Container */}
-        <div className="bg-[#0C2340] rounded-[30px] p-4 space-y-3.5 border border-slate-800">
+        <div className="bg-[#0C2340] rounded-[26px] p-3.5 space-y-3 border border-slate-800">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-[10px] text-slate-400">Merchant Store</div>
-              <div className="text-sm font-black text-white">Sharma Digital Seva</div>
+              <div className="text-[9px] text-slate-400">Merchant Store</div>
+              <div className="text-xs font-black text-white">Sharma Digital Seva</div>
             </div>
-            <div className="w-8 h-8 rounded-full bg-brand-coral flex items-center justify-center font-bold text-xs">
+            <div className="w-7 h-7 rounded-full bg-brand-coral flex items-center justify-center font-bold text-[10px]">
               SD
             </div>
           </div>
 
           {/* Wallet Card */}
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-brand-coral via-[#FF6D4A] to-amber-500 text-white shadow-coral-glow">
-            <div className="text-[10px] opacity-90">Main Wallet Balance</div>
-            <div className="text-xl font-black">₹ 64,890.00</div>
-            <div className="text-[9px] mt-1 opacity-90 flex items-center justify-between">
+          <div className="p-3 rounded-xl bg-gradient-to-r from-brand-coral via-[#FF6D4A] to-amber-500 text-white shadow-coral-glow">
+            <div className="text-[9px] opacity-90">Main Wallet Balance</div>
+            <div className="text-lg font-black">₹ 64,890.00</div>
+            <div className="text-[8.5px] mt-1 opacity-90 flex items-center justify-between">
               <span>AePS Settlement: Instant</span>
               <span>194N: Compliant</span>
             </div>
           </div>
 
           {/* Biometric AePS Scan Action */}
-          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                <Fingerprint className="w-5 h-5 animate-pulse" />
+          <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <Fingerprint className="w-4 h-4 animate-pulse" />
               </div>
               <div>
-                <div className="text-xs font-bold">Biometric AePS Active</div>
-                <div className="text-[9px] text-emerald-400">Mantra MFS100 Connected</div>
+                <div className="text-[11px] font-bold">Biometric AePS Active</div>
+                <div className="text-[8.5px] text-emerald-400">Mantra MFS100 Connected</div>
               </div>
             </div>
-            <span className="text-[10px] bg-emerald-500 text-white font-bold px-2 py-0.5 rounded">
+            <span className="text-[9px] bg-emerald-500 text-white font-bold px-1.5 py-0.5 rounded">
               Ready
             </span>
           </div>
 
           {/* Grid buttons */}
-          <div className="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
-            <div className="p-2 bg-slate-800/80 rounded-xl">Withdraw</div>
-            <div className="p-2 bg-slate-800/80 rounded-xl">Deposit</div>
-            <div className="p-2 bg-slate-800/80 rounded-xl">Statement</div>
+          <div className="grid grid-cols-3 gap-1.5 text-[9.5px] text-center font-bold">
+            <div className="p-1.5 bg-slate-800/80 rounded-lg">Withdraw</div>
+            <div className="p-1.5 bg-slate-800/80 rounded-lg">Deposit</div>
+            <div className="p-1.5 bg-slate-800/80 rounded-lg">Statement</div>
           </div>
         </div>
       </div>
@@ -135,42 +135,42 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({ channel }) => {
 
   if (channel.id === 'wpos-device') {
     return (
-      <div className="max-w-[340px] mx-auto bg-gradient-to-b from-slate-800 to-slate-950 rounded-[36px] p-4 border-4 border-slate-700 shadow-2xl text-white relative">
+      <div className="max-w-[320px] mx-auto bg-gradient-to-b from-slate-800 to-slate-950 rounded-[32px] p-3.5 border-4 border-slate-700 shadow-2xl text-white relative">
         {/* Thermal Printer Slot on Top */}
-        <div className="bg-slate-900 rounded-t-2xl p-2.5 border-b border-slate-700 mb-3 text-center">
-          <div className="w-28 h-2 bg-slate-950 rounded-full mx-auto mb-1.5" />
-          <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono text-emerald-400">
-            <Printer className="w-3.5 h-3.5" />
+        <div className="bg-slate-900 rounded-t-2xl p-2 border-b border-slate-700 mb-2.5 text-center">
+          <div className="w-24 h-1.5 bg-slate-950 rounded-full mx-auto mb-1" />
+          <div className="flex items-center justify-center gap-1 text-[9px] font-mono text-emerald-400">
+            <Printer className="w-3 h-3" />
             <span>High-Speed 58mm Thermal Printer</span>
           </div>
         </div>
 
         {/* WPOS Touch Screen */}
-        <div className="bg-[#0A1D36] rounded-2xl p-4 border border-slate-700 space-y-3">
-          <div className="flex items-center justify-between text-xs">
+        <div className="bg-[#0A1D36] rounded-2xl p-3.5 border border-slate-700 space-y-2.5">
+          <div className="flex items-center justify-between text-[11px]">
             <span className="font-bold text-white">Smart Micro-ATM WPOS</span>
-            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">
+            <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">
               EMV Level 2
             </span>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-center space-y-1">
-            <div className="text-[10px] text-slate-400">INSERT / TAP CARD</div>
-            <div className="text-xl font-black text-brand-coral">₹ 5,000.00</div>
-            <div className="text-[10px] text-slate-300">RuPay • Visa • Mastercard</div>
+          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center space-y-0.5">
+            <div className="text-[9px] text-slate-400">INSERT / TAP CARD</div>
+            <div className="text-lg font-black text-brand-coral">₹ 5,000.00</div>
+            <div className="text-[9.5px] text-slate-300">RuPay • Visa • Mastercard</div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-center text-xs font-bold">
-            <div className="p-2.5 bg-emerald-600 rounded-xl">Print Slip</div>
-            <div className="p-2.5 bg-slate-800 rounded-xl">E-Receipt SMS</div>
+          <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold">
+            <div className="p-2 bg-emerald-600 rounded-xl">Print Slip</div>
+            <div className="p-2 bg-slate-800 rounded-xl">E-Receipt SMS</div>
           </div>
         </div>
 
         {/* Physical Smart Card Slot & Biometric Sensor at bottom */}
-        <div className="mt-3 pt-3 border-t border-slate-800 flex items-center justify-around text-[10px] text-slate-400">
-          <span className="flex items-center gap-1"><CreditCard className="w-3.5 h-3.5 text-brand-coral" /> Chip Reader</span>
+        <div className="mt-2.5 pt-2.5 border-t border-slate-800 flex items-center justify-around text-[9.5px] text-slate-400">
+          <span className="flex items-center gap-1"><CreditCard className="w-3 h-3 text-brand-coral" /> Chip Reader</span>
           <span>•</span>
-          <span className="flex items-center gap-1"><Fingerprint className="w-3.5 h-3.5 text-emerald-400" /> Optical Sensor</span>
+          <span className="flex items-center gap-1"><Fingerprint className="w-3 h-3 text-emerald-400" /> Optical Sensor</span>
         </div>
       </div>
     );

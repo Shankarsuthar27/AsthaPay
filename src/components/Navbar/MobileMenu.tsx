@@ -43,35 +43,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
         </div>
 
         {/* Navigation Accordions */}
-        <div className="p-4 flex-1 space-y-3">
+        <div className="p-3.5 flex-1 space-y-2.5">
           {/* Platform Accordion */}
-          <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-slate-50/40">
+          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
             <button
               onClick={() => toggleSection('platform')}
-              className="w-full p-3.5 flex items-center justify-between font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 transition-colors"
+              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-brand-coral/10 text-brand-coral flex items-center justify-center">
-                  <DynamicIcon name="Layers" className="w-4 h-4" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-brand-coral/10 text-brand-coral flex items-center justify-center">
+                  <DynamicIcon name="Layers" className="w-3.5 h-3.5" />
                 </div>
                 <span>Platform Solutions</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 transition-transform ${
+                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
                   expandedSection === 'platform' ? 'rotate-180 text-brand-coral' : ''
                 }`}
               />
             </button>
 
             {expandedSection === 'platform' && (
-              <div className="p-3 bg-white border-t border-slate-100 space-y-2">
+              <div className="p-2.5 bg-white border-t border-slate-100 space-y-2">
                 {/* Horizontal Category Switcher */}
-                <div className="flex gap-1.5 overflow-x-auto pb-2 no-scrollbar">
+                <div className="flex gap-1.5 overflow-x-auto pb-1.5 no-scrollbar">
                   {serviceCategoriesData.map((cat) => (
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategoryKey(cat.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all ${
                         selectedCategoryKey === cat.id
                           ? 'bg-brand-navy text-white shadow-sm'
                           : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -86,22 +86,22 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
                 {(() => {
                   const activeCat = serviceCategoriesData.find((c) => c.id === selectedCategoryKey) || serviceCategoriesData[0];
                   return (
-                    <div className="space-y-1.5 pt-1">
-                      <div className="text-[11px] font-bold text-brand-coral uppercase tracking-wider px-1">
+                    <div className="space-y-1 pt-0.5">
+                      <div className="text-[10px] font-bold text-brand-coral uppercase tracking-wider px-1">
                         {activeCat.title}
                       </div>
-                      <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto">
+                      <div className="grid grid-cols-1 gap-1 max-h-56 overflow-y-auto">
                         {activeCat.services.map((srv) => (
                           <a
                             key={srv.id}
                             href={`#${activeCat.id}`}
                             onClick={onClose}
-                            className="p-2 rounded-xl bg-slate-50 hover:bg-brand-coral/10 flex items-center gap-2.5 transition-colors group"
+                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-brand-coral/10 flex items-center gap-2 transition-colors group"
                           >
-                            <div className="w-7 h-7 rounded-lg bg-white group-hover:bg-brand-coral group-hover:text-white text-slate-600 flex items-center justify-center shrink-0 border border-slate-200/60 shadow-2xs">
-                              <DynamicIcon name={srv.iconName} className="w-3.5 h-3.5" />
+                            <div className="w-6 h-6 rounded-md bg-white group-hover:bg-brand-coral group-hover:text-white text-slate-600 flex items-center justify-center shrink-0 border border-slate-200/60 shadow-2xs">
+                              <DynamicIcon name={srv.iconName} className="w-3 h-3" />
                             </div>
-                            <span className="text-xs font-medium text-slate-800 group-hover:text-brand-coral truncate">
+                            <span className="text-[11px] font-medium text-slate-800 group-hover:text-brand-coral truncate">
                               {srv.title}
                             </span>
                           </a>
@@ -115,35 +115,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
           </div>
 
           {/* Partner With Us Accordion */}
-          <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-slate-50/40">
+          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
             <button
               onClick={() => toggleSection('partner')}
-              className="w-full p-3.5 flex items-center justify-between font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 transition-colors"
+              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                  <DynamicIcon name="Network" className="w-4 h-4" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <DynamicIcon name="Network" className="w-3.5 h-3.5" />
                 </div>
                 <span>Partner with Us</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 transition-transform ${
+                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
                   expandedSection === 'partner' ? 'rotate-180 text-brand-coral' : ''
                 }`}
               />
             </button>
 
             {expandedSection === 'partner' && (
-              <div className="p-2.5 bg-white border-t border-slate-100 space-y-1">
+              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
                 {partnerDropdownItems.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.href}
                     onClick={onClose}
-                    className="p-2 rounded-xl hover:bg-slate-50 flex items-center justify-between text-xs font-medium text-slate-700"
+                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
                   >
                     <span>{item.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    <ChevronRight className="w-3 h-3 text-slate-400" />
                   </a>
                 ))}
               </div>
@@ -154,42 +154,42 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
           <a
             href="#pricing"
             onClick={onClose}
-            className="p-3.5 rounded-2xl border border-slate-200/80 font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
+            className="p-3 rounded-xl border border-slate-200/80 font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
           >
             <span>Pricing & Slabs</span>
-            <ChevronRight className="w-4 h-4 text-slate-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           </a>
 
           {/* Resources Accordion */}
-          <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-slate-50/40">
+          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
             <button
               onClick={() => toggleSection('resources')}
-              className="w-full p-3.5 flex items-center justify-between font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 transition-colors"
+              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-                  <DynamicIcon name="Terminal" className="w-4 h-4" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                  <DynamicIcon name="Terminal" className="w-3.5 h-3.5" />
                 </div>
                 <span>Resources & Docs</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 transition-transform ${
+                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
                   expandedSection === 'resources' ? 'rotate-180 text-brand-coral' : ''
                 }`}
               />
             </button>
 
             {expandedSection === 'resources' && (
-              <div className="p-2.5 bg-white border-t border-slate-100 space-y-1">
+              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
                 {resourcesDropdownItems.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.href}
                     onClick={onClose}
-                    className="p-2 rounded-xl hover:bg-slate-50 flex items-center justify-between text-xs font-medium text-slate-700"
+                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
                   >
                     <span>{item.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    <ChevronRight className="w-3 h-3 text-slate-400" />
                   </a>
                 ))}
               </div>
@@ -197,35 +197,35 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
           </div>
 
           {/* About Us Accordion */}
-          <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-slate-50/40">
+          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
             <button
               onClick={() => toggleSection('about')}
-              className="w-full p-3.5 flex items-center justify-between font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 transition-colors"
+              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
-                  <DynamicIcon name="Building" className="w-4 h-4" />
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                  <DynamicIcon name="Building" className="w-3.5 h-3.5" />
                 </div>
                 <span>About Us</span>
               </div>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 transition-transform ${
+                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
                   expandedSection === 'about' ? 'rotate-180 text-brand-coral' : ''
                 }`}
               />
             </button>
 
             {expandedSection === 'about' && (
-              <div className="p-2.5 bg-white border-t border-slate-100 space-y-1">
+              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
                 {aboutDropdownItems.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.href}
                     onClick={onClose}
-                    className="p-2 rounded-xl hover:bg-slate-50 flex items-center justify-between text-xs font-medium text-slate-700"
+                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
                   >
                     <span>{item.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    <ChevronRight className="w-3 h-3 text-slate-400" />
                   </a>
                 ))}
               </div>
@@ -235,33 +235,33 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
           <a
             href="#contact"
             onClick={onClose}
-            className="p-3.5 rounded-2xl border border-slate-200/80 font-bold text-sm text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
+            className="p-3 rounded-xl border border-slate-200/80 font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
           >
             <span>Contact Us</span>
-            <ChevronRight className="w-4 h-4 text-slate-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           </a>
         </div>
 
         {/* Drawer Bottom Actions */}
-        <div className="p-4 border-t border-slate-200/80 bg-slate-50 space-y-3">
+        <div className="p-3.5 border-t border-slate-200/80 bg-slate-50 space-y-2.5">
           <button
             onClick={() => {
               onClose();
               onOpenDemoModal();
             }}
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-coral to-brand-coral-hover text-white font-bold text-sm shadow-coral-glow flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all"
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-coral to-brand-coral-hover text-white font-bold text-xs shadow-coral-glow flex items-center justify-center gap-1.5 hover:opacity-95 active:scale-[0.98] transition-all"
           >
             <span>Free Live Demo</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
 
-          <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
-            <a href="tel:+918001234567" className="flex items-center gap-1.5 hover:text-brand-navy">
-              <Phone className="w-3.5 h-3.5 text-brand-coral" />
+          <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
+            <a href="tel:+918001234567" className="flex items-center gap-1 hover:text-brand-navy">
+              <Phone className="w-3 h-3 text-brand-coral" />
               <span>+91 (0) 800 123 4567</span>
             </a>
             <span className="flex items-center gap-1 text-emerald-600 font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5" /> PCI-DSS
+              <ShieldCheck className="w-3 h-3" /> PCI-DSS
             </span>
           </div>
         </div>

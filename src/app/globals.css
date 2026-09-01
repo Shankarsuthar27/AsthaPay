@@ -12,7 +12,14 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 15px;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  @screen sm {
+    html {
+      font-size: 15px;
+    }
   }
 
   body {

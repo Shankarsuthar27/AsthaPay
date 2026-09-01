@@ -49,7 +49,7 @@ export const StickyTabBar: React.FC<StickyTabBarProps> = ({ activeTab, onTabClic
                 key={category.id}
                 ref={isActive ? activeTabRef : null}
                 onClick={() => onTabClick(category.id)}
-                className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-2.5 shrink-0 select-none ${
+                className={`relative px-4 py-2 rounded-full text-[11.5px] sm:text-xs font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-2 shrink-0 select-none ${
                   isActive
                     ? 'text-white'
                     : 'text-slate-600 hover:text-[#0d1b3e] hover:bg-slate-100/70'
@@ -70,7 +70,7 @@ export const StickyTabBar: React.FC<StickyTabBarProps> = ({ activeTab, onTabClic
 
                 <DynamicIcon
                   name={category.iconName}
-                  className={`w-4 h-4 transition-colors ${
+                  className={`w-3.5 h-3.5 transition-colors ${
                     isActive ? 'text-brand-coral' : 'text-slate-400 group-hover:text-brand-navy'
                   }`}
                 />
@@ -79,7 +79,7 @@ export const StickyTabBar: React.FC<StickyTabBarProps> = ({ activeTab, onTabClic
 
                 {/* Counter Badge */}
                 <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold transition-colors ${
+                  className={`text-[9.5px] px-1.5 py-0.5 rounded-full font-extrabold transition-colors ${
                     isActive
                       ? 'bg-white/20 text-white'
                       : 'bg-slate-200/80 text-slate-600'

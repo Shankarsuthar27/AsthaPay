@@ -16,32 +16,32 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 
   const sizeStyles = {
     sm: {
-      imageSize: 44,
-      imgClass: 'w-10 h-10',
-      titleClass: 'text-xl',
-      subClass: 'text-[9px]',
-      gap: 'gap-2.5',
+      imageSize: 36,
+      imgClass: 'w-8 h-8 sm:w-9 sm:h-9',
+      titleClass: 'text-lg sm:text-xl',
+      subClass: 'text-[8.5px] sm:text-[9px]',
+      gap: 'gap-2 sm:gap-2.5',
     },
     md: {
+      imageSize: 48,
+      imgClass: 'w-10 h-10 sm:w-11 sm:h-11',
+      titleClass: 'text-xl sm:text-[1.4rem]',
+      subClass: 'text-[9.5px] sm:text-[10px]',
+      gap: 'gap-2.5 sm:gap-3',
+    },
+    lg: {
       imageSize: 60,
-      imgClass: 'w-13 h-13 sm:w-14 sm:h-14',
-      titleClass: 'text-2xl sm:text-[1.65rem]',
+      imgClass: 'w-12 h-12 sm:w-14 sm:h-14',
+      titleClass: 'text-xl sm:text-2xl',
       subClass: 'text-[10px] sm:text-[11px]',
       gap: 'gap-3 sm:gap-3.5',
     },
-    lg: {
+    xl: {
       imageSize: 76,
       imgClass: 'w-16 h-16 sm:w-18 sm:h-18',
       titleClass: 'text-2xl sm:text-3xl',
       subClass: 'text-xs',
       gap: 'gap-3.5 sm:gap-4',
-    },
-    xl: {
-      imageSize: 96,
-      imgClass: 'w-22 h-22 sm:w-24 sm:h-24',
-      titleClass: 'text-3xl sm:text-4xl',
-      subClass: 'text-sm',
-      gap: 'gap-4 sm:gap-5',
     },
   }[size];
 

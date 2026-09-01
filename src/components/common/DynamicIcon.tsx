@@ -7,7 +7,7 @@ interface DynamicIconProps {
   size?: number;
 }
 
-export const DynamicIcon: React.FC<DynamicIconProps> = ({ name, className = 'w-5 h-5', size }) => {
+export const DynamicIcon: React.FC<DynamicIconProps> = ({ name, className = 'w-4 h-4', size }) => {
   // @ts-ignore
   const IconComponent = (LucideIcons as Record<string, React.FC<LucideIcons.LucideProps>>)[name] || LucideIcons.Sparkles;
 

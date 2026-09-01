@@ -65,116 +65,116 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
       {/* Modal Container */}
       <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-10 animate-in zoom-in-95 duration-200">
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-brand-navy via-brand-navy-card to-brand-navy-deep p-6 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-brand-navy via-brand-navy-card to-brand-navy-deep p-5 text-white flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-brand-coral text-xs font-bold mb-1">
-              <Sparkles className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 text-brand-coral text-[11px] font-bold mb-0.5">
+              <Sparkles className="w-3.5 h-3.5" />
               <span>Turnkey FinTech Infrastructure</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-white">
+            <h3 className="text-lg sm:text-xl font-black text-white">
               Schedule Your Free Live Product Demo
             </h3>
-            <p className="text-xs text-slate-300 mt-0.5">
+            <p className="text-[11px] text-slate-300 mt-0.5">
               Experience the white-label admin panel, distributor hierarchy & instant commission engine.
             </p>
           </div>
 
           <button
             onClick={handleResetAndClose}
-            className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Close Demo Modal"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
+        <div className="p-5 sm:p-6 max-h-[80vh] overflow-y-auto">
           {step === 'form' ? (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Row 1: Name & Phone */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Full Name *
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
                       placeholder="Vikram Malhotra"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral transition-colors"
+                      className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Mobile Number (WhatsApp) *
                   </label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="tel"
                       required
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral transition-colors"
+                      className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral transition-colors"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Row 2: Work Email & Company Name */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Business Email *
                   </label>
                   <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <Mail className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="email"
                       required
                       placeholder="vikram@payfast.in"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral transition-colors"
+                      className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Company / Brand Name
                   </label>
                   <div className="relative">
-                    <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <Building className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="text"
                       placeholder="PayFast FinTech Solutions"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral transition-colors"
+                      className="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral transition-colors"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Row 3: Business Type & Network Size */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Partnership Model
                   </label>
                   <select
                     value={formData.businessType}
                     onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral bg-white"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral bg-white"
                   >
                     <option>White-Label B2B Portal & App</option>
                     <option>Master Distributor Model</option>
@@ -184,13 +184,13 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
                     Estimated Retail Network
                   </label>
                   <select
                     value={formData.estimatedRetailers}
                     onChange={(e) => setFormData({ ...formData, estimatedRetailers: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-brand-coral bg-white"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-brand-coral bg-white"
                   >
                     <option>Starting New (1 - 10 Retailers)</option>
                     <option>10 - 50 Retailers</option>
@@ -203,10 +203,10 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
 
               {/* Services Selection Pills */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-2">
+                <label className="block text-[11px] font-bold text-slate-700 mb-1.5">
                   Select Services You Want to Launch:
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {availableServices.map((srv, idx) => {
                     const isSelected = formData.selectedServices.includes(srv);
                     return (
@@ -214,7 +214,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
                         type="button"
                         key={idx}
                         onClick={() => handleServiceToggle(srv)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                        className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all border ${
                           isSelected
                             ? 'bg-brand-coral text-white border-brand-coral shadow-sm'
                             : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
@@ -231,15 +231,15 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
               {/* Submit CTA */}
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-coral via-[#FF6247] to-brand-coral-hover text-white font-black text-sm shadow-coral-glow hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-coral via-[#FF6247] to-brand-coral-hover text-white font-black text-xs shadow-coral-glow hover:shadow-md transition-all duration-200 flex items-center justify-center gap-1.5"
               >
                 <span>Confirm & Request Live Demo</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
 
-              <div className="flex items-center justify-center gap-4 text-xs text-slate-600 pt-1">
+              <div className="flex items-center justify-center gap-3 text-[11px] text-slate-600 pt-0.5">
                 <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Instant Sandbox Access
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> Instant Sandbox Access
                 </span>
                 <span>•</span>
                 <span>No Credit Card Needed</span>

@@ -83,7 +83,7 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
   if (imageSrc) {
     return (
       <div
-        className="w-full h-56 sm:h-60 rounded-2xl bg-gradient-to-b from-[#EDF5FF] via-[#F4F8FE] to-[#E5F0FF] border border-blue-100/90 flex items-center justify-center p-3 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm"
+        className="w-full h-48 sm:h-52 rounded-2xl bg-gradient-to-b from-[#EDF5FF] via-[#F4F8FE] to-[#E5F0FF] border border-blue-100/90 flex items-center justify-center p-2.5 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm"
       >
         {/* Subtle grid pattern background */}
         <svg
@@ -101,15 +101,15 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
         {/* Soft ambient lighting */}
         <div className="absolute inset-0 bg-radial from-white/80 via-transparent to-transparent pointer-events-none" />
 
-        {/* High quality SVG Illustration - Bigger & Centered */}
+        {/* High quality SVG Illustration - Centered */}
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src={imageSrc}
             alt={serviceId}
-            width={325}
-            height={421}
+            width={280}
+            height={360}
             priority
-            className="h-full w-auto max-w-[95%] object-contain drop-shadow-md mx-auto transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-auto max-w-[90%] object-contain drop-shadow-md mx-auto transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       </div>
@@ -118,7 +118,7 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
 
   return (
     <div
-      className={`w-full h-56 sm:h-60 rounded-2xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-4 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm`}
+      className={`w-full h-48 sm:h-52 rounded-2xl bg-gradient-to-br ${theme.bgGradient} ${theme.border} border flex items-center justify-center p-3 relative overflow-hidden group-hover:scale-[1.02] transition-all duration-300 select-none shadow-sm`}
     >
       {/* Abstract Background Vectors */}
       <svg
@@ -134,35 +134,35 @@ export const ServiceIllustration: React.FC<ServiceIllustrationProps> = ({
       </svg>
 
       {/* Ambient Lighting Spheres */}
-      <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-white/80 blur-xl pointer-events-none" />
-      <div className="absolute -bottom-6 -left-6 w-28 h-28 rounded-full bg-white/70 blur-xl pointer-events-none" />
+      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-white/80 blur-xl pointer-events-none" />
+      <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-white/70 blur-xl pointer-events-none" />
 
       {/* Decorative Rotating Geometric Accents */}
-      <div className="absolute top-3 left-4 w-10 h-10 rounded-full border border-dashed border-slate-300/60 animate-[spin_12s_linear_infinite] pointer-events-none" />
-      <div className="absolute bottom-3 right-4 w-8 h-8 rounded-lg border border-slate-300/50 rotate-12 pointer-events-none" />
+      <div className="absolute top-2.5 left-3.5 w-8 h-8 rounded-full border border-dashed border-slate-300/60 animate-[spin_12s_linear_infinite] pointer-events-none" />
+      <div className="absolute bottom-2.5 right-3.5 w-7 h-7 rounded-lg border border-slate-300/50 rotate-12 pointer-events-none" />
 
       {/* Main Centered Icon Badge with Glow and 3D Layering */}
       <div className="relative flex flex-col items-center">
         <div
-          className="w-20 h-20 rounded-2xl bg-white shadow-soft-md border border-slate-100/90 flex items-center justify-center text-brand-navy group-hover:text-brand-coral group-hover:shadow-coral-glow transition-all duration-300 relative z-10"
+          className="w-16 h-16 rounded-2xl bg-white shadow-soft-md border border-slate-100/90 flex items-center justify-center text-brand-navy group-hover:text-brand-coral group-hover:shadow-coral-glow transition-all duration-300 relative z-10"
           style={{
-            boxShadow: `0 10px 25px -5px ${theme.glow}`,
+            boxShadow: `0 8px 20px -4px ${theme.glow}`,
           }}
         >
           <DynamicIcon
             name={iconName}
-            className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
+            className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
           />
 
           {/* Mini Status Indicator */}
-          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-black shadow-sm">
+          <span className="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[7.5px] text-white font-black shadow-sm">
             ✓
           </span>
         </div>
 
         {/* Category Pill Tag */}
         <span
-          className={`mt-3 text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full border ${theme.pillColor} shadow-2xs relative z-10`}
+          className={`mt-2.5 text-[9px] font-extrabold tracking-wider uppercase px-2.5 py-0.5 rounded-full border ${theme.pillColor} shadow-2xs relative z-10`}
         >
           {categoryId.toUpperCase()} • API READY
         </span>

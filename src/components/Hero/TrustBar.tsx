@@ -38,44 +38,44 @@ export const TrustBar: React.FC = () => {
   ];
 
   return (
-    <div className="border-y border-slate-200/80 bg-white/70 backdrop-blur-md py-8">
+    <div className="border-y border-slate-200/80 bg-white/70 backdrop-blur-md py-6 sm:py-7">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Badges Strip */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 text-xs font-semibold text-slate-700">
-          <span className="text-slate-600 uppercase tracking-wider text-[11px] font-bold">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 mb-6 text-[11px] font-semibold text-slate-700">
+          <span className="text-slate-600 uppercase tracking-wider text-[10px] font-bold">
             Trusted & Compliant With:
           </span>
           {certifications.map((cert, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200/80 text-slate-800 shadow-2xs hover:border-brand-coral/40 transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100/90 border border-slate-200/80 text-slate-800 shadow-2xs hover:border-brand-coral/40 transition-colors"
             >
-              <CheckCircle2 className="w-3.5 h-3.5 text-brand-coral" />
+              <CheckCircle2 className="w-3 h-3 text-brand-coral" />
               <span>{cert.name}</span>
-              <span className="text-[10px] text-slate-600 font-normal">({cert.tag})</span>
+              <span className="text-[9.5px] text-slate-600 font-normal">({cert.tag})</span>
             </div>
           ))}
         </div>
 
         {/* 4 Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-200/80">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-200/80">
           {metrics.map((m, idx) => {
             const Icon = m.icon;
             return (
               <div
                 key={idx}
-                className={`flex flex-col items-center text-center ${idx > 0 ? 'pt-4 md:pt-0' : ''}`}
+                className={`flex flex-col items-center text-center ${idx > 0 ? 'pt-3 md:pt-0' : ''}`}
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-7 h-7 rounded-lg bg-brand-coral/10 text-brand-coral flex items-center justify-center">
-                    <Icon className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <div className="w-6 h-6 rounded-md bg-brand-coral/10 text-brand-coral flex items-center justify-center">
+                    <Icon className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-2xl sm:text-3xl font-black text-brand-navy tracking-tight">
+                  <span className="text-xl sm:text-2xl font-black text-brand-navy tracking-tight">
                     {m.value}
                   </span>
                 </div>
-                <div className="text-xs sm:text-sm font-bold text-slate-800">{m.label}</div>
-                <div className="text-[11px] text-slate-600">{m.sub}</div>
+                <div className="text-[11.5px] sm:text-xs font-bold text-slate-800">{m.label}</div>
+                <div className="text-[10px] text-slate-600">{m.sub}</div>
               </div>
             );
           })}
