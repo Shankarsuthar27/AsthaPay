@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrandLogo } from '../common/BrandLogo';
 import { MegaMenu } from './MegaMenu';
 import { SimpleDropdown } from './SimpleDropdown';
@@ -16,6 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,11 +31,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
   }, []);
 
   const handleDropdownHover = (name: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
     setActiveDropdown(name);
   };
 
   const handleDropdownLeave = () => {
-    setActiveDropdown(null);
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 180);
   };
 
   return (
