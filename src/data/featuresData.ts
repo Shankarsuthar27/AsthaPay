@@ -4,9 +4,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'complete-stack',
     number: '01',
-    title: 'Complete FinTech Stack',
-    description: 'Launch 25+ services on a single unified wallet balance without multiple vendors.',
-    tags: ['Unified Wallet', '25+ Services'],
+    title: 'Complete Stack',
+    description: 'Offer banking, utility, insurance, travel, and E-goverance services through a single platform.',
+    tags: ['Unified Wallet System', '25+ Integrated Services'],
     iconName: 'Layers',
     stat: '25+',
     statLabel: 'Services on 1 Balance'
@@ -14,9 +14,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'rapid-go-live',
     number: '02',
-    title: '24-Hour Go-Live',
-    description: 'Branded white-label portal, Android app, and domain ready in under 24 hours.',
-    tags: ['Zero Code', 'Custom Domain'],
+    title: 'Rapid Go-Live',
+    description: 'Launch within 2–3 days with full white-label setup.',
+    tags: ['Low Setup Cost', 'Customizable Interface'],
     iconName: 'Zap',
     stat: '< 24h',
     statLabel: 'Launch Time'
@@ -24,9 +24,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'scalable-network',
     number: '03',
-    title: 'Multi-Tier Network',
-    description: 'Manage distributors, master agents, and retailers with dynamic commission slabs.',
-    tags: ['Custom Slabs', 'Role Hierarchy'],
+    title: 'Scalable Network',
+    description: 'Manage MDs, distributors, and retailers with a structured hierarchy.',
+    tags: ['Configurable Commission', 'Role-Based Pricing'],
     iconName: 'Network',
     stat: '100k+',
     statLabel: 'Active Retailers'
@@ -34,9 +34,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'compliance-built-in',
     number: '04',
-    title: 'Bank-Grade Compliance',
-    description: 'Automated 194N TDS, GST invoicing, and real-time RBI & NPCI compliance checks.',
-    tags: ['Auto TDS & GST', 'Audit Logs'],
+    title: 'Compliance Built-In',
+    description: 'Maintain regulatory alignment with simplified reporting and audit controls.',
+    tags: ['TDS & GST Reports', 'Detailed Audit Logs'],
     iconName: 'ShieldCheck',
     stat: '100%',
     statLabel: 'Compliant'
@@ -44,9 +44,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'analytics-growth',
     number: '05',
-    title: 'Real-Time Analytics',
-    description: 'Live liquidity monitoring, retailer activity metrics, and success rates.',
-    tags: ['Live Dashboards', 'Revenue Graphs'],
+    title: 'Analytics for Growth',
+    description: 'Monitor performance and revenue through clear, actionable dashboards.',
+    tags: ['Performance Dashboards', 'Revenue Tracking'],
     iconName: 'BarChart3',
     stat: '99.9%',
     statLabel: 'Success Rate'
@@ -54,9 +54,9 @@ export const whyChooseUsFeatures: FeatureItem[] = [
   {
     id: 'trusted-partnership',
     number: '06',
-    title: 'Dedicated Support & SLA',
-    description: '24/7 account management, dispute resolution, and fast tech escalation.',
-    tags: ['Dedicated Manager', '24/7 SLA'],
+    title: 'Trusted Partnership',
+    description: 'Access onboarding, training, and ongoing support with defined SLAs.',
+    tags: ['Onboarding & Training', 'Business Support'],
     iconName: 'Headphones',
     stat: '15 Min',
     statLabel: 'Response SLA'
