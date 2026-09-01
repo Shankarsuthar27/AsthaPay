@@ -3,15 +3,15 @@ import { ServiceCategory } from '../types';
 export const serviceCategoriesData: ServiceCategory[] = [
   {
     id: 'banking',
-    title: 'Banking & Financial Inclusion',
+    title: 'Banking Services',
     navTitle: 'Banking',
-    shortDesc: 'Branchless banking, biometric AePS, micro-ATMs, and money transfer.',
+    shortDesc: 'Powered by an NPCI-compliant banking software infrastructure connected to 15+ banks, built to handle high transaction volumes.',
     iconName: 'Building2',
     highlightPill: 'Core Banking Stack',
     services: [
       {
         id: 'aeps',
-        title: 'AePS Biometric Banking',
+        title: 'AePS (Aadhaar Enabled Payment System)',
         shortDesc: 'Cash withdrawal, deposit & balance enquiry via Aadhaar.',
         iconName: 'Fingerprint',
         badge: 'High Margin',
@@ -22,7 +22,7 @@ export const serviceCategoriesData: ServiceCategory[] = [
       },
       {
         id: 'micro-atm',
-        title: 'Micro ATM & mPOS',
+        title: 'Micro ATM Software',
         shortDesc: 'Turn any counter into a card-swipe cash point.',
         iconName: 'CreditCard',
         badge: 'Hardware',
@@ -65,16 +65,6 @@ export const serviceCategoriesData: ServiceCategory[] = [
         link: '#cms'
       },
       {
-        id: 'account-opening',
-        title: 'Digital Account Opening',
-        shortDesc: 'Paperless Savings & Current accounts with video KYC.',
-        iconName: 'UserCheck',
-        badge: 'KYC Ready',
-        features: ['Biometric & Video KYC', 'Debit Card Dispatch', 'Zero Balance Options', 'Bank Commissions'],
-        popular: false,
-        link: '#account-opening'
-      },
-      {
         id: 'indo-nepal',
         title: 'Indo-Nepal Remittance',
         shortDesc: 'Secure cross-border money transfers to Nepal.',
@@ -84,6 +74,16 @@ export const serviceCategoriesData: ServiceCategory[] = [
         features: ['Everest & Prabhu Bank', 'Cash Pickup & Wallet', 'RBI Compliant', 'Best FX Rates'],
         popular: false,
         link: '#indo-nepal'
+      },
+      {
+        id: 'account-opening',
+        title: 'Digital Account Opening',
+        shortDesc: 'Paperless Savings & Current accounts with video KYC.',
+        iconName: 'UserCheck',
+        badge: 'KYC Ready',
+        features: ['Biometric & Video KYC', 'Debit Card Dispatch', 'Zero Balance Options', 'Bank Commissions'],
+        popular: false,
+        link: '#account-opening'
       },
       {
         id: 'payouts',
@@ -99,12 +99,23 @@ export const serviceCategoriesData: ServiceCategory[] = [
   },
   {
     id: 'utility',
-    title: 'Utility & BBPS Payments',
+    title: 'Utility Services',
     navTitle: 'Utility',
-    shortDesc: 'Certified Bharat BillPay for electricity, fastag, and mobile recharges.',
+    shortDesc: 'Manage public utility services across your B2B network with 98% uptime. Easy setup, full control, and scalable operations.',
     iconName: 'Zap',
     highlightPill: 'NPCI BBPS Certified',
     services: [
+      {
+        id: 'credit-card',
+        title: 'Credit Card Bill Payment',
+        shortDesc: 'BBPS card payment for Visa, Mastercard, and RuPay.',
+        iconName: 'CreditCard',
+        badge: 'Instant Credit',
+        imageSrc: '/images/Bbps.svg',
+        features: ['Major Banks', 'Instant ACK', 'Encrypted Rails', 'Balance Check'],
+        popular: true,
+        link: '#credit-card'
+      },
       {
         id: 'bbps-electricity',
         title: 'Electricity Bills',
@@ -117,16 +128,6 @@ export const serviceCategoriesData: ServiceCategory[] = [
         link: '#electricity'
       },
       {
-        id: 'recharge-dth',
-        title: 'Mobile & DTH Recharge',
-        shortDesc: 'Multi-operator prepaid plans, data packs, and DTH.',
-        iconName: 'Smartphone',
-        badge: '99.9% Uptime',
-        features: ['Plan Finder', 'Auto Retry Switch', 'All Operators', 'Instant Credit'],
-        popular: true,
-        link: '#recharge'
-      },
-      {
         id: 'fastag',
         title: 'FASTag Recharge & Issuance',
         shortDesc: 'Toll tag recharge across 35+ banks and new tag issuance.',
@@ -137,14 +138,14 @@ export const serviceCategoriesData: ServiceCategory[] = [
         link: '#fastag'
       },
       {
-        id: 'credit-card',
-        title: 'Credit Card Bill Payment',
-        shortDesc: 'BBPS card payment for Visa, Mastercard, and RuPay.',
-        iconName: 'CreditCard',
-        badge: 'Instant Credit',
-        features: ['Major Banks', 'Instant ACK', 'Encrypted Rails', 'Balance Check'],
-        popular: false,
-        link: '#credit-card'
+        id: 'recharge-dth',
+        title: 'Mobile & DTH Recharge',
+        shortDesc: 'Multi-operator prepaid plans, data packs, and DTH.',
+        iconName: 'Smartphone',
+        badge: '99.9% Uptime',
+        features: ['Plan Finder', 'Auto Retry Switch', 'All Operators', 'Instant Credit'],
+        popular: true,
+        link: '#recharge'
       },
       {
         id: 'water-gas',

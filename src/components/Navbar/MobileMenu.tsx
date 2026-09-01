@@ -2,10 +2,18 @@
 
 import React, { useState } from 'react';
 import { serviceCategoriesData } from '@/data/servicesData';
-import { partnerDropdownItems, resourcesDropdownItems, aboutDropdownItems } from '@/data/navigationData';
-import { DynamicIcon } from '../common/DynamicIcon';
-import { X, ChevronDown, ChevronRight, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
-import { BrandLogo } from '../common/BrandLogo';
+import { partnerDropdownItems, resourcesDropdownItems } from '@/data/navigationData';
+import {
+  X,
+  Landmark,
+  Settings,
+  Globe,
+  Shield,
+  Phone,
+  ArrowRight,
+  ShieldCheck,
+  ChevronRight
+} from 'lucide-react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -13,256 +21,270 @@ interface MobileMenuProps {
   onOpenDemoModal: () => void;
 }
 
+// Category icon mapper to match the exact visual style in the reference image
+const getCategoryIcon = (id: string) => {
+  switch (id) {
+    case 'banking':
+      return <Landmark className="w-3.5 h-3.5 text-[#FF5733]" />;
+    case 'utility':
+      return <Settings className="w-3.5 h-3.5 text-[#FF5733]" />;
+    case 'travel':
+      return <Globe className="w-3.5 h-3.5 text-[#FF5733]" />;
+    case 'egov':
+      return <Landmark className="w-3.5 h-3.5 text-[#FF5733]" />;
+    case 'insurance':
+      return <Shield className="w-3.5 h-3.5 text-[#FF5733]" />;
+    default:
+      return <Landmark className="w-3.5 h-3.5 text-[#FF5733]" />;
+  }
+};
+
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenDemoModal }) => {
-  const [expandedSection, setExpandedSection] = useState<string | null>('platform');
-  const [selectedCategoryKey, setSelectedCategoryKey] = useState<string>('banking');
+  const [platformOpen, setPlatformOpen] = useState<boolean>(true);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [partnerOpen, setPartnerOpen] = useState<boolean>(false);
+  const [resourcesOpen, setResourcesOpen] = useState<boolean>(false);
 
   if (!isOpen) return null;
 
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section);
+  const toggleCategory = (id: string) => {
+    setExpandedCategory(expandedCategory === id ? null : id);
+  };
+
+  const handleLinkClick = () => {
+    onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 lg:hidden">
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm" onClick={onClose} />
+      {/* Dimmed backdrop */}
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+        onClick={onClose}
+      />
 
-      {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl flex flex-col z-50 overflow-y-auto animate-in slide-in-from-right duration-300">
-        {/* Drawer Header */}
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 sticky top-0 z-10 backdrop-blur-md">
-          <BrandLogo size="sm" />
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl text-slate-500 hover:text-brand-navy hover:bg-slate-200/60 transition-colors"
-            aria-label="Close Menu"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+      {/* Slide-out Drawer matching reference screenshot */}
+      <div className="fixed inset-y-0 right-0 w-[84vw] max-w-[340px] bg-white shadow-2xl flex flex-col z-50 overflow-y-auto animate-in slide-in-from-right duration-300">
+        <div className="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            {/* Top Close Button */}
+            <div className="mb-6 flex items-center justify-start">
+              <button
+                onClick={onClose}
+                className="p-1 -ml-1 text-[#0A1931] hover:text-[#FF5733] transition-colors focus:outline-none"
+                aria-label="Close Navigation Menu"
+              >
+                <X className="w-6 h-6 stroke-[2.4]" />
+              </button>
+            </div>
 
-        {/* Navigation Accordions */}
-        <div className="p-3.5 flex-1 space-y-2.5">
-          {/* Platform Accordion */}
-          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
-            <button
-              onClick={() => toggleSection('platform')}
-              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-brand-coral/10 text-brand-coral flex items-center justify-center">
-                  <DynamicIcon name="Layers" className="w-3.5 h-3.5" />
-                </div>
-                <span>Platform Solutions</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
-                  expandedSection === 'platform' ? 'rotate-180 text-brand-coral' : ''
-                }`}
-              />
-            </button>
+            {/* Navigation List */}
+            <nav className="space-y-4">
+              {/* 1. Platform */}
+              <div>
+                <button
+                  onClick={() => setPlatformOpen(!platformOpen)}
+                  className="w-full flex items-center justify-between py-1 text-left group"
+                >
+                  <span className="text-[#0A1931] font-bold text-[15.5px] group-hover:text-[#FF5733] transition-colors">
+                    Platform
+                  </span>
+                  <span
+                    className={`text-[9px] text-[#0A1931] transition-transform duration-200 ${
+                      platformOpen ? 'rotate-180 text-[#FF5733]' : ''
+                    }`}
+                  >
+                    ▼
+                  </span>
+                </button>
 
-            {expandedSection === 'platform' && (
-              <div className="p-2.5 bg-white border-t border-slate-100 space-y-2">
-                {/* Horizontal Category Switcher */}
-                <div className="flex gap-1.5 overflow-x-auto pb-1.5 no-scrollbar">
-                  {serviceCategoriesData.map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedCategoryKey(cat.id)}
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all ${
-                        selectedCategoryKey === cat.id
-                          ? 'bg-brand-navy text-white shadow-sm'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                      }`}
-                    >
-                      {cat.navTitle}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Selected Category's Services */}
-                {(() => {
-                  const activeCat = serviceCategoriesData.find((c) => c.id === selectedCategoryKey) || serviceCategoriesData[0];
-                  return (
-                    <div className="space-y-1 pt-0.5">
-                      <div className="text-[10px] font-bold text-brand-coral uppercase tracking-wider px-1">
-                        {activeCat.title}
-                      </div>
-                      <div className="grid grid-cols-1 gap-1 max-h-56 overflow-y-auto">
-                        {activeCat.services.map((srv) => (
-                          <a
-                            key={srv.id}
-                            href={`#${activeCat.id}`}
-                            onClick={onClose}
-                            className="p-1.5 rounded-lg bg-slate-50 hover:bg-brand-coral/10 flex items-center gap-2 transition-colors group"
+                {/* Sub-categories under Platform */}
+                {platformOpen && (
+                  <div className="pt-3 pb-1 pl-1 space-y-3">
+                    {serviceCategoriesData.map((category) => {
+                      const isCatExpanded = expandedCategory === category.id;
+                      return (
+                        <div key={category.id} className="space-y-1.5">
+                          <button
+                            onClick={() => toggleCategory(category.id)}
+                            className="w-full flex items-center justify-between py-1 text-left group cursor-pointer"
                           >
-                            <div className="w-6 h-6 rounded-md bg-white group-hover:bg-brand-coral group-hover:text-white text-slate-600 flex items-center justify-center shrink-0 border border-slate-200/60 shadow-2xs">
-                              <DynamicIcon name={srv.iconName} className="w-3 h-3" />
+                            <div className="flex items-center gap-3">
+                              {/* Soft Light-Coral/Pink Rounded Square Icon Badge */}
+                              <div className="w-7 h-7 rounded-lg bg-[#FFEFEB] flex items-center justify-center shrink-0">
+                                {getCategoryIcon(category.id)}
+                              </div>
+                              <span className="text-[#0A1931] font-bold text-[14.5px] group-hover:text-[#FF5733] transition-colors">
+                                {category.navTitle}
+                              </span>
                             </div>
-                            <span className="text-[11px] font-medium text-slate-800 group-hover:text-brand-coral truncate">
-                              {srv.title}
+                            <span
+                              className={`text-[8.5px] text-slate-500 transition-transform duration-200 ${
+                                isCatExpanded ? 'rotate-180 text-[#FF5733]' : ''
+                              }`}
+                            >
+                              ▼
                             </span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })()}
+                          </button>
+
+                          {/* Nested Sub-services Links */}
+                          {isCatExpanded && (
+                            <div className="pl-10 pr-2 py-1 space-y-1.5 border-l-2 border-[#FFEFEB] ml-3.5 my-1">
+                              {category.services.map((srv) => (
+                                <a
+                                  key={srv.id}
+                                  href={`#${category.id}`}
+                                  onClick={handleLinkClick}
+                                  className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors truncate"
+                                >
+                                  {srv.title}
+                                </a>
+                              ))}
+                              <a
+                                href={`#${category.id}`}
+                                onClick={handleLinkClick}
+                                className="inline-flex items-center gap-1 text-[11px] font-bold text-[#FF5733] pt-0.5"
+                              >
+                                <span>Explore {category.navTitle}</span>
+                                <ChevronRight className="w-3 h-3" />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            )}
+
+              {/* 2. Partner with Us */}
+              <div>
+                <button
+                  onClick={() => setPartnerOpen(!partnerOpen)}
+                  className="w-full flex items-center justify-between py-1 text-left group"
+                >
+                  <span className="text-[#0A1931] font-bold text-[15.5px] group-hover:text-[#FF5733] transition-colors">
+                    Partner with Us
+                  </span>
+                  <span
+                    className={`text-[9px] text-[#0A1931] transition-transform duration-200 ${
+                      partnerOpen ? 'rotate-180 text-[#FF5733]' : ''
+                    }`}
+                  >
+                    ▼
+                  </span>
+                </button>
+
+                {partnerOpen && (
+                  <div className="pt-2 pl-3 pb-1 space-y-2 border-l-2 border-slate-100 ml-1 mt-1.5">
+                    {partnerDropdownItems.map((item, idx) => (
+                      <a
+                        key={idx}
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors"
+                      >
+                        {item.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 3. Pricing */}
+              <div>
+                <a
+                  href="#pricing"
+                  onClick={handleLinkClick}
+                  className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
+                >
+                  Pricing
+                </a>
+              </div>
+
+              {/* 4. Resources */}
+              <div>
+                <button
+                  onClick={() => setResourcesOpen(!resourcesOpen)}
+                  className="w-full flex items-center justify-between py-1 text-left group"
+                >
+                  <span className="text-[#0A1931] font-bold text-[15.5px] group-hover:text-[#FF5733] transition-colors">
+                    Resources
+                  </span>
+                  <span
+                    className={`text-[9px] text-[#0A1931] transition-transform duration-200 ${
+                      resourcesOpen ? 'rotate-180 text-[#FF5733]' : ''
+                    }`}
+                  >
+                    ▼
+                  </span>
+                </button>
+
+                {resourcesOpen && (
+                  <div className="pt-2 pl-3 pb-1 space-y-2 border-l-2 border-slate-100 ml-1 mt-1.5">
+                    {resourcesDropdownItems.map((item, idx) => (
+                      <a
+                        key={idx}
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors"
+                      >
+                        {item.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 5. About Us */}
+              <div>
+                <a
+                  href="#why-us"
+                  onClick={handleLinkClick}
+                  className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
+                >
+                  About Us
+                </a>
+              </div>
+
+              {/* 6. Contact Us */}
+              <div>
+                <a
+                  href="#contact"
+                  onClick={handleLinkClick}
+                  className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
+                >
+                  Contact Us
+                </a>
+              </div>
+            </nav>
           </div>
 
-          {/* Partner With Us Accordion */}
-          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
+          {/* Drawer Bottom CTA Button */}
+          <div className="pt-6 border-t border-slate-100 space-y-3 mt-6">
             <button
-              onClick={() => toggleSection('partner')}
-              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
+              onClick={() => {
+                onClose();
+                onOpenDemoModal();
+              }}
+              className="w-full py-3 px-4 rounded-full bg-gradient-to-r from-[#FF5733] to-[#FF6D4A] text-white font-bold text-xs shadow-coral-glow flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all"
             >
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-                  <DynamicIcon name="Network" className="w-3.5 h-3.5" />
-                </div>
-                <span>Partner with Us</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
-                  expandedSection === 'partner' ? 'rotate-180 text-brand-coral' : ''
-                }`}
-              />
+              <span>Schedule Free Demo</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
-            {expandedSection === 'partner' && (
-              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
-                {partnerDropdownItems.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    onClick={onClose}
-                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
-                  >
-                    <span>{item.title}</span>
-                    <ChevronRight className="w-3 h-3 text-slate-400" />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Direct Nav Items */}
-          <a
-            href="#pricing"
-            onClick={onClose}
-            className="p-3 rounded-xl border border-slate-200/80 font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
-          >
-            <span>Pricing & Slabs</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          </a>
-
-          {/* Resources Accordion */}
-          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
-            <button
-              onClick={() => toggleSection('resources')}
-              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-                  <DynamicIcon name="Terminal" className="w-3.5 h-3.5" />
-                </div>
-                <span>Resources & Docs</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
-                  expandedSection === 'resources' ? 'rotate-180 text-brand-coral' : ''
-                }`}
-              />
-            </button>
-
-            {expandedSection === 'resources' && (
-              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
-                {resourcesDropdownItems.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    onClick={onClose}
-                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
-                  >
-                    <span>{item.title}</span>
-                    <ChevronRight className="w-3 h-3 text-slate-400" />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* About Us Accordion */}
-          <div className="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/40">
-            <button
-              onClick={() => toggleSection('about')}
-              className="w-full p-3 flex items-center justify-between font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
-                  <DynamicIcon name="Building" className="w-3.5 h-3.5" />
-                </div>
-                <span>About Us</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 text-slate-400 transition-transform ${
-                  expandedSection === 'about' ? 'rotate-180 text-brand-coral' : ''
-                }`}
-              />
-            </button>
-
-            {expandedSection === 'about' && (
-              <div className="p-2 bg-white border-t border-slate-100 space-y-1">
-                {aboutDropdownItems.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    onClick={onClose}
-                    className="p-1.5 rounded-lg hover:bg-slate-50 flex items-center justify-between text-[11px] font-medium text-slate-700"
-                  >
-                    <span>{item.title}</span>
-                    <ChevronRight className="w-3 h-3 text-slate-400" />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <a
-            href="#contact"
-            onClick={onClose}
-            className="p-3 rounded-xl border border-slate-200/80 font-bold text-xs text-brand-navy bg-white hover:bg-slate-50 flex items-center justify-between"
-          >
-            <span>Contact Us</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          </a>
-        </div>
-
-        {/* Drawer Bottom Actions */}
-        <div className="p-3.5 border-t border-slate-200/80 bg-slate-50 space-y-2.5">
-          <button
-            onClick={() => {
-              onClose();
-              onOpenDemoModal();
-            }}
-            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-coral to-brand-coral-hover text-white font-bold text-xs shadow-coral-glow flex items-center justify-center gap-1.5 hover:opacity-95 active:scale-[0.98] transition-all"
-          >
-            <span>Free Live Demo</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-
-          <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
-            <a href="tel:+918001234567" className="flex items-center gap-1 hover:text-brand-navy">
-              <Phone className="w-3 h-3 text-brand-coral" />
-              <span>+91 (0) 800 123 4567</span>
-            </a>
-            <span className="flex items-center gap-1 text-emerald-600 font-semibold">
-              <ShieldCheck className="w-3 h-3" /> PCI-DSS
-            </span>
+            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+              <a
+                href="tel:+918001234567"
+                className="flex items-center gap-1 hover:text-[#0A1931] transition-colors font-medium"
+              >
+                <Phone className="w-3 h-3 text-[#FF5733]" />
+                <span>1800-123-4567</span>
+              </a>
+              <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                <ShieldCheck className="w-3 h-3" /> PCI-DSS L1
+              </span>
+            </div>
           </div>
         </div>
       </div>
