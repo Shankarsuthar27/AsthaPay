@@ -64,7 +64,9 @@ export const ComparisonSection: React.FC = () => {
             return (
               <div
                 key={card.id}
-                className="bg-white rounded-3xl border border-slate-200/90 shadow-soft-sm hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col justify-between"
+                className={`bg-white rounded-3xl border shadow-soft-sm hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col justify-between ${
+                  toggleMode === 'without' ? 'border-rose-300/80' : 'border-slate-200/90'
+                }`}
               >
                 {/* White Top Half: AsthaPay Solution */}
                 <div className={`p-5 sm:p-6 transition-colors duration-300 ${isHighlightMode ? 'bg-white' : 'bg-slate-50/70'}`}>
@@ -95,32 +97,38 @@ export const ComparisonSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Bottom Red/Orange Alert Banner: Without AsthaPay Pain Points */}
-                <div
-                  className={`p-4 transition-all duration-300 border-t ${
-                    toggleMode === 'without'
-                      ? 'bg-rose-50 border-rose-200 text-rose-950 ring-2 ring-rose-400/40'
-                      : 'bg-orange-50/80 border-orange-100 text-slate-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                    <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wide">
-                      {card.withoutAsthaPay.alertHeading}
+                {/* Conditional Bottom Banner: Shown only when "Without AsthaPay" is selected */}
+                {toggleMode === 'without' ? (
+                  <div className="p-4 transition-all duration-300 border-t bg-rose-50 border-rose-200 text-rose-950 ring-2 ring-rose-400/40 animate-in fade-in">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                      <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wide">
+                        {card.withoutAsthaPay.alertHeading}
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-slate-700 leading-relaxed">
+                      {card.withoutAsthaPay.description}
+                    </p>
+
+                    <div className="mt-2.5 pt-2 border-t border-rose-200/60 flex items-center justify-between text-[10px] font-bold text-rose-700">
+                      <span>Direct Cost Impact:</span>
+                      <span className="bg-white/90 px-1.5 py-0.5 rounded border border-rose-200 shadow-2xs font-mono">
+                        {card.withoutAsthaPay.costImpact}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-5 py-3 bg-emerald-50/70 border-t border-emerald-100 flex items-center justify-between text-[10.5px] font-bold text-emerald-800">
+                    <span className="flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-emerald-600" />
+                      <span>Turnkey Ready Included</span>
+                    </span>
+                    <span className="bg-white px-2 py-0.5 rounded-full border border-emerald-200 text-emerald-700 text-[9.5px]">
+                      Zero Extra Cost
                     </span>
                   </div>
-
-                  <p className="text-[11px] text-slate-700 leading-relaxed">
-                    {card.withoutAsthaPay.description}
-                  </p>
-
-                  <div className="mt-2.5 pt-2 border-t border-rose-200/60 flex items-center justify-between text-[10px] font-bold text-rose-700">
-                    <span>Direct Cost Impact:</span>
-                    <span className="bg-white/80 px-1.5 py-0.5 rounded border border-rose-200 shadow-2xs">
-                      {card.withoutAsthaPay.costImpact}
-                    </span>
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}

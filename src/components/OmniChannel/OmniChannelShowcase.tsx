@@ -1,131 +1,89 @@
 'use client';
 
-import React, { useState } from 'react';
-import { omniChannelsData } from '@/data/channelData';
-import { DeviceMockup } from './DeviceMockup';
-import { DynamicIcon } from '../common/DynamicIcon';
-import { Sparkles, CheckCircle2, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import React from 'react';
+import { MultiDeviceComposition } from './DeviceMockup';
+import { Monitor, Smartphone, CreditCard, Settings, Sparkles } from 'lucide-react';
 
 export const OmniChannelShowcase: React.FC = () => {
-  const [selectedChannelId, setSelectedChannelId] = useState<string>('web-portal');
-
-  const currentChannel = omniChannelsData.find((c) => c.id === selectedChannelId) || omniChannelsData[0];
+  const platformCards = [
+    {
+      id: 'web-portal',
+      icon: Monitor,
+      title: 'Web Portal',
+      description: 'Complete admin control with reports, network management, and operations dashboard.'
+    },
+    {
+      id: 'android-app',
+      icon: Smartphone,
+      title: 'Android App',
+      description: 'Manage transactions, retailers, and notifications on the go.'
+    },
+    {
+      id: 'wpos-device',
+      icon: CreditCard,
+      title: 'WPOS Device',
+      description: 'Accept card payments and provide printed receipts with integrated hardware support.'
+    },
+    {
+      id: 'enterprise-apis',
+      icon: Settings,
+      title: 'Enterprise APIs',
+      description: 'Connect AsthaPay infrastructure directly with your existing systems.'
+    }
+  ];
 
   return (
-    <section id="channels" className="py-12 sm:py-16 bg-brand-navy-dark text-white relative overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-10 left-10 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-coral/15 rounded-full blur-3xl pointer-events-none" />
+    <section
+      id="channels"
+      className="py-14 sm:py-20 bg-gradient-to-b from-[#041024] via-[#071F48] to-[#041024] text-white relative overflow-hidden"
+    >
+      {/* Decorative Network Mesh Lines on Far Left and Right */}
+      <div className="absolute top-0 left-0 w-64 h-full pointer-events-none opacity-20 hidden lg:block bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
+      <div className="absolute top-0 right-0 w-64 h-full pointer-events-none opacity-20 hidden lg:block bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-bold text-brand-coral mb-2.5">
-            <Sparkles className="w-3 h-3" />
-            <span>Omni-Channel Distribution</span>
-          </div>
-
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
-            One Platform. <span className="gradient-text-coral">Four Powerful Channels.</span>
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+            Access <span className="text-[#FF5733]">AsthaPay</span> Across Multiple Platforms
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 mt-2 font-normal leading-relaxed">
-            Web portal, Android app, smart handheld POS, or REST APIs — all under your brand.
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl mx-auto mt-3 font-normal leading-relaxed">
+            Access powerful fintech software solutions to operate and manage your business with flexible options designed for different use cases.
           </p>
         </div>
 
-        {/* 4 Channels Navigation Tabs */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-8">
-          {omniChannelsData.map((channel) => {
-            const isActive = channel.id === selectedChannelId;
+        {/* 4 Arch-Top Blue Cards Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {platformCards.map((card) => {
+            const Icon = card.icon;
             return (
-              <button
-                key={channel.id}
-                onClick={() => setSelectedChannelId(channel.id)}
-                className={`p-3 rounded-xl border transition-all text-left flex items-center gap-3 ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#0C2340] to-[#132E52] border-brand-coral shadow-lg shadow-brand-coral/10'
-                    : 'bg-white/5 border-white/10 hover:bg-white/10 text-slate-300'
-                }`}
+              <div
+                key={card.id}
+                className="bg-[#1c4d92]/40 hover:bg-[#1c4d92]/60 border border-blue-400/25 rounded-t-[28px] sm:rounded-t-[36px] p-5 sm:p-6 pb-16 sm:pb-32 backdrop-blur-md shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1"
               >
-                <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                    isActive ? 'bg-brand-coral text-white' : 'bg-white/10 text-slate-400'
-                  }`}
-                >
-                  <DynamicIcon name={channel.iconName} className="w-4 h-4" />
+                {/* Card Icon */}
+                <div className="w-8 h-8 rounded-lg bg-white/10 text-white flex items-center justify-center mb-3.5 group-hover:bg-[#FF5733] group-hover:text-white transition-colors">
+                  <Icon className="w-4 h-4" />
                 </div>
-                <div>
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    {channel.tag}
-                  </div>
-                  <div className={`text-xs font-black ${isActive ? 'text-white' : 'text-slate-200'}`}>
-                    {channel.name}
-                  </div>
-                </div>
-              </button>
+
+                {/* Card Title */}
+                <h3 className="text-lg sm:text-xl font-black text-white tracking-tight mb-2">
+                  {card.title}
+                </h3>
+
+                {/* Card Description */}
+                <p className="text-xs text-slate-200 leading-relaxed font-normal">
+                  {card.description}
+                </p>
+              </div>
             );
           })}
         </div>
 
-        {/* Main Channel Showcase Card */}
-        <div className="bg-[#0C2340] rounded-3xl p-5 sm:p-8 border border-slate-700/70 shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Info & Specs */}
-            <div className="lg:col-span-6 space-y-4">
-              <div>
-                <span className="text-[10.5px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-coral/20 text-brand-coral border border-brand-coral/30">
-                  {currentChannel.tag}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-white mt-2.5">
-                  {currentChannel.subtitle}
-                </h3>
-                <p className="text-xs sm:text-[13px] text-slate-300 mt-1.5 leading-relaxed">
-                  {currentChannel.highlight}
-                </p>
-              </div>
-
-              {/* Feature Points */}
-              <div className="space-y-2 pt-1">
-                {currentChannel.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Specs Pills Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-700">
-                {currentChannel.specs.map((sp, idx) => (
-                  <div key={idx} className="bg-slate-900/80 p-2 rounded-lg border border-slate-800">
-                    <div className="text-[9px] text-slate-400">{sp.label}</div>
-                    <div className="text-[11px] font-bold text-white mt-0.5">{sp.value}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-1 flex flex-wrap items-center gap-3">
-                <a
-                  href="#demo"
-                  className="px-5 py-2.5 rounded-full bg-brand-coral hover:bg-brand-coral-hover text-white text-[11px] font-bold shadow-coral-glow transition-all flex items-center gap-1.5"
-                >
-                  <span>Request Live {currentChannel.name} Demo</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-                <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  White-label custom package included
-                </span>
-              </div>
-            </div>
-
-            {/* Right Interactive Device Mockup */}
-            <div className="lg:col-span-6 flex justify-center">
-              <DeviceMockup channel={currentChannel} />
-            </div>
-          </div>
+        {/* Overlapping Realistic Device Composition (Laptop + Mobile Phone + WPOS Terminal) */}
+        <div className="-mt-10 sm:-mt-24 md:-mt-28 relative z-20">
+          <MultiDeviceComposition />
         </div>
       </div>
     </section>

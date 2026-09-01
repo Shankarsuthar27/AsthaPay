@@ -1,229 +1,291 @@
 'use client';
 
 import React from 'react';
-import { ChannelItem } from '@/types';
-import { Wifi, Battery, Fingerprint, Printer, CreditCard, Sparkles, RefreshCw } from 'lucide-react';
+import {
+  Monitor,
+  Smartphone,
+  CreditCard,
+  Settings,
+  Layers,
+  Fingerprint,
+  Zap,
+  PhoneCall,
+  Tv,
+  Receipt,
+  FileText,
+  Car,
+  Shield,
+  CheckCircle2,
+  Search,
+  User,
+  Bell,
+  Menu,
+  Home,
+  QrCode,
+  History,
+  Grid,
+  Sparkles,
+  Printer
+} from 'lucide-react';
 
-interface DeviceMockupProps {
-  channel: ChannelItem;
-}
-
-export const DeviceMockup: React.FC<DeviceMockupProps> = ({ channel }) => {
-  if (channel.id === 'web-portal') {
-    return (
-      <div className="w-full bg-[#0F223D] rounded-2xl border border-slate-700/80 shadow-2xl overflow-hidden text-white">
-        {/* Laptop Browser Header */}
-        <div className="bg-[#0A182B] px-3.5 py-2.5 flex items-center justify-between border-b border-slate-800">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="text-[10px] text-slate-400 font-mono ml-2">portal.yourbrandfintech.com</span>
-          </div>
-          <span className="text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
-            SSL 256-BIT SECURE
-          </span>
-        </div>
-
-        {/* Laptop Dashboard UI Content */}
-        <div className="p-4 space-y-3">
-          {/* Top stats strip */}
-          <div className="grid grid-cols-3 gap-2.5">
-            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
-              <div className="text-[9px] text-slate-400 uppercase">Today&apos;s Volume</div>
-              <div className="text-base font-black text-white">₹ 14,82,900</div>
-              <div className="text-[9px] text-emerald-400">↑ 18.4% vs yesterday</div>
-            </div>
-            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
-              <div className="text-[9px] text-slate-400 uppercase">Active Retailers</div>
-              <div className="text-base font-black text-white">1,482</div>
-              <div className="text-[9px] text-blue-400">98.2% online</div>
-            </div>
-            <div className="bg-[#132C4E] p-2.5 rounded-xl border border-slate-700/60">
-              <div className="text-[9px] text-slate-400 uppercase">Commission Earned</div>
-              <div className="text-base font-black text-brand-coral">₹ 28,450</div>
-              <div className="text-[9px] text-slate-400">Auto settled</div>
-            </div>
-          </div>
-
-          {/* Quick Action Tiles */}
-          <div className="grid grid-cols-4 gap-2 text-center text-[11px]">
-            <div className="p-2 rounded-xl bg-brand-coral/15 border border-brand-coral/30 font-bold text-white flex flex-col items-center gap-1">
-              <Fingerprint className="w-4 h-4 text-brand-coral" />
-              <span>AePS 2.0</span>
-            </div>
-            <div className="p-2 rounded-xl bg-blue-500/15 border border-blue-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <CreditCard className="w-4 h-4 text-blue-400" />
-              <span>Micro ATM</span>
-            </div>
-            <div className="p-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <RefreshCw className="w-4 h-4 text-emerald-400" />
-              <span>DMT Remit</span>
-            </div>
-            <div className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 font-bold text-white flex flex-col items-center gap-1">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>BBPS Pay</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (channel.id === 'android-app') {
-    return (
-      <div className="max-w-[300px] mx-auto bg-slate-950 rounded-[36px] p-2.5 border-4 border-slate-800 shadow-2xl text-white relative">
-        {/* Phone Notch & Status Bar */}
-        <div className="flex items-center justify-between px-3.5 pt-1 pb-1.5 text-[9.5px] text-slate-400">
-          <span>09:41</span>
-          <div className="w-16 h-3.5 bg-slate-900 rounded-full mx-auto" />
-          <div className="flex items-center gap-1">
-            <Wifi className="w-2.5 h-2.5" />
-            <Battery className="w-2.5 h-2.5" />
-          </div>
-        </div>
-
-        {/* Mobile App Container */}
-        <div className="bg-[#0C2340] rounded-[26px] p-3.5 space-y-3 border border-slate-800">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-[9px] text-slate-400">Merchant Store</div>
-              <div className="text-xs font-black text-white">Sharma Digital Seva</div>
-            </div>
-            <div className="w-7 h-7 rounded-full bg-brand-coral flex items-center justify-center font-bold text-[10px]">
-              SD
-            </div>
-          </div>
-
-          {/* Wallet Card */}
-          <div className="p-3 rounded-xl bg-gradient-to-r from-brand-coral via-[#FF6D4A] to-amber-500 text-white shadow-coral-glow">
-            <div className="text-[9px] opacity-90">Main Wallet Balance</div>
-            <div className="text-lg font-black">₹ 64,890.00</div>
-            <div className="text-[8.5px] mt-1 opacity-90 flex items-center justify-between">
-              <span>AePS Settlement: Instant</span>
-              <span>194N: Compliant</span>
-            </div>
-          </div>
-
-          {/* Biometric AePS Scan Action */}
-          <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                <Fingerprint className="w-4 h-4 animate-pulse" />
-              </div>
-              <div>
-                <div className="text-[11px] font-bold">Biometric AePS Active</div>
-                <div className="text-[8.5px] text-emerald-400">Mantra MFS100 Connected</div>
-              </div>
-            </div>
-            <span className="text-[9px] bg-emerald-500 text-white font-bold px-1.5 py-0.5 rounded">
-              Ready
-            </span>
-          </div>
-
-          {/* Grid buttons */}
-          <div className="grid grid-cols-3 gap-1.5 text-[9.5px] text-center font-bold">
-            <div className="p-1.5 bg-slate-800/80 rounded-lg">Withdraw</div>
-            <div className="p-1.5 bg-slate-800/80 rounded-lg">Deposit</div>
-            <div className="p-1.5 bg-slate-800/80 rounded-lg">Statement</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (channel.id === 'wpos-device') {
-    return (
-      <div className="max-w-[320px] mx-auto bg-gradient-to-b from-slate-800 to-slate-950 rounded-[32px] p-3.5 border-4 border-slate-700 shadow-2xl text-white relative">
-        {/* Thermal Printer Slot on Top */}
-        <div className="bg-slate-900 rounded-t-2xl p-2 border-b border-slate-700 mb-2.5 text-center">
-          <div className="w-24 h-1.5 bg-slate-950 rounded-full mx-auto mb-1" />
-          <div className="flex items-center justify-center gap-1 text-[9px] font-mono text-emerald-400">
-            <Printer className="w-3 h-3" />
-            <span>High-Speed 58mm Thermal Printer</span>
-          </div>
-        </div>
-
-        {/* WPOS Touch Screen */}
-        <div className="bg-[#0A1D36] rounded-2xl p-3.5 border border-slate-700 space-y-2.5">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="font-bold text-white">Smart Micro-ATM WPOS</span>
-            <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">
-              EMV Level 2
-            </span>
-          </div>
-
-          <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-center space-y-0.5">
-            <div className="text-[9px] text-slate-400">INSERT / TAP CARD</div>
-            <div className="text-lg font-black text-brand-coral">₹ 5,000.00</div>
-            <div className="text-[9.5px] text-slate-300">RuPay • Visa • Mastercard</div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold">
-            <div className="p-2 bg-emerald-600 rounded-xl">Print Slip</div>
-            <div className="p-2 bg-slate-800 rounded-xl">E-Receipt SMS</div>
-          </div>
-        </div>
-
-        {/* Physical Smart Card Slot & Biometric Sensor at bottom */}
-        <div className="mt-2.5 pt-2.5 border-t border-slate-800 flex items-center justify-around text-[9.5px] text-slate-400">
-          <span className="flex items-center gap-1"><CreditCard className="w-3 h-3 text-brand-coral" /> Chip Reader</span>
-          <span>•</span>
-          <span className="flex items-center gap-1"><Fingerprint className="w-3 h-3 text-emerald-400" /> Optical Sensor</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Default: Enterprise APIs Code Sandbox
+export const MultiDeviceComposition: React.FC = () => {
   return (
-    <div className="w-full bg-[#081220] rounded-2xl border border-slate-800 shadow-2xl overflow-hidden text-white font-mono">
-      {/* Code Header */}
-      <div className="bg-[#050D18] px-4 py-3 flex items-center justify-between border-b border-slate-800 text-xs">
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-          <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-          <span className="text-slate-400 ml-2 font-sans font-bold">POST /api/v2/aeps/cash-withdrawal</span>
+    <div className="relative w-full max-w-5xl mx-auto flex items-end justify-center pt-8 pb-4">
+      {/* 1. Center Laptop Mockup */}
+      <div className="relative z-10 w-[88%] sm:w-[78%] md:w-[72%] max-w-[720px] shadow-2xl rounded-t-2xl">
+        {/* Laptop Screen Bezel */}
+        <div className="bg-[#181d24] rounded-t-2xl p-2.5 sm:p-3 border-t-2 border-x-2 border-slate-700/80 shadow-2xl">
+          {/* Camera Notch */}
+          <div className="flex justify-center mb-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-blue-500/80 animate-pulse" />
+            </div>
+          </div>
+
+          {/* Laptop Screen Content (AsthaPay Admin Dashboard) */}
+          <div className="bg-[#f8fafc] rounded-lg overflow-hidden border border-slate-300 text-slate-800 text-[9px] sm:text-[10.5px] select-none h-[220px] sm:h-[300px] md:h-[340px] flex">
+            {/* Left Sidebar */}
+            <div className="w-24 sm:w-32 bg-[#0c1e38] text-white p-2.5 sm:p-3 flex flex-col justify-between shrink-0">
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5 pb-2 border-b border-slate-700/80">
+                  <div className="w-4 h-4 rounded bg-[#FF5733] flex items-center justify-center font-black text-[9px] text-white">
+                    A
+                  </div>
+                  <span className="font-extrabold text-[10px] sm:text-xs text-white tracking-tight">AsthaPay</span>
+                </div>
+
+                <div className="space-y-1 text-[8.5px] sm:text-[9.5px] text-slate-300 font-medium">
+                  <div className="p-1 rounded bg-[#FF5733]/20 text-[#FF5733] font-bold flex items-center gap-1">
+                    <Grid className="w-2.5 h-2.5" /> Dashboard
+                  </div>
+                  <div className="p-1 rounded hover:bg-white/10 flex items-center gap-1">
+                    <Layers className="w-2.5 h-2.5" /> API Services
+                  </div>
+                  <div className="p-1 rounded hover:bg-white/10 flex items-center gap-1">
+                    <User className="w-2.5 h-2.5" /> Members (MD/DT)
+                  </div>
+                  <div className="p-1 rounded hover:bg-white/10 flex items-center gap-1">
+                    <CreditCard className="w-2.5 h-2.5" /> Fund Mgmt
+                  </div>
+                  <div className="p-1 rounded hover:bg-white/10 flex items-center gap-1">
+                    <History className="w-2.5 h-2.5" /> Transactions
+                  </div>
+                  <div className="p-1 rounded hover:bg-white/10 flex items-center gap-1">
+                    <FileText className="w-2.5 h-2.5" /> Reports &amp; TDS
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-[7.5px] sm:text-[8.5px] text-slate-400">
+                <span className="text-emerald-400">● Switch: Live</span>
+              </div>
+            </div>
+
+            {/* Main Portal Dashboard Content Area */}
+            <div className="flex-1 p-2.5 sm:p-3.5 bg-[#f1f5f9] overflow-y-hidden flex flex-col justify-between">
+              {/* Top Nav */}
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                <div className="font-bold text-[10px] sm:text-xs text-[#0c1e38]">
+                  Services Marketplace &amp; Switch Controls
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[8px] sm:text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold border border-emerald-300">
+                    256-Bit SSL
+                  </span>
+                  <span className="text-[8px] sm:text-[9px] text-slate-600 font-bold hidden sm:inline">
+                    Admin Wallet: ₹18,42,950.00
+                  </span>
+                </div>
+              </div>
+
+              {/* Service Cards Grid inside Laptop */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 my-1">
+                {/* 1. Mobile & DTH */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                    <PhoneCall className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">Mobile / DTH Recharge</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● Active TSP</div>
+                  </div>
+                </div>
+
+                {/* 2. BBPS Utilities */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                    <Zap className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">BBPS Central Unit</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● 20,000+ Billers</div>
+                  </div>
+                </div>
+
+                {/* 3. AePS 2.0 */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                    <Fingerprint className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">AePS 2.0 Biometric</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● Multi-Bank Rail</div>
+                  </div>
+                </div>
+
+                {/* 4. DMT Money Transfer */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                    <CreditCard className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">DMT Instant Remit</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● IMPS/NEFT</div>
+                  </div>
+                </div>
+
+                {/* 5. Electricity & Fastag */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Car className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">FASTag &amp; Toll</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● Instant Recharge</div>
+                  </div>
+                </div>
+
+                {/* 6. Micro ATM */}
+                <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                  <div className="w-5 h-5 rounded-md bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
+                    <Shield className="w-3 h-3" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[8.5px] sm:text-[9.5px] truncate">Micro ATM Switch</div>
+                    <div className="text-[7px] sm:text-[8px] text-emerald-600 font-semibold">● RuPay/Visa</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Quick Analytics Bar */}
+              <div className="bg-white p-1.5 sm:p-2 rounded-lg border border-slate-200 flex items-center justify-between text-[8px] sm:text-[9px] text-slate-600">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-[#0c1e38]">Today GTV: ₹ 14,82,900</span>
+                  <span className="text-slate-300">|</span>
+                  <span>Active Merchants: 1,482 (98.2% Up)</span>
+                </div>
+                <span className="text-emerald-600 font-bold">● 99.99% Switch Uptime</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <span className="text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded text-[10px]">
-          200 OK (38ms)
-        </span>
+
+        {/* Laptop Bottom Base & Hinge */}
+        <div className="relative bg-[#252c38] h-3.5 sm:h-4 rounded-b-xl border-t border-slate-600 shadow-xl flex items-center justify-center">
+          <div className="w-16 sm:w-24 h-1 bg-slate-400/80 rounded-full" />
+        </div>
       </div>
 
-      {/* Code Snippet */}
-      <div className="p-5 text-xs overflow-x-auto space-y-2 text-slate-300">
-        <div className="text-slate-500">&#47;&#47; Header: Authorization: Bearer asthapay_live_jwt...</div>
-        <div>
-          <span className="text-purple-400">curl</span> -X POST https://api.asthapay.in/v2/aeps/withdraw \
+      {/* 2. Left Smartphone (Android App) Mockup */}
+      <div className="absolute -left-2 sm:left-2 md:left-4 -bottom-3 sm:-bottom-2 z-20 w-[115px] sm:w-[155px] md:w-[175px] bg-[#0c1017] rounded-[24px] sm:rounded-[32px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none">
+        {/* Dynamic Island */}
+        <div className="w-10 sm:w-14 h-2.5 sm:h-3 bg-black rounded-full mx-auto mb-1 flex items-center justify-center">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500/60 ml-auto mr-1.5" />
         </div>
-        <div className="pl-4 text-emerald-300">
-          -H <span className="text-amber-300">&quot;X-API-KEY: astha_prod_9942a1&quot;</span> \
-        </div>
-        <div className="pl-4 text-blue-300">
-          -d <span className="text-slate-200">&#123;</span>
-        </div>
-        <div className="pl-8 text-slate-200">
-          <span className="text-blue-400">&quot;aadhaar_hash&quot;</span>: <span className="text-amber-300">&quot;9876XXXXXXXX&quot;</span>,
-        </div>
-        <div className="pl-8 text-slate-200">
-          <span className="text-blue-400">&quot;amount&quot;</span>: <span className="text-amber-300">2500</span>,
-        </div>
-        <div className="pl-8 text-slate-200">
-          <span className="text-blue-400">&quot;bank_iin&quot;</span>: <span className="text-amber-300">&quot;607094&quot;</span>,
-        </div>
-        <div className="pl-8 text-slate-200">
-          <span className="text-blue-400">&quot;biometric_pid&quot;</span>: <span className="text-amber-300">&quot;&lt;PidData&gt;...&lt;/PidData&gt;&quot;</span>
-        </div>
-        <div className="pl-4 text-blue-300">&#125;</div>
 
-        <div className="mt-3 pt-3 border-t border-slate-800 text-[11px] text-emerald-400 font-sans flex items-center justify-between">
-          <span>✓ Webhook callback dispatched in 14ms</span>
-          <span className="text-slate-400">Swagger &amp; Postman Ready</span>
+        {/* App Content */}
+        <div className="bg-[#4338ca] rounded-[18px] sm:rounded-[24px] overflow-hidden text-[8px] sm:text-[9px]">
+          {/* Header */}
+          <div className="p-2 sm:p-2.5 text-white">
+            <div className="flex items-center justify-between text-[7px] sm:text-[8px] opacity-80 mb-1">
+              <span>AsthaPay Partner</span>
+              <span>● 5G Live</span>
+            </div>
+            <div className="text-[10px] sm:text-xs font-black">₹ 64,890.00</div>
+            <div className="text-[6.5px] sm:text-[7.5px] text-indigo-200">Main Wallet Balance</div>
+          </div>
+
+          {/* Grid Inside Phone */}
+          <div className="bg-white text-slate-800 p-2 sm:p-2.5 space-y-1.5 rounded-t-[14px] sm:rounded-t-[18px]">
+            <div className="font-extrabold text-[7.5px] sm:text-[8.5px] text-[#0c1e38]">Banking Services</div>
+            <div className="grid grid-cols-3 gap-1 text-center text-[6.5px] sm:text-[7.5px] font-bold">
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <Fingerprint className="w-2.5 h-2.5 text-[#FF5733]" />
+                <span className="truncate w-full mt-0.5">AePS</span>
+              </div>
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <CreditCard className="w-2.5 h-2.5 text-blue-600" />
+                <span className="truncate w-full mt-0.5">mATM</span>
+              </div>
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <Zap className="w-2.5 h-2.5 text-emerald-600" />
+                <span className="truncate w-full mt-0.5">DMT</span>
+              </div>
+            </div>
+
+            <div className="font-extrabold text-[7.5px] sm:text-[8.5px] text-[#0c1e38] pt-0.5">Bill Payments</div>
+            <div className="grid grid-cols-3 gap-1 text-center text-[6.5px] sm:text-[7.5px] font-bold">
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <PhoneCall className="w-2.5 h-2.5 text-indigo-600" />
+                <span className="truncate w-full mt-0.5">Mobile</span>
+              </div>
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <Tv className="w-2.5 h-2.5 text-amber-600" />
+                <span className="truncate w-full mt-0.5">DTH</span>
+              </div>
+              <div className="p-1 rounded bg-slate-50 border border-slate-100 flex flex-col items-center">
+                <Car className="w-2.5 h-2.5 text-purple-600" />
+                <span className="truncate w-full mt-0.5">FASTag</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Right WPOS Terminal Device Mockup */}
+      <div className="absolute -right-2 sm:right-2 md:right-4 -bottom-3 sm:-bottom-2 z-20 w-[105px] sm:w-[145px] md:w-[165px] bg-[#1e2530] rounded-[22px] sm:rounded-[28px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none">
+        {/* Silver Thermal Printer Slot on Top */}
+        <div className="bg-gradient-to-b from-slate-300 to-slate-400 rounded-t-xl sm:rounded-t-2xl p-1.5 sm:p-2 border-b-2 border-slate-500 mb-1.5 text-center text-slate-900 shadow-inner">
+          <div className="w-12 sm:w-16 h-1 bg-slate-800 rounded-full mx-auto mb-0.5" />
+          <div className="flex items-center justify-center gap-0.5 text-[6.5px] sm:text-[7.5px] font-mono font-bold text-slate-800">
+            <Printer className="w-2 h-2" />
+            <span>58mm Thermal</span>
+          </div>
+        </div>
+
+        {/* WPOS Screen */}
+        <div className="bg-[#051e3c] rounded-xl sm:rounded-2xl p-1.5 sm:p-2 border border-slate-600 space-y-1 text-[7px] sm:text-[8.5px]">
+          <div className="flex items-center justify-between text-white font-bold border-b border-slate-700/80 pb-0.5">
+            <span>Smart WPOS Terminal</span>
+            <span className="text-[6px] sm:text-[7px] bg-emerald-500/20 text-emerald-400 px-1 rounded">
+              EMV L2
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-1 text-center font-bold pt-0.5">
+            <div className="p-1 rounded bg-[#0b2b52] border border-blue-400/30 flex flex-col items-center">
+              <Fingerprint className="w-2.5 h-2.5 text-[#FF5733]" />
+              <span className="truncate w-full mt-0.5 text-white">AePS Cash</span>
+            </div>
+            <div className="p-1 rounded bg-[#0b2b52] border border-blue-400/30 flex flex-col items-center">
+              <CreditCard className="w-2.5 h-2.5 text-emerald-400" />
+              <span className="truncate w-full mt-0.5 text-white">Card Swiper</span>
+            </div>
+            <div className="p-1 rounded bg-[#0b2b52] border border-blue-400/30 flex flex-col items-center">
+              <Receipt className="w-2.5 h-2.5 text-amber-400" />
+              <span className="truncate w-full mt-0.5 text-white">Mini Stmt</span>
+            </div>
+            <div className="p-1 rounded bg-[#0b2b52] border border-blue-400/30 flex flex-col items-center">
+              <QrCode className="w-2.5 h-2.5 text-purple-400" />
+              <span className="truncate w-full mt-0.5 text-white">UPI QR</span>
+            </div>
+          </div>
+
+          <div className="bg-emerald-600 text-white font-bold text-center py-0.5 rounded text-[6.5px] sm:text-[7.5px] mt-1 shadow-2xs">
+            TAP / SWIPE CARD READY
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
