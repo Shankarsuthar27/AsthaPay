@@ -75,12 +75,17 @@ export const ServicesSection: React.FC = () => {
     <section id="services" className="relative py-12 sm:py-16 bg-white">
       {/* Top Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-6">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0A1931] tracking-tight">
-          <span className="text-[#FF5733]">Core Services</span> You Can Launch with <span className="text-[#0A1931]">AsthaPay</span>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-coral/10 border border-brand-coral/20 text-[11px] font-bold text-brand-coral mb-2.5 shadow-2xs">
+          <Sparkles className="w-3 h-3" />
+          <span>Core Services Ecosystem</span>
+        </div>
+
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-brand-navy tracking-tight">
+          Services You Can Launch with <span className="text-brand-coral">AsthaPay</span>
         </h2>
 
-        <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-2 font-normal leading-relaxed">
-          Scale your financial operations and distributor network across India with AsthaPay&apos;s <span className="font-semibold text-slate-800">multi-service platform</span>
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-2 font-normal leading-relaxed">
+          Branchless banking, BBPS utilities, citizen services, and insurance under one unified balance.
         </p>
       </div>
 
