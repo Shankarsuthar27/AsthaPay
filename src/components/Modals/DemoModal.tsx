@@ -188,10 +188,20 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
         }),
       });
 
-      const data = await res.json();
+      let data: any = null;
+      try {
+        const text = await res.text();
+        data = text ? JSON.parse(text) : null;
+      } catch {
+        // Non-JSON response (e.g. server HTML error page)
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to submit demo request.');
+        throw new Error(data?.error || `Server responded with status ${res.status}. Please try again.`);
+      }
+
+      if (!data) {
+        throw new Error('Received an empty response from server.');
       }
 
       setGeneratedProposalId(data.proposalId);

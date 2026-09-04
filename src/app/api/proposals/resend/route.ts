@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendProposalEmail } from '@/lib/emailService';
 import { GeneratedProposal } from '@/types/admin';
 import { adminDb } from '@/lib/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,10 +45,10 @@ export async function POST(req: NextRequest) {
         const updatePayload = {
           email_status: result.success ? 'sent' : 'failed',
           emailStatus: result.success ? 'sent' : 'failed',
-          sent_at: result.success ? FieldValue.serverTimestamp() : null,
-          sentAt: result.success ? FieldValue.serverTimestamp() : null,
-          updated_at: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp(),
+          sent_at: result.success ? new Date() : null,
+          sentAt: result.success ? new Date() : null,
+          updated_at: new Date(),
+          updatedAt: new Date(),
         };
 
         // Update in demo_requests collection

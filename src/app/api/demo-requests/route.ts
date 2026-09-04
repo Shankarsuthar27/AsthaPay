@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { synthesizeProposal } from '@/lib/proposalEngine';
 import { sendProposalEmail } from '@/lib/emailService';
 import { adminDb } from '@/lib/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
 
 // In-memory rate limiter: max 5 submissions per 15 minutes per IP/email
 const rateLimitMap = new Map<string, { count: number; firstAttempt: number }>();
@@ -190,9 +189,9 @@ export async function POST(req: NextRequest) {
           email_status: emailStatus,
           proposal_status: proposalStatus,
           internal_notes: null,
-          created_at: FieldValue.serverTimestamp(),
-          updated_at: FieldValue.serverTimestamp(),
-          sent_at: emailStatus === 'sent' ? FieldValue.serverTimestamp() : null,
+          created_at: new Date(),
+          updated_at: new Date(),
+          sent_at: emailStatus === 'sent' ? new Date() : null,
         });
         leadDocId = demoRef.id;
 
@@ -213,9 +212,9 @@ export async function POST(req: NextRequest) {
           emailStatus,
           status: 'new',
           source: 'Schedule Your Free Live Product Demo',
-          createdAt: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp(),
-          sentAt: emailStatus === 'sent' ? FieldValue.serverTimestamp() : null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          sentAt: emailStatus === 'sent' ? new Date() : null,
         });
       }
     } catch (dbErr) {

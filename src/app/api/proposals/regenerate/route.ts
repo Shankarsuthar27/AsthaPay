@@ -4,7 +4,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { synthesizeProposal, ProposalInput } from '@/lib/proposalEngine';
 import { adminDb } from '@/lib/firebaseAdmin';
-import { FieldValue } from 'firebase-admin/firestore';
 
 export async function POST(req: NextRequest) {
   try {
@@ -40,8 +39,8 @@ export async function POST(req: NextRequest) {
           proposalPdfUrl: pdfUrl,
           proposal_status: 'generated',
           proposalStatus: 'generated',
-          updated_at: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp(),
+          updated_at: new Date(),
+          updatedAt: new Date(),
         };
 
         const demoRef = adminDb.collection('demo_requests').doc(leadId);
