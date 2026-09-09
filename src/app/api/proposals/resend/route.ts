@@ -36,8 +36,9 @@ export async function POST(req: NextRequest) {
       proposal.client.businessEmail = body.email;
     }
 
-    // Attempt email dispatch (with PDF attached)
-    const result = await sendProposalEmail(proposal as GeneratedProposal);
+    // Attempt email dispatch (supports plain text or HTML, defaults to plain)
+    const format = body.format || 'plain';
+    const result = await sendProposalEmail(proposal as GeneratedProposal, { format });
 
     // Update database status if leadId is provided
     if (leadId && adminDb) {

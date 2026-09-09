@@ -32,6 +32,7 @@ export interface ProposalEmailTemplateConfig {
   greeting: string;
   bodyIntro: string;
   signoff: string;
+  format?: 'plain' | 'html' | 'both';
 }
 
 export interface ProposalModularConfig {
@@ -46,14 +47,14 @@ export interface ProposalModularConfig {
 
 export const DEFAULT_PROPOSAL_CONFIG: ProposalModularConfig = {
   companyInfo: {
-    companyName: 'AsthaPay Technologies Private Limited',
+    companyName: 'Asthasoft Technologies Pvt. Ltd.',
     brandName: 'AsthaPay',
     tagline: 'Enterprise Turnkey B2B FinTech & Banking Switch Infrastructure',
-    websiteUrl: 'https://asthapay.com',
-    supportEmail: 'support@asthapay.com',
-    salesEmail: 'sales@asthapay.com',
-    phone: '+91 98111 22334',
-    address: 'DLF Cyber City, Sector 24, Gurugram, Haryana - 122002',
+    websiteUrl: 'https://asthapay.in',
+    supportEmail: 'info@asthasoftindia.com',
+    salesEmail: 'info@asthasoftindia.com',
+    phone: '+91-7023318111',
+    address: 'Glitz cinema , Jalore Rajasthan 343001',
     signatoryTitle: 'Authorized FinTech Solutions Director',
   },
   pricing: {
@@ -246,17 +247,20 @@ export const DEFAULT_PROPOSAL_CONFIG: ProposalModularConfig = {
     },
   ],
   emailTemplate: {
-    subject: 'Your Personalized FinTech Infrastructure Proposal – {{companyName}}',
-    greeting: 'Hello {{fullName}},',
-    bodyIntro: 'Thank you for your interest in our Turnkey FinTech Infrastructure platform.\nBased on the requirements you submitted, we have prepared a personalized proposal for {{companyName}}.\nThe proposal includes our recommended platform architecture, selected services, implementation approach and next steps.\nPlease find your personalized proposal attached.',
-    signoff: 'We look forward to demonstrating the platform to you.\n\nRegards,\nFinTech Infrastructure Team\nAsthaPay Technologies Private Limited',
+    subject: 'White Label Software Business Proposal – {{companyName}}',
+    greeting: 'Dear {{fullName}},',
+    bodyIntro: 'Greetings from Asthasoft Technologies Pvt. Ltd.!\nAsthasoft Technologies Private Limited is an innovative Fintech Organization that provides cutting-edge payment solutions to individuals and businesses. We are excited to present our White Label Software Business Proposal to {{companyName}}.\nOur White Label Software is designed to simplify the payment process for businesses of all sizes.',
+    signoff: 'We look forward to demonstrating the platform to you.\n\nWarm regards,\nBusiness Development & Solutions Team\nAsthasoft Technologies Pvt. Ltd.',
+    format: 'plain',
   },
   termsAndConditions: [
+    '18 % GST will be applicable on above rate.',
+    '70% payments in advance & 30% payments before software login credentials delivery email.',
+    'The Setup fees mentioned in this proposal is completely non refundable and under no circumstances the company is liable to refund.',
+    'This quotation not including play store console registration (Play Store console fees $25 is additional charges).',
+    'Annual Maintenance Cost (AMC) - INR 8000/- + GST.',
     'Deployment timeline: 3 to 5 business days from payment and logo asset handover.',
     'Wallet settlement is automated 24x7 via IMPS/NEFT without bank holiday delays.',
-    'White-label updates and security patches are covered under monthly server maintenance.',
-    'Zero debit MDR for AePS and Micro ATM transactions as per NPCI standards.',
-    'All banking switch routing is RBI and NPCI compliant with redundant disaster recovery switches.',
   ],
 };
 

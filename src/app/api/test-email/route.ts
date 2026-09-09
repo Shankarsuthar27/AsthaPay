@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
     const recipientEmail = searchParams.get('to') || 'shankar.952152@gmail.com';
+    const format = (searchParams.get('format') as 'plain' | 'html' | 'both') || 'plain';
 
     const testProposal = synthesizeProposal({
       fullName: 'AsthaPay Diagnostic Test',
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest) {
       additionalRequirements: 'Diagnostic email delivery test',
     });
 
-    const emailResult = await sendProposalEmail(testProposal);
+    const emailResult = await sendProposalEmail(testProposal, { format });
 
     return NextResponse.json({
       success: emailResult.success || emailResult.clientDelivered,
@@ -65,11 +66,13 @@ export async function POST(req: NextRequest) {
       additionalRequirements: 'Transactional proposal test delivery',
     });
 
-    const emailResult = await sendProposalEmail(testProposal);
+    const format = (body.format as 'plain' | 'html' | 'both') || 'plain';
+    const emailResult = await sendProposalEmail(testProposal, { format });
 
     return NextResponse.json({
       success: emailResult.clientDelivered || emailResult.success,
       recipient: recipientEmail,
+      format,
       emailResult,
     });
   } catch (err: unknown) {

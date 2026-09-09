@@ -22,13 +22,20 @@ import {
   HelpCircle,
   RefreshCw,
   Sliders,
-  Check
+  Check,
+  Copy,
+  Send,
+  Terminal,
+  FileCode
 } from 'lucide-react';
 import { CommercialSlab } from '@/types/admin';
 import { 
   DEFAULT_PROPOSAL_CONFIG, 
   ProposalModularConfig 
 } from '@/lib/proposalConfig';
+import { synthesizeProposal } from '@/lib/proposalEngine';
+import { generateProposalPlainText } from '@/lib/proposalPlainText';
+import { generateProposalEmailHtml } from '@/lib/proposalEmailTemplate';
 
 export default function AdminProposalsPage() {
   const [config, setConfig] = useState<ProposalModularConfig>(DEFAULT_PROPOSAL_CONFIG);
@@ -48,6 +55,11 @@ export default function AdminProposalsPage() {
     'Micro ATM',
     'BBPS',
   ]);
+
+  const [copiedText, setCopiedText] = useState(false);
+  const [sendingTest, setSendingTest] = useState(false);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [previewMode, setPreviewMode] = useState<'document' | 'plaintext' | 'html'>('document');
 
   // Fetch active configuration from server on mount
   useEffect(() => {
@@ -136,6 +148,67 @@ export default function AdminProposalsPage() {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  // Synthesize dynamic proposal for preview sandbox
+  const previewProposal = synthesizeProposal({
+    fullName: partnerContact || 'Rahul Verma',
+    companyName: partnerName || 'Metro Digital Services',
+    businessEmail: partnerEmail || 'rahul@metrodigital.in',
+    mobileNumber: partnerPhone || '+91 98111 22334',
+    partnershipModel: 'White-Label B2B Portal & App',
+    retailNetwork: '50–200 Retailers',
+    selectedServices: selectedServices,
+    customProposalId: 'FIN-2026-LIVE',
+  });
+
+  const previewPlainText = generateProposalPlainText(previewProposal, config);
+  const previewEmailHtml = generateProposalEmailHtml(previewProposal, config);
+
+  const handleCopyPlainText = () => {
+    navigator.clipboard.writeText(previewPlainText);
+    setCopiedText(true);
+    setTimeout(() => setCopiedText(false), 3000);
+  };
+
+  const handleSendTestEmail = async (targetEmail?: string, formatOverride?: 'plain' | 'html') => {
+    const to = targetEmail || partnerEmail || 'shankar.952152@gmail.com';
+    setSendingTest(true);
+    setTestResult(null);
+    const chosenFormat = formatOverride || (previewMode === 'html' ? 'html' : config.emailTemplate?.format || 'plain');
+    try {
+      const res = await fetch('/api/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to,
+          fullName: partnerContact || 'Partner Executive',
+          companyName: partnerName || 'Enterprise Partner',
+          mobileNumber: partnerPhone || '+91 98111 22334',
+          format: chosenFormat,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && (data.success || data.emailResult?.clientDelivered || data.emailResult?.success)) {
+        setTestResult({
+          success: true,
+          message: `Proposal dispatched in ${chosenFormat.toUpperCase()} format to ${to}!`,
+        });
+      } else {
+        setTestResult({
+          success: false,
+          message: data.error || data.emailResult?.error || 'Failed to dispatch proposal email.',
+        });
+      }
+    } catch (err: unknown) {
+      setTestResult({
+        success: false,
+        message: err instanceof Error ? err.message : 'Network failure during email test',
+      });
+    } finally {
+      setSendingTest(false);
+      setTimeout(() => setTestResult(null), 8000);
+    }
   };
 
   return (
@@ -732,13 +805,65 @@ export default function AdminProposalsPage() {
           {/* Email Template */}
           <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 space-y-4">
             <div className="pb-3 border-b border-slate-100">
-              <h3 className="font-extrabold text-slate-900 text-sm">Automated Email Dispatch Template</h3>
+              <h3 className="font-extrabold text-slate-900 text-sm">Automated Email Dispatch Configuration</h3>
               <p className="text-xs text-slate-500">
                 Variables supported: <code className="text-[#FF5733] font-bold">&#123;&#123;fullName&#125;&#125;</code>, <code className="text-[#FF5733] font-bold">&#123;&#123;companyName&#125;&#125;</code>
               </p>
             </div>
 
             <div className="space-y-3 text-xs">
+              {/* Delivery Format Selector */}
+              <div>
+                <label className="block font-bold text-slate-700 mb-1.5">Email Delivery Format</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setConfig({ ...config, emailTemplate: { ...config.emailTemplate, format: 'plain' } })}
+                    className={`p-3 rounded-xl border text-left transition-all ${
+                      (config.emailTemplate?.format ?? 'plain') === 'plain'
+                        ? 'border-[#FF5733] bg-orange-50/60 ring-2 ring-[#FF5733]/20 text-slate-900'
+                        : 'border-slate-200 bg-slate-50 hover:bg-white text-slate-600'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-xs flex items-center gap-1.5 text-slate-900">
+                        <Terminal className="w-3.5 h-3.5 text-[#FF5733]" />
+                        Plain Text (Active)
+                      </span>
+                      {(config.emailTemplate?.format ?? 'plain') === 'plain' && (
+                        <span className="w-2 h-2 rounded-full bg-[#FF5733]"></span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+                      100% Primary Inbox deliverability. Bypasses spam/promo filters. PDF attached.
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setConfig({ ...config, emailTemplate: { ...config.emailTemplate, format: 'html' } })}
+                    className={`p-3 rounded-xl border text-left transition-all ${
+                      config.emailTemplate?.format === 'html'
+                        ? 'border-indigo-600 bg-indigo-50/60 ring-2 ring-indigo-600/20 text-slate-900'
+                        : 'border-slate-200 bg-slate-50 hover:bg-white text-slate-600'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-xs flex items-center gap-1.5 text-slate-900">
+                        <FileCode className="w-3.5 h-3.5 text-indigo-600" />
+                        Rich HTML
+                      </span>
+                      {config.emailTemplate?.format === 'html' && (
+                        <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-1 leading-snug">
+                      Styled HTML visual template with button CTAs and badge headers.
+                    </p>
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Email Subject Line</label>
                 <input
@@ -780,6 +905,85 @@ export default function AdminProposalsPage() {
               </div>
             </div>
           </div>
+
+          {/* Full-width Live Plain Text Proposal Preview & Fast Action Bar */}
+          <div className="lg:col-span-2 bg-slate-900 text-slate-100 rounded-3xl border border-slate-800 p-6 sm:p-8 space-y-4 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <Terminal className="w-5 h-5 text-[#FF5733]" />
+                <div>
+                  <h3 className="font-black text-white text-sm tracking-wide">
+                    Executive Plain-Text Email Proposal Preview
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Live compiled plain text payload dispatched to clients when Plain Text format is active.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopyPlainText}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all border border-slate-700"
+                >
+                  {copiedText ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-slate-300" />
+                      <span>Copy Plain Text</span>
+                    </>
+                  )}
+                </button>
+
+                <div className="flex items-center gap-1.5 bg-slate-800/90 rounded-xl p-1 border border-slate-700">
+                  <input
+                    type="email"
+                    value={partnerEmail}
+                    onChange={(e) => setPartnerEmail(e.target.value)}
+                    placeholder="Recipient Email"
+                    className="bg-transparent px-2.5 py-1 text-xs text-white placeholder-slate-500 font-mono outline-none w-44"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleSendTestEmail(partnerEmail)}
+                    disabled={sendingTest}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FF5733] hover:bg-[#E03E1D] text-white text-xs font-bold transition-all disabled:opacity-50"
+                  >
+                    {sendingTest ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Send className="w-3.5 h-3.5" />
+                    )}
+                    <span>{sendingTest ? 'Sending...' : 'Send Test Plain Text'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {testResult && (
+              <div
+                className={`p-3 rounded-xl text-xs font-bold flex items-center gap-2 ${
+                  testResult.success
+                    ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                    : 'bg-rose-500/10 border border-rose-500/30 text-rose-400'
+                }`}
+              >
+                {testResult.success ? <Check className="w-4 h-4" /> : <Mail className="w-4 h-4" />}
+                <span>{testResult.message}</span>
+              </div>
+            )}
+
+            <div className="relative">
+              <pre className="p-4 rounded-2xl bg-slate-950 text-slate-300 font-mono text-[11px] leading-relaxed overflow-x-auto max-h-[380px] border border-slate-800 scrollbar-thin scrollbar-thumb-slate-700">
+                {previewPlainText}
+              </pre>
+            </div>
+          </div>
         </div>
       )}
 
@@ -806,20 +1010,243 @@ export default function AdminProposalsPage() {
               />
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-slate-500 font-medium">Auto-synced with active configuration</span>
-              <button
-                onClick={handlePrint}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold inline-flex items-center gap-1.5 hover:bg-slate-800 transition-colors"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>Print Document</span>
-              </button>
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode('document')}
+                  className={`px-3 py-1 rounded-lg font-bold text-xs transition-all ${
+                    previewMode === 'document'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  Printable Document
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode('plaintext')}
+                  className={`px-3 py-1 rounded-lg font-bold text-xs transition-all flex items-center gap-1.5 ${
+                    previewMode === 'plaintext'
+                      ? 'bg-white text-[#FF5733] shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>Plain Text Email</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewMode('html')}
+                  className={`px-3 py-1 rounded-lg font-bold text-xs transition-all flex items-center gap-1.5 ${
+                    previewMode === 'html'
+                      ? 'bg-white text-blue-600 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Email HTML View</span>
+                </button>
+              </div>
+
+              {previewMode === 'document' && (
+                <button
+                  onClick={handlePrint}
+                  className="px-3.5 py-1.5 rounded-xl bg-slate-900 text-white font-bold inline-flex items-center gap-1.5 hover:bg-slate-800 transition-colors"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print Document</span>
+                </button>
+              )}
+              {previewMode === 'plaintext' && (
+                <button
+                  onClick={handleCopyPlainText}
+                  className="px-3.5 py-1.5 rounded-xl bg-[#FF5733] text-white font-bold inline-flex items-center gap-1.5 hover:bg-[#E03E1D] transition-colors shadow-sm"
+                >
+                  {copiedText ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5 text-white" />}
+                  <span>{copiedText ? 'Copied!' : 'Copy Plain Text'}</span>
+                </button>
+              )}
+              {previewMode === 'html' && (
+                <button
+                  onClick={() => handleSendTestEmail(partnerEmail, 'html')}
+                  disabled={sendingTest}
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 text-white font-bold inline-flex items-center gap-1.5 hover:bg-blue-700 transition-colors shadow-sm disabled:opacity-50"
+                >
+                  {sendingTest ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                  <span>{sendingTest ? 'Sending...' : 'Send Test HTML'}</span>
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Printable Proposal Document */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-sm max-w-4xl mx-auto space-y-8 print:p-0 print:border-none print:shadow-none">
+          {previewMode === 'plaintext' ? (
+            /* Plain Text Email Preview */
+            <div className="bg-slate-900 text-slate-100 rounded-3xl border border-slate-800 p-6 sm:p-10 shadow-xl max-w-4xl mx-auto space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-800">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Terminal className="w-5 h-5 text-[#FF5733]" />
+                    <span className="text-lg font-black text-white tracking-tight">
+                      Plain Text Proposal RFC 822 Email Body
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1">
+                    This exact plain text document will be delivered to <strong className="text-white font-mono">{partnerEmail}</strong> with the official PDF attached.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleCopyPlainText}
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all border border-slate-700"
+                  >
+                    {copiedText ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-400">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-slate-300" />
+                        <span>Copy Plain Text</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSendTestEmail(partnerEmail, 'plain')}
+                    disabled={sendingTest}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#FF5733] to-[#E03E1D] text-white text-xs font-bold transition-all shadow-md disabled:opacity-50"
+                  >
+                    {sendingTest ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Send className="w-3.5 h-3.5" />
+                    )}
+                    <span>{sendingTest ? 'Sending...' : 'Send Test Plain Text'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {testResult && (
+                <div
+                  className={`p-3.5 rounded-xl text-xs font-bold flex items-center gap-2.5 ${
+                    testResult.success
+                      ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                      : 'bg-rose-500/10 border border-rose-500/30 text-rose-400'
+                  }`}
+                >
+                  {testResult.success ? <Check className="w-4 h-4" /> : <Mail className="w-4 h-4" />}
+                  <span>{testResult.message}</span>
+                </div>
+              )}
+
+              <div className="rounded-2xl bg-slate-950 p-6 border border-slate-800">
+                <pre className="text-slate-300 font-mono text-xs leading-relaxed whitespace-pre overflow-x-auto">
+                  {previewPlainText}
+                </pre>
+              </div>
+            </div>
+          ) : previewMode === 'html' ? (
+            /* Gmail-Style Email HTML View */
+            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm max-w-4xl mx-auto space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-200">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-5 h-5 text-blue-600" />
+                    <span className="text-lg font-black text-slate-900 tracking-tight">
+                      Gmail Client Layout (Exact Recipient View)
+                    </span>
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                      HTML Email
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Visual template rendered in Gmail web/app format with highlighted ownership box, full deliverables, and terms.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(previewEmailHtml);
+                      setCopiedText(true);
+                      setTimeout(() => setCopiedText(false), 3000);
+                    }}
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all border border-slate-200"
+                  >
+                    {copiedText ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-600">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-slate-600" />
+                        <span>Copy HTML</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleSendTestEmail(partnerEmail, 'html')}
+                    disabled={sendingTest}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold transition-all shadow-md disabled:opacity-50"
+                  >
+                    {sendingTest ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Send className="w-3.5 h-3.5" />
+                    )}
+                    <span>{sendingTest ? 'Sending...' : 'Send Test HTML Email'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {testResult && (
+                <div
+                  className={`p-3.5 rounded-xl text-xs font-bold flex items-center gap-2.5 ${
+                    testResult.success
+                      ? 'bg-emerald-50 border border-emerald-200 text-emerald-700'
+                      : 'bg-rose-50 border border-rose-200 text-rose-700'
+                  }`}
+                >
+                  {testResult.success ? <Check className="w-4 h-4" /> : <Mail className="w-4 h-4" />}
+                  <span>{testResult.message}</span>
+                </div>
+              )}
+
+              {/* Email Client Shell Simulation */}
+              <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm bg-[#f6f8fc]">
+                <div className="bg-[#f2f6fc] border-b border-slate-200 px-4 py-3 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    <span className="font-semibold text-slate-700 ml-2">
+                      Subject: {config.emailTemplate.subject.replace('{COMPANY_NAME}', partnerName || 'Enterprise Partner')}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-slate-500 font-mono">To: {partnerEmail}</span>
+                </div>
+
+                <div className="p-4 sm:p-6 bg-[#f6f8fc]">
+                  <iframe
+                    srcDoc={previewEmailHtml}
+                    title="Gmail Proposal Email Preview"
+                    className="w-full min-h-[900px] bg-white rounded-xl border border-slate-200 shadow-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Printable Proposal Document */
+            <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 shadow-sm max-w-4xl mx-auto space-y-8 print:p-0 print:border-none print:shadow-none">
             {/* Proposal Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-8 border-b-2 border-slate-900">
               <div>
@@ -996,6 +1423,7 @@ export default function AdminProposalsPage() {
               </div>
             </div>
           </div>
+          )}
         </div>
       )}
     </div>

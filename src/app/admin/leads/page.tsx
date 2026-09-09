@@ -174,7 +174,7 @@ export default function AdminLeadsPage() {
       const res = await fetch('/api/proposals/resend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ proposal: proposalToResend, leadId: lead.id }),
+        body: JSON.stringify({ proposal: proposalToResend, leadId: lead.id, format: 'plain' }),
       });
 
       const data = await res.json();
@@ -192,7 +192,7 @@ export default function AdminLeadsPage() {
         prev.map((l) => (l.id === lead.id ? { ...l, emailStatus: 'sent', sentAt: new Date() } : l))
       );
 
-      notify('success', `Proposal email dispatched to ${lead.email}.`);
+      notify('success', `Plain-text proposal email successfully dispatched to ${lead.email}.`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Resend failed';
       notify('error', msg);
