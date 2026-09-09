@@ -37,19 +37,41 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-brand-coral shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-slate-200">HQ:</strong> DLF Cyber City, Phase III, Gurugram, Haryana - 122002
+                  <strong className="text-slate-200">Address:</strong> Glitz Cinema Jalore, Jalore, Rajasthan – 343001
                 </div>
               </div>
               <div className="flex items-center gap-2 pt-0.5">
                 <Phone className="w-3.5 h-3.5 text-brand-coral shrink-0" />
-                <a href="tel:+918001234567" className="text-slate-200 hover:text-brand-coral font-bold transition-colors">
-                  +91 1800 123 4567
+                <a href="tel:+917023318111" className="text-slate-200 hover:text-brand-coral font-bold transition-colors">
+                  +91-7023318111
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
-                <a href="mailto:support@asthapay.in" className="text-slate-200 hover:text-brand-coral transition-colors">
-                  support@asthapay.in
+                <span className="text-slate-500 mr-0.5">Admin:</span>
+                <a href="mailto:info@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
+                  info@asthasoftindia.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <span className="text-slate-500 mr-0.5">Sales:</span>
+                <a href="mailto:sales@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
+                  sales@asthasoftindia.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <span className="text-slate-500 mr-0.5">Accounts:</span>
+                <a href="mailto:accounts@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
+                  accounts@asthasoftindia.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <span className="text-slate-500 mr-0.5">Support:</span>
+                <a href="mailto:support@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
+                  support@asthasoftindia.com
                 </a>
               </div>
             </div>
