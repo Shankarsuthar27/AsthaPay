@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { whyChooseUsFeatures } from '@/data/featuresData';
 import { Zap } from 'lucide-react';
 
@@ -9,7 +10,13 @@ export const WhyChooseUs: React.FC = () => {
     <section id="why-us" className="py-12 sm:py-20 bg-white relative">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Top Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
+        >
           {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FFEFEB] border border-[#FFDCD4] text-xs font-bold text-[#EA5843] mb-3 shadow-2xs">
             <Zap className="w-3.5 h-3.5 fill-[#EA5843] text-[#EA5843]" />
@@ -25,19 +32,26 @@ export const WhyChooseUs: React.FC = () => {
           <p className="text-[13.5px] sm:text-base text-slate-600 max-w-xl mx-auto mt-2.5 font-normal leading-relaxed">
             A complete platform combining services, scalability, compliance, and ongoing support.
           </p>
-        </div>
+        </motion.div>
 
         {/* Clean Responsive Grid (Stacked on Mobile, 3x2 on Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 sm:gap-x-12 sm:gap-y-14">
-          {whyChooseUsFeatures.map((item) => (
-            <div key={item.id} className="flex flex-col justify-between group">
+          {whyChooseUsFeatures.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className="flex flex-col justify-between group p-2 rounded-2xl hover:bg-slate-50/80 transition-all duration-300"
+            >
               <div>
                 {/* Number & Dash line */}
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <span className="text-[#EA5843] font-black text-lg tracking-tight shrink-0">
                     {item.number}
                   </span>
-                  <span className="w-8 h-[2px] bg-[#0A1931] rounded-full shrink-0" />
+                  <span className="w-8 h-[2px] bg-[#0A1931] rounded-full shrink-0 group-hover:w-12 group-hover:bg-[#EA5843] transition-all duration-300" />
                 </div>
 
                 {/* Title */}
@@ -53,16 +67,18 @@ export const WhyChooseUs: React.FC = () => {
 
               {/* Bottom Tags (Full width stacked pill bars on mobile, compact pills on desktop) */}
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2 sm:gap-2 pt-1">
-                {item.tags.map((tag, idx) => (
-                  <div
-                    key={idx}
+                {item.tags.map((tag, tagIdx) => (
+                  <motion.div
+                    key={tagIdx}
+                    whileHover={{ scale: 1.04, y: -1 }}
+                    whileTap={{ scale: 0.98 }}
                     className="w-full sm:w-auto text-center py-2 sm:py-1 px-4 rounded-full bg-[#EA5843] hover:bg-[#d94833] text-white text-[12px] sm:text-[10.5px] font-bold shadow-2xs transition-colors cursor-default"
                   >
                     {tag}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

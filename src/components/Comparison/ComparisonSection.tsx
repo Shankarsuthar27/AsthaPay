@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { comparisonData } from '@/data/comparisonData';
 import { DynamicIcon } from '../common/DynamicIcon';
 import { CalculatorWidget } from '../Calculator/CalculatorWidget';
-import { CheckCircle2, AlertTriangle, Sparkles, XCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
 
 export const ComparisonSection: React.FC = () => {
   const [toggleMode, setToggleMode] = useState<'with' | 'without'>('with');
@@ -13,7 +14,13 @@ export const ComparisonSection: React.FC = () => {
     <section id="comparison" className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#EEF5FF]/50 to-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10"
+        >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-coral-light border border-brand-coral/20 text-[11px] font-bold text-brand-coral mb-2.5">
             <Sparkles className="w-3 h-3" />
             <span>Turnkey vs In-House Build</span>
@@ -54,16 +61,21 @@ export const ComparisonSection: React.FC = () => {
               <span>Without AsthaPay</span>
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* 3x2 Grid of Comparison Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {comparisonData.map((card) => {
+          {comparisonData.map((card, idx) => {
             const isHighlightMode = toggleMode === 'with';
 
             return (
-              <div
+              <motion.div
                 key={card.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                whileHover={{ y: -5 }}
                 className={`bg-white rounded-3xl border shadow-soft-sm hover:shadow-card-hover transition-all duration-300 overflow-hidden flex flex-col justify-between ${
                   toggleMode === 'without' ? 'border-rose-300/80' : 'border-slate-200/90'
                 }`}
@@ -88,8 +100,8 @@ export const ComparisonSection: React.FC = () => {
                   </h5>
 
                   <div className="space-y-1.5">
-                    {card.withAsthaPay.points.map((point, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-[11px] text-slate-600">
+                    {card.withAsthaPay.points.map((point, pointIdx) => (
+                      <div key={pointIdx} className="flex items-start gap-2 text-[11px] text-slate-600">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                         <span>{point}</span>
                       </div>
@@ -98,44 +110,67 @@ export const ComparisonSection: React.FC = () => {
                 </div>
 
                 {/* Conditional Bottom Banner: Shown only when "Without AsthaPay" is selected */}
-                {toggleMode === 'without' ? (
-                  <div className="p-4 transition-all duration-300 border-t bg-rose-50 border-rose-200 text-rose-950 ring-2 ring-rose-400/40 animate-in fade-in">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                      <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wide">
-                        {card.withoutAsthaPay.alertHeading}
-                      </span>
-                    </div>
+                <AnimatePresence mode="wait">
+                  {toggleMode === 'without' ? (
+                    <motion.div
+                      key="without"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="p-4 border-t bg-rose-50 border-rose-200 text-rose-950 ring-2 ring-rose-400/40"
+                    >
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                        <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wide">
+                          {card.withoutAsthaPay.alertHeading}
+                        </span>
+                      </div>
 
-                    <p className="text-[11px] text-slate-700 leading-relaxed">
-                      {card.withoutAsthaPay.description}
-                    </p>
+                      <p className="text-[11px] text-slate-700 leading-relaxed">
+                        {card.withoutAsthaPay.description}
+                      </p>
 
-                    <div className="mt-2.5 pt-2 border-t border-rose-200/60 flex items-center justify-between text-[10px] font-bold text-rose-700">
-                      <span>Direct Cost Impact:</span>
-                      <span className="bg-white/90 px-1.5 py-0.5 rounded border border-rose-200 shadow-2xs font-mono">
-                        {card.withoutAsthaPay.costImpact}
+                      <div className="mt-2.5 pt-2 border-t border-rose-200/60 flex items-center justify-between text-[10px] font-bold text-rose-700">
+                        <span>Direct Cost Impact:</span>
+                        <span className="bg-white/90 px-1.5 py-0.5 rounded border border-rose-200 shadow-2xs font-mono">
+                          {card.withoutAsthaPay.costImpact}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="with"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="px-5 py-3 bg-emerald-50/70 border-t border-emerald-100 flex items-center justify-between text-[10.5px] font-bold text-emerald-800"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles className="w-3 h-3 text-emerald-600" />
+                        <span>Turnkey Ready Included</span>
                       </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="px-5 py-3 bg-emerald-50/70 border-t border-emerald-100 flex items-center justify-between text-[10.5px] font-bold text-emerald-800">
-                    <span className="flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-emerald-600" />
-                      <span>Turnkey Ready Included</span>
-                    </span>
-                    <span className="bg-white px-2 py-0.5 rounded-full border border-emerald-200 text-emerald-700 text-[9.5px]">
-                      Zero Extra Cost
-                    </span>
-                  </div>
-                )}
-              </div>
+                      <span className="bg-white px-2 py-0.5 rounded-full border border-emerald-200 text-emerald-700 text-[9.5px]">
+                        Zero Extra Cost
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Embedded Interactive ROI / Revenue Calculator Widget */}
-        <CalculatorWidget />
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <CalculatorWidget />
+        </motion.div>
       </div>
     </section>
   );

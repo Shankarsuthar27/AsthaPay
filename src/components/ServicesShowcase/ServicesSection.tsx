@@ -74,7 +74,13 @@ export const ServicesSection: React.FC = () => {
   return (
     <section id="services" className="relative py-12 sm:py-16 bg-white">
       {/* Top Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-6"
+      >
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-coral/10 border border-brand-coral/20 text-[11px] font-bold text-brand-coral mb-2.5 shadow-2xs">
           <Sparkles className="w-3 h-3" />
           <span>Core Services Ecosystem</span>
@@ -87,7 +93,7 @@ export const ServicesSection: React.FC = () => {
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mt-2 font-normal leading-relaxed">
           Branchless banking, BBPS utilities, citizen services, and insurance under one unified balance.
         </p>
-      </div>
+      </motion.div>
 
       {/* Sticky Tab Bar with Framer Motion layoutId */}
       <StickyTabBar activeTab={activeCategory} onTabClick={handleTabClick} />

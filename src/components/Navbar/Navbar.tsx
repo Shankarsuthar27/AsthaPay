@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { BrandLogo } from '../common/BrandLogo';
 import { MegaMenu } from './MegaMenu';
 import { SimpleDropdown } from './SimpleDropdown';
@@ -78,7 +79,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
       </div>
 
       {/* Main Navbar */}
-      <header
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'glass-nav shadow-soft-md border-b border-slate-200/80 py-2'
@@ -266,7 +270,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer */}
       <MobileMenu

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   Monitor,
   Smartphone,
@@ -186,8 +187,18 @@ export const MultiDeviceComposition: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Left Smartphone (Android App) Mockup */}
-      <div className="absolute -left-2 sm:left-2 md:left-4 -bottom-3 sm:-bottom-2 z-20 w-[115px] sm:w-[155px] md:w-[175px] bg-[#0c1017] rounded-[24px] sm:rounded-[32px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none">
+      {/* 2. Left Smartphone (Android App) Mockup with Gentle Float */}
+      <motion.div
+        animate={{
+          y: [0, -8, 0],
+        }}
+        transition={{
+          duration: 4.5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute -left-2 sm:left-2 md:left-4 -bottom-3 sm:-bottom-2 z-20 w-[115px] sm:w-[155px] md:w-[175px] bg-[#0c1017] rounded-[24px] sm:rounded-[32px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none"
+      >
         {/* Dynamic Island */}
         <div className="w-10 sm:w-14 h-2.5 sm:h-3 bg-black rounded-full mx-auto mb-1 flex items-center justify-center">
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500/60 ml-auto mr-1.5" />
@@ -240,10 +251,21 @@ export const MultiDeviceComposition: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* 3. Right WPOS Terminal Device Mockup */}
-      <div className="absolute -right-2 sm:right-2 md:right-4 -bottom-3 sm:-bottom-2 z-20 w-[105px] sm:w-[145px] md:w-[165px] bg-[#1e2530] rounded-[22px] sm:rounded-[28px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none">
+      {/* 3. Right WPOS Terminal Device Mockup with Gentle Float */}
+      <motion.div
+        animate={{
+          y: [0, -7, 0],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 0.8,
+        }}
+        className="absolute -right-2 sm:right-2 md:right-4 -bottom-3 sm:-bottom-2 z-20 w-[105px] sm:w-[145px] md:w-[165px] bg-[#1e2530] rounded-[22px] sm:rounded-[28px] p-1.5 sm:p-2 border-[3px] sm:border-4 border-slate-700 shadow-2xl text-white select-none"
+      >
         {/* Silver Thermal Printer Slot on Top */}
         <div className="bg-gradient-to-b from-slate-300 to-slate-400 rounded-t-xl sm:rounded-t-2xl p-1.5 sm:p-2 border-b-2 border-slate-500 mb-1.5 text-center text-slate-900 shadow-inner">
           <div className="w-12 sm:w-16 h-1 bg-slate-800 rounded-full mx-auto mb-0.5" />
@@ -285,7 +307,7 @@ export const MultiDeviceComposition: React.FC = () => {
             TAP / SWIPE CARD READY
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
