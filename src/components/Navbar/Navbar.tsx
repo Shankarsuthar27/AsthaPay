@@ -7,7 +7,8 @@ import { MegaMenu } from './MegaMenu';
 import { SimpleDropdown } from './SimpleDropdown';
 import { MobileMenu } from './MobileMenu';
 import { partnerDropdownItems, resourcesDropdownItems, aboutDropdownItems } from '@/data/navigationData';
-import { ChevronDown, Menu, PhoneCall, ShieldCheck, Sparkles, User, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronDown, Menu, PhoneCall, ShieldCheck, Sparkles, User, ArrowRight, Train } from 'lucide-react';
 
 interface NavbarProps {
   onOpenDemoModal: () => void;
@@ -233,12 +234,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
 
             {/* Right: CTA Buttons */}
             <div className="hidden lg:flex items-center gap-2.5">
-              <a
-                href="#portal"
-                className="text-[11.5px] font-bold text-brand-navy hover:text-brand-coral px-2.5 py-1.5 transition-colors flex items-center gap-1"
+              <Link
+                href="/irctc"
+                className="text-[11.5px] font-bold text-brand-navy hover:text-brand-coral px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-brand-coral/40 bg-white/80 hover:bg-white shadow-2xs transition-all flex items-center gap-1.5"
               >
-                Login
-              </a>
+                <Train className="w-3.5 h-3.5 text-brand-coral" />
+                <span>Become an Authorized IRCTC Agent</span>
+              </Link>
 
               <button
                 onClick={onOpenDemoModal}
@@ -247,7 +249,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
                 <span className="relative z-10 flex items-center gap-1">
                   <Sparkles className="w-3.5 h-3.5" />
                   Free Live Demo
-                </span>
+                </span> 
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </button>
             </div>

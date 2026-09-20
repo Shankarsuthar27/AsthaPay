@@ -12,7 +12,7 @@
 
   html {
     scroll-behavior: smooth;
-    font-size: 15px;
+    font-size: 16px;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
@@ -21,7 +21,19 @@
 
   @screen sm {
     html {
-      font-size: 15px;
+      font-size: 16.5px;
+    }
+  }
+
+  @screen lg {
+    html {
+      font-size: 17px;
+    }
+  }
+
+  @screen 2xl {
+    html {
+      font-size: 17.5px;
     }
   }
 

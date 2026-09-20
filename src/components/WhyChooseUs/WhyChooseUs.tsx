@@ -29,7 +29,7 @@ export const WhyChooseUs: React.FC = () => {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-[13.5px] sm:text-base text-slate-600 max-w-xl mx-auto mt-2.5 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto mt-2.5 font-normal leading-relaxed">
             A complete platform combining services, scalability, compliance, and ongoing support.
           </p>
         </motion.div>
@@ -55,12 +55,12 @@ export const WhyChooseUs: React.FC = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-[22px] sm:text-xl font-black text-[#0A1931] tracking-tight mb-2 sm:mb-2 group-hover:text-[#EA5843] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-black text-[#0A1931] tracking-tight mb-2 sm:mb-2 group-hover:text-[#EA5843] transition-colors">
                   {item.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[13.5px] sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4 sm:mb-4">
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal mb-4 sm:mb-4">
                   {item.description}
                 </p>
               </div>
@@ -72,7 +72,7 @@ export const WhyChooseUs: React.FC = () => {
                     key={tagIdx}
                     whileHover={{ scale: 1.04, y: -1 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto text-center py-2 sm:py-1 px-4 rounded-full bg-[#EA5843] hover:bg-[#d94833] text-white text-[12px] sm:text-[10.5px] font-bold shadow-2xs transition-colors cursor-default"
+                    className="w-full sm:w-auto text-center py-2 sm:py-1.5 px-4 rounded-full bg-[#EA5843] hover:bg-[#d94833] text-white text-xs sm:text-xs font-bold shadow-2xs transition-colors cursor-default"
                   >
                     {tag}
                   </motion.div>

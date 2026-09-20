@@ -7,7 +7,7 @@ import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, ArrowRight, Lock, Check
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="contact" className="bg-brand-navy-dark text-slate-400 pt-16 pb-12 border-t border-slate-800 text-xs">
+    <footer id="contact" className="bg-brand-navy-dark text-slate-400 pt-16 pb-12 border-t border-slate-800 text-xs sm:text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Grid: Company Info + 6 Link Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
@@ -15,60 +15,60 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-4">
             <BrandLogo variant="dark" size="md" />
 
-            <p className="text-slate-300 leading-relaxed text-[11.5px]">
+            <p className="text-slate-300 leading-relaxed text-xs sm:text-sm">
               AsthaPay powers 50,000+ retail banking agents and ₹5,000+ Cr in monthly volume with turnkey white-label and API infrastructure.
             </p>
 
             {/* Compliance Badges */}
             <div className="flex flex-wrap gap-1.5 pt-0.5">
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-emerald-400 text-[10px] font-bold">
-                <ShieldCheck className="w-3 h-3" /> PCI-DSS Level 1
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-emerald-400 text-[11px] font-bold">
+                <ShieldCheck className="w-3.5 h-3.5" /> PCI-DSS Level 1
               </span>
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-blue-400 text-[10px] font-bold">
-                <Lock className="w-3 h-3" /> ISO 27001
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-blue-400 text-[11px] font-bold">
+                <Lock className="w-3.5 h-3.5" /> ISO 27001
               </span>
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-amber-400 text-[10px] font-bold">
-                <CheckCircle2 className="w-3 h-3" /> NPCI Registered
+              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-amber-400 text-[11px] font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5" /> NPCI Registered
               </span>
             </div>
 
             {/* Contact & Corporate Office */}
-            <div className="space-y-2 pt-1 text-slate-400 text-[11px]">
+            <div className="space-y-2 pt-1 text-slate-400 text-xs sm:text-[13px]">
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-brand-coral shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-coral shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-slate-200">Address:</strong> Glitz Cinema Jalore, Jalore, Rajasthan – 343001
                 </div>
               </div>
               <div className="flex items-center gap-2 pt-0.5">
-                <Phone className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <Phone className="w-4 h-4 text-brand-coral shrink-0" />
                 <a href="tel:+917023318111" className="text-slate-200 hover:text-brand-coral font-bold transition-colors">
                   +91-7023318111
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <Mail className="w-4 h-4 text-brand-coral shrink-0" />
                 <span className="text-slate-500 mr-0.5">Admin:</span>
                 <a href="mailto:info@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
                   info@asthasoftindia.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <Mail className="w-4 h-4 text-brand-coral shrink-0" />
                 <span className="text-slate-500 mr-0.5">Sales:</span>
                 <a href="mailto:sales@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
                   sales@asthasoftindia.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <Mail className="w-4 h-4 text-brand-coral shrink-0" />
                 <span className="text-slate-500 mr-0.5">Accounts:</span>
                 <a href="mailto:accounts@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
                   accounts@asthasoftindia.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-brand-coral shrink-0" />
+                <Mail className="w-4 h-4 text-brand-coral shrink-0" />
                 <span className="text-slate-500 mr-0.5">Support:</span>
                 <a href="mailto:support@asthasoftindia.com" className="text-slate-200 hover:text-brand-coral transition-colors">
                   support@asthasoftindia.com
@@ -81,21 +81,21 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
             {footerSections.map((sec, idx) => (
               <div key={idx} className="space-y-2.5">
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-1.5">
+                <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-1.5">
                   {sec.title}
                 </h4>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {sec.links.map((link, lIdx) => (
                     <li key={lIdx}>
                       <a
                         href={link.href}
-                        className="hover:text-brand-coral transition-colors flex items-center justify-between group text-[11px]"
+                        className="hover:text-brand-coral transition-colors flex items-center justify-between group text-xs sm:text-[13px]"
                       >
                         <span className="group-hover:translate-x-0.5 transition-transform">
                           {link.label}
                         </span>
                         {link.badge && (
-                          <span className="text-[8px] font-bold px-1 py-0.2 bg-brand-coral/20 text-brand-coral rounded">
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 bg-brand-coral/20 text-brand-coral rounded">
                             {link.badge}
                           </span>
                         )}
@@ -109,14 +109,14 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Regulatory & Disclaimer Notice */}
-        <div className="py-6 border-b border-slate-800 text-[11px] text-slate-500 leading-relaxed space-y-2">
+        <div className="py-6 border-b border-slate-800 text-xs text-slate-500 leading-relaxed space-y-2">
           <p>
             <strong>Disclaimer:</strong> AsthaPay provides white-label technology and API platform infrastructure. Banking and AePS services are routed through RBI/NPCI-authorized partner banks. BBPS bill payments are processed via certified Bharat BillPay Operating Units.
           </p>
         </div>
 
         {/* Bottom Bar: Copyright & Grievance */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             © {new Date().getFullYear()} AsthaPay Technologies India Private Limited. All rights reserved.
           </div>

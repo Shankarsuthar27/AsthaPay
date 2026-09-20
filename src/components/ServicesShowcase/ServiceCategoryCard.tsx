@@ -98,10 +98,10 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
     >
       {/* Mobile-only Section Header (Matching Reference Screenshot) */}
       <div className="block sm:hidden mb-4">
-        <h3 className="text-[22px] font-bold text-[#ea5843] tracking-tight">
+        <h3 className="text-2xl font-bold text-[#ea5843] tracking-tight">
           {category.navTitle.includes('Services') ? category.navTitle : `${category.navTitle} Services`}
         </h3>
-        <p className="text-[13px] text-[#556987] mt-1.5 font-normal leading-relaxed">
+        <p className="text-sm text-[#556987] mt-1.5 font-normal leading-relaxed">
           {category.shortDesc}
         </p>
       </div>
@@ -110,25 +110,25 @@ export const ServiceCategoryCard: React.FC<ServiceCategoryCardProps> = ({ catego
       <div className="hidden sm:flex sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-slate-200/80 mb-5">
         <div>
           {/* Highlight pill / Category Badge */}
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-[11px] font-bold mb-2">
-            <DynamicIcon name={category.iconName} className="w-3 h-3" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-xs sm:text-[13px] font-bold mb-2">
+            <DynamicIcon name={category.iconName} className="w-3.5 h-3.5" />
             <span>{category.highlightPill}</span>
           </div>
 
           {/* Red/Coral Bold Section Title */}
-          <h3 className="text-xl sm:text-2xl font-extrabold text-red-500 tracking-tight flex items-center gap-2">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-red-500 tracking-tight flex items-center gap-2">
             <span>{category.title}</span>
           </h3>
 
           {/* Concise 1-2 line subtitle */}
-          <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mt-1.5 font-normal leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 max-w-3xl mt-1.5 font-normal leading-relaxed">
             {category.shortDesc}
           </p>
         </div>
 
         {/* Carousel Arrow Navigation Buttons & Hint */}
         <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
-          <div className="hidden sm:flex items-center gap-1 text-[10.5px] font-medium text-slate-500 bg-white/80 px-2.5 py-1 rounded-full border border-slate-200/80 shadow-2xs">
+          <div className="hidden sm:flex items-center gap-1 text-xs font-medium text-slate-500 bg-white/80 px-3 py-1 rounded-full border border-slate-200/80 shadow-2xs">
             <span>Slide to explore</span>
             <span className="font-bold text-brand-navy">({category.services.length})</span>
           </div>

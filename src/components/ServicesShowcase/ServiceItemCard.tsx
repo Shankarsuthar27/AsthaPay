@@ -20,24 +20,25 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
 
   return (
     <div
+      id={service.id}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="bg-white rounded-[26px] sm:rounded-2xl shadow-sm hover:shadow-xl border border-slate-100/90 p-3.5 sm:p-4.5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group w-[76vw] max-w-[270px] sm:min-w-[290px] sm:w-[300px] h-[310px] sm:h-[490px] hover:scale-105 select-none shrink-0"
+      className="bg-white rounded-[26px] sm:rounded-2xl shadow-sm hover:shadow-xl border border-slate-100/90 p-4 sm:p-5 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden group w-[76vw] max-w-[280px] sm:min-w-[305px] sm:w-[315px] h-[320px] sm:h-[500px] hover:scale-105 select-none shrink-0 scroll-mt-36"
     >
       {/* Top Tag & Status (Desktop Only) */}
       <div className="hidden sm:flex items-center justify-between w-full mb-1.5 z-10">
         {service.badge ? (
-          <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20">
+          <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-coral/10 text-brand-coral border border-brand-coral/20">
             {service.badge}
           </span>
         ) : (
-          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
             Turnkey API
           </span>
         )}
 
         {service.popular && (
-          <span className="flex items-center gap-1 text-[9.5px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+          <span className="flex items-center gap-1 text-[10.5px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
             <Sparkles className="w-2.5 h-2.5 text-amber-500" /> Popular
           </span>
         )}
@@ -55,42 +56,42 @@ export const ServiceItemCard: React.FC<ServiceItemCardProps> = ({
 
       {/* Mobile Title View (Matching Reference Screenshot) */}
       <div className="block sm:hidden w-full text-left px-1 mt-auto pb-1">
-        <h4 className="text-[14.5px] font-bold text-[#0A1931] line-clamp-2 leading-snug">
+        <h4 className="text-base font-bold text-[#0A1931] line-clamp-2 leading-snug">
           {service.id === 'aeps' ? 'AePS (Aadhaar Enabled Payment System)' : service.title}
         </h4>
       </div>
 
       {/* Desktop Card Title & Subtitle Below Graphic (Desktop Only) */}
-      <div className="hidden sm:flex mb-1.5 text-center w-full min-h-[46px] flex-col justify-start">
-        <h4 className="text-[14.5px] font-bold text-brand-navy group-hover:text-brand-coral transition-colors duration-200 line-clamp-1">
+      <div className="hidden sm:flex mb-1.5 text-center w-full min-h-[50px] flex-col justify-start">
+        <h4 className="text-base sm:text-lg font-bold text-brand-navy group-hover:text-brand-coral transition-colors duration-200 line-clamp-1">
           {service.title}
         </h4>
-        <p className="text-[11px] text-slate-600 mt-0.5 line-clamp-2 leading-relaxed text-center font-normal">
+        <p className="text-xs sm:text-[13px] text-slate-600 mt-0.5 line-clamp-2 leading-relaxed text-center font-normal">
           {service.shortDesc}
         </p>
       </div>
 
       {/* Desktop Feature Bullet Points (Desktop Only) */}
-      <div className="hidden sm:block space-y-1 my-1 w-full border-t border-slate-100 pt-2 text-left min-h-[62px]">
+      <div className="hidden sm:block space-y-1.5 my-1 w-full border-t border-slate-100 pt-2 text-left min-h-[66px]">
         {service.features && service.features.length > 0 ? (
           service.features.slice(0, 3).map((feat, idx) => (
-            <div key={idx} className="flex items-center gap-1.5 text-[10.5px] text-slate-600">
-              <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />
+            <div key={idx} className="flex items-center gap-1.5 text-xs sm:text-[12.5px] text-slate-600">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
               <span className="truncate">{feat}</span>
             </div>
           ))
         ) : (
-          <div className="text-[10px] text-slate-400 italic">Enterprise 99.9% Uptime SLA</div>
+          <div className="text-xs text-slate-400 italic">Enterprise 99.9% Uptime SLA</div>
         )}
       </div>
 
       {/* Desktop Card Action Link: Blue Button (Desktop Only) */}
-      <div className="hidden sm:flex pt-2 w-full items-center justify-between text-[11.5px] font-bold text-blue-600 hover:text-blue-700 transition-colors border-t border-slate-100 mt-auto">
+      <div className="hidden sm:flex pt-2 w-full items-center justify-between text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors border-t border-slate-100 mt-auto">
         <span className="flex items-center gap-1">
           Explore Service
         </span>
-        <div className="w-6 h-6 rounded-full bg-blue-50 group-hover:bg-blue-600 group-hover:text-white text-blue-600 flex items-center justify-center transition-all duration-200">
-          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+        <div className="w-6.5 h-6.5 rounded-full bg-blue-50 group-hover:bg-blue-600 group-hover:text-white text-blue-600 flex items-center justify-center transition-all duration-200">
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
         </div>
       </div>
 

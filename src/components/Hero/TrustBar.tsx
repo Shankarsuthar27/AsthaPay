@@ -96,10 +96,10 @@ export const TrustBar: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 mb-10 text-[11px] font-semibold text-slate-700"
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10 text-xs sm:text-sm font-semibold text-slate-700"
         >
-          <span className="text-slate-500 uppercase tracking-wider text-[10px] font-extrabold flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="text-slate-500 uppercase tracking-wider text-xs font-extrabold flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Trusted & Compliant With:</span>
           </span>
           {certifications.map((cert, idx) => (
@@ -110,11 +110,11 @@ export const TrustBar: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               whileHover={{ y: -2, scale: 1.03 }}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-slate-200/90 text-slate-800 shadow-2xs hover:border-[#FF5733]/40 transition-colors cursor-default"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-slate-200/90 text-slate-800 shadow-2xs hover:border-[#FF5733]/40 transition-colors cursor-default"
             >
-              <CheckCircle2 className="w-3 h-3 text-[#FF5733]" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5733]" />
               <span className="font-bold">{cert.name}</span>
-              <span className="text-[9.5px] text-slate-500 font-normal">({cert.tag})</span>
+              <span className="text-[11px] text-slate-500 font-normal">({cert.tag})</span>
             </motion.div>
           ))}
         </motion.div>
