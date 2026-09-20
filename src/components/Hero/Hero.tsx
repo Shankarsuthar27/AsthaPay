@@ -85,7 +85,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           muted
           playsInline
           preload="auto"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/AI_Video_Prompt_for_AsthaPay_H.mp4" type="video/mp4" />
           <source src="/videos/AI_Video_Prompt_for_AsthaPay_H.mp4" type="video/mp4" />
