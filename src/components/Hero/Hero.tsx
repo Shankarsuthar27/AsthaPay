@@ -75,6 +75,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
   };
 
   return (
+    <>
     <section className="relative overflow-hidden isolate h-screen min-h-[600px] max-h-[1200px] flex flex-col justify-between">
       {/* 1. Cinematic Background Video Layer — fills the entire section */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0 select-none">
@@ -151,12 +152,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-center space-y-6 sm:space-y-8"
+          className="text-center space-y-5 sm:space-y-6"
         >
           {/* Pill Badge */}
           <motion.div variants={itemFadeDown} className="inline-block">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/95 border border-slate-200 shadow-soft-sm text-xs sm:text-sm font-bold text-brand-navy mx-auto hover:border-brand-coral/40 transition-colors">
-              <span className="flex h-2 w-2 rounded-full bg-brand-coral animate-ping"></span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-slate-200 shadow-soft-sm text-xs sm:text-[13px] font-bold text-brand-navy mx-auto hover:border-brand-coral/40 transition-colors">
+              <span className="flex h-1.5 w-1.5 rounded-full bg-brand-coral animate-ping"></span>
               <span className="text-brand-coral font-bold">⚡ Turnkey Stack</span>
               <span className="text-slate-300">|</span>
               <span className="text-slate-600 font-medium">White-Label & APIs</span>
@@ -166,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           {/* Bold Headline */}
           <motion.h1
             variants={itemFadeUp}
-            className="text-4xl sm:text-6xl lg:text-[4.2rem] xl:text-[4.75rem] font-black text-brand-navy tracking-tight leading-[1.12] max-w-5xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-black text-brand-navy tracking-tight leading-[1.12] max-w-4xl mx-auto"
           >
             Power Your FinTech With{' '}
             <span className="gradient-text-coral">Turnkey Banking</span> APIs
@@ -175,7 +176,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           {/* Subtitle */}
           <motion.p
             variants={itemFadeUp}
-            className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-normal"
+            className="text-base sm:text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed font-normal"
           >
             Launch AePS, Micro-ATM, DMT & BBPS in 24 hours under your own brand.
           </motion.p>
@@ -183,14 +184,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           {/* Feature Checkpoints */}
           <motion.div
             variants={itemFadeUp}
-            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-1 text-xs sm:text-sm md:text-base font-semibold text-slate-700"
+            className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-1 text-xs sm:text-sm font-semibold text-slate-700"
           >
             <motion.span
               variants={pillVariants}
               whileHover={{ y: -2, scale: 1.03 }}
-              className="inline-flex items-center gap-2 bg-white/95 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-slate-200/80 shadow-2xs transition-shadow hover:shadow-soft-sm"
+              className="inline-flex items-center gap-1.5 bg-white/95 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-slate-200/80 shadow-2xs transition-shadow hover:shadow-soft-sm"
             >
-              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0" />
+              <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Unified Wallet</span>
             </motion.span>
             <motion.span
@@ -214,17 +215,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           {/* Dual CTAs */}
           <motion.div
             variants={itemFadeUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 sm:pt-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2"
           >
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               onClick={onOpenDemoModal}
-              className="w-full sm:w-auto px-8 sm:px-10 py-4 rounded-full bg-gradient-to-r from-brand-coral via-[#FF6247] to-brand-coral-hover text-white font-bold text-base sm:text-lg shadow-coral-glow hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2.5 group relative overflow-hidden cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-brand-coral via-[#FF6247] to-brand-coral-hover text-white font-bold text-sm sm:text-base shadow-coral-glow hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group relative overflow-hidden cursor-pointer"
             >
-              <span className="relative z-10 flex items-center gap-2.5">
+              <span className="relative z-10 flex items-center gap-2">
                 <span>Schedule Free Demo</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </motion.button>
@@ -233,21 +234,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               href="#banking"
-              className="w-full sm:w-auto px-7 sm:px-9 py-4 rounded-full bg-white hover:bg-slate-50 text-brand-navy font-bold text-base sm:text-lg border border-slate-200/90 shadow-soft-sm hover:border-brand-coral/40 transition-all flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-brand-navy font-bold text-sm sm:text-base border border-slate-200/90 shadow-soft-sm hover:border-brand-coral/40 transition-all flex items-center justify-center gap-1.5 group"
             >
-              <Terminal className="w-5 h-5 text-brand-coral" />
+              <Terminal className="w-4 h-4 text-brand-coral" />
               <span>Explore Services</span>
-              <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-brand-coral group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-brand-coral group-hover:translate-x-0.5 transition-all" />
             </motion.a>
           </motion.div>
 
           {/* Small reassurance */}
           <motion.div
             variants={itemFadeUp}
-            className="flex items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm md:text-[15px] text-slate-600 pt-2"
+            className="flex items-center justify-center gap-2.5 text-xs sm:text-[13px] text-slate-500 pt-1.5"
           >
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" /> Zero Deposit
+            <span className="flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Zero Deposit
             </span>
             <span>•</span>
             <span>No Code Setup</span>
@@ -256,11 +257,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Embedded Trust & Certifications Bar */}
-      <div className="relative z-10">
-        <TrustBar />
-      </div>
     </section>
+
+    {/* Trust & Certifications Bar — rendered below the hero */}
+    <TrustBar />
+    </>
   );
 };
