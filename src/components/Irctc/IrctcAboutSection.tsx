@@ -180,7 +180,7 @@ export const IrctcAboutSection: React.FC = () => {
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             <Link
-              href="/irctc#enquiry"
+              href="/become-an-irctc-agent#enquiry"
               className="px-6 py-3.5 rounded-xl bg-[#D8232A] hover:bg-[#B71C1C] text-white font-bold text-sm shadow-md hover:shadow-xl transition-all flex items-center gap-2 active:scale-95"
             >
               <span>Register as an Agent Now</span>
