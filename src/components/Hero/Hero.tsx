@@ -167,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
           {/* Bold Headline */}
           <motion.h1
             variants={itemFadeUp}
-            className="text-3xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-black text-brand-navy tracking-tight leading-[1.12] max-w-4xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-black text-white tracking-tight leading-[1.12] max-w-4xl mx-auto"
           >
             Power Your FinTech With{' '}
             <span className="gradient-text-coral">Turnkey Banking</span> APIs
