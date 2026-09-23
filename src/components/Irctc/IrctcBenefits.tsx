@@ -20,7 +20,7 @@ const BENEFITS = [
 
 export const IrctcBenefits: React.FC = () => {
   return (
-    <section id="benefits" className="py-14 sm:py-20 bg-white relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+    <section id="benefits" className="py-14 sm:py-20 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Vector Illustration matching reference */}

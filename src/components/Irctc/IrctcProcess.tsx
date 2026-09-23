@@ -39,7 +39,7 @@ const PROCESS_STEPS = [
 
 export const IrctcProcess: React.FC = () => {
   return (
-    <section id="process" className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200/80 scroll-mt-20 sm:scroll-mt-24">
+    <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Header */}
         <div className="max-w-3xl mx-auto mb-12 sm:mb-16 space-y-2">

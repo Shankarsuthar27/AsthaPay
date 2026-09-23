@@ -251,7 +251,7 @@ export const DEFAULT_PROPOSAL_CONFIG: ProposalModularConfig = {
     greeting: 'Dear {{fullName}},',
     bodyIntro: 'Greetings from Asthasoft Technologies Pvt. Ltd.!\nAsthasoft Technologies Private Limited is an innovative Fintech Organization that provides cutting-edge payment solutions to individuals and businesses. We are excited to present our White Label Software Business Proposal to {{companyName}}.\nOur White Label Software is designed to simplify the payment process for businesses of all sizes.',
     signoff: 'We look forward to demonstrating the platform to you.\n\nWarm regards,\nBusiness Development & Solutions Team\nAsthasoft Technologies Pvt. Ltd.',
-    format: 'plain',
+    format: 'both',
   },
   termsAndConditions: [
     '18 % GST will be applicable on above rate.',

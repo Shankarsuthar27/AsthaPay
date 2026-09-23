@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ShieldCheck, CheckCircle2, Send } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, CheckCircle2, Send, Loader2 } from 'lucide-react';
 
 interface DarkHeroCTAProps {
   onOpenDemoModal: () => void;
@@ -10,12 +10,39 @@ interface DarkHeroCTAProps {
 
 export const DarkHeroCTA: React.FC<DarkHeroCTAProps> = ({ onOpenDemoModal }) => {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email || !email.includes('@')) return;
+    setLoading(true);
+    setErrorMessage('');
+    try {
+      const res = await fetch('/api/demo-requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: 'Sandbox Partner',
+          businessEmail: email.trim().toLowerCase(),
+          mobileNumber: '+91 9999999999',
+          companyName: email.split('@')[1]?.split('.')[0]?.toUpperCase() || 'Sandbox Partner',
+          partnershipModel: 'Enterprise REST APIs',
+          retailNetwork: '50–200 Retailers',
+          selectedServices: ['Aadhaar Enabled Payment System (AePS)', 'Micro ATM', 'BBPS', 'Payout APIs'],
+          additionalRequirements: 'Requested Instant Sandbox & API Swagger Documentation via Homepage CTA',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit request');
+      }
       setSubmitted(true);
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : 'Error sending credentials. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -163,14 +190,30 @@ export const DarkHeroCTA: React.FC<DarkHeroCTAProps> = ({ onOpenDemoModal }) => 
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div className="p-2 rounded-lg bg-rose-500/20 border border-rose-400/30 text-rose-300 text-[11px]">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: loading ? 1 : 1.02 }}
+                    whileTap={{ scale: loading ? 1 : 0.98 }}
                     type="submit"
-                    className="w-full py-3 px-5 rounded-xl bg-brand-coral hover:bg-brand-coral-hover text-white text-[11px] font-black uppercase tracking-wider shadow-coral-glow transition-all flex items-center justify-center gap-1.5"
+                    disabled={loading}
+                    className="w-full py-3 px-5 rounded-xl bg-brand-coral hover:bg-brand-coral-hover text-white text-[11px] font-black uppercase tracking-wider shadow-coral-glow transition-all flex items-center justify-center gap-1.5 disabled:opacity-60 cursor-pointer"
                   >
-                    <span>Get Sandbox Access</span>
-                    <Send className="w-3 h-3" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Sending Sandbox Access...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Get Sandbox Access</span>
+                        <Send className="w-3 h-3" />
+                      </>
+                    )}
                   </motion.button>
 
                   <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-white/10">

@@ -119,7 +119,7 @@ export const IrctcFaqAccordion: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-14 sm:py-20 bg-slate-50 scroll-mt-20 sm:scroll-mt-24">
+    <section className="py-14 sm:py-20 bg-slate-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header matching reference */}
         <div className="text-center mb-10 space-y-4">

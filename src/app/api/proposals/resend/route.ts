@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
       proposal.client.businessEmail = body.email;
     }
 
-    // Attempt email dispatch (supports plain text or HTML, defaults to plain)
-    const format = body.format || 'plain';
+    // Attempt email dispatch (supports plain text, HTML, or both, defaults to both)
+    const format = body.format || 'both';
     const result = await sendProposalEmail(proposal as GeneratedProposal, { format });
 
     // Update database status if leadId is provided

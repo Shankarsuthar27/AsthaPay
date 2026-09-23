@@ -174,7 +174,7 @@ export default function AdminLeadsPage() {
       const res = await fetch('/api/proposals/resend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ proposal: proposalToResend, leadId: lead.id, format: 'plain' }),
+        body: JSON.stringify({ proposal: proposalToResend, leadId: lead.id, format: 'both' }),
       });
 
       const data = await res.json();
