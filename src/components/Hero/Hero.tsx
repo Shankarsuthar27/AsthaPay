@@ -127,23 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemoModal }) => {
 
       {/* Video Play / Pause Subtle Floating Toggle */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-20">
-        <button
-          onClick={toggleVideoPlayback}
-          aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/85 hover:bg-white text-slate-700 hover:text-slate-900 border border-slate-200/90 shadow-sm backdrop-blur-md text-xs font-semibold transition-all duration-200 active:scale-95 group cursor-pointer"
-        >
-          {isPlaying ? (
-            <>
-              <Pause className="w-3.5 h-3.5 text-brand-coral" />
-              <span className="hidden sm:inline">Pause Motion</span>
-            </>
-          ) : (
-            <>
-              <Play className="w-3.5 h-3.5 text-emerald-600 fill-emerald-600" />
-              <span className="hidden sm:inline">Play Motion</span>
-            </>
-          )}
-        </button>
+      
       </div>
 
       {/* 2. Hero Foreground Content */}
