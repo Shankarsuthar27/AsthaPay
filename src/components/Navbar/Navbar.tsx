@@ -235,7 +235,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
             {/* Right: CTA Buttons */}
             <div className="hidden lg:flex items-center gap-2.5">
               <Link
-                href="/become-an-irctc-agent"
+                href="/irctc"
                 className="text-[11.5px] font-bold text-brand-navy hover:text-brand-coral px-3 py-1.5 rounded-full border border-slate-200/80 hover:border-brand-coral/40 bg-white/80 hover:bg-white shadow-2xs transition-all flex items-center gap-1.5"
               >
                 <Train className="w-3.5 h-3.5 text-brand-coral" />

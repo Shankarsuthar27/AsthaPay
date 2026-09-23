@@ -265,7 +265,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
           {/* Drawer Bottom CTA Button */}
           <div className="pt-6 border-t border-slate-100 space-y-2.5 mt-6">
             <Link
-              href="/become-an-irctc-agent"
+              href="/irctc"
               onClick={onClose}
               className="w-full py-2.5 px-4 rounded-full border border-slate-200 bg-slate-50 text-brand-navy hover:text-brand-coral hover:bg-white font-bold text-xs flex items-center justify-center gap-2 shadow-2xs transition-all"
             >
