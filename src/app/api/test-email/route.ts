@@ -24,8 +24,18 @@ export async function GET(req: NextRequest) {
 
     const emailResult = await sendProposalEmail(testProposal, { format });
 
+    let diagnosis = 'Email delivered successfully to recipient.';
+    if (emailResult.simulated) {
+      diagnosis = 'WARNING: Running in SANDBOX / SIMULATED mode. No real email was sent because neither RESEND_API_KEY nor SMTP credentials (EMAIL_USER / EMAIL_PASSWORD) are set in the hosting environment variables.';
+    } else if (!emailResult.clientDelivered && emailResult.adminDelivered) {
+      diagnosis = 'WARNING: Email was delivered to Admin owner ONLY, but blocked from sending to the customer. This occurs when using Resend without a verified domain (onboarding@resend.dev free test restriction). Please verify your domain at resend.com/domains or configure Gmail SMTP.';
+    } else if (!emailResult.success) {
+      diagnosis = `ERROR: Email dispatch failed: ${emailResult.error || 'Check server logs'}`;
+    }
+
     return NextResponse.json({
-      success: emailResult.success || emailResult.clientDelivered,
+      success: emailResult.success && emailResult.clientDelivered,
+      diagnosis,
       recipient: recipientEmail,
       emailResult,
       envConfiguration: {
