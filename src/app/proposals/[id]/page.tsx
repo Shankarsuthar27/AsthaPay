@@ -22,6 +22,7 @@ import {
 import { GeneratedProposal } from '@/types/admin';
 import { fetchAllLeads } from '@/lib/leadsService';
 import { synthesizeProposal } from '@/lib/proposalEngine';
+import { DEFAULT_PROPOSAL_CONFIG } from '@/lib/proposalConfig';
 import Link from 'next/link';
 
 export default function ProposalViewPage() {
@@ -388,13 +389,67 @@ export default function ProposalViewPage() {
           </div>
         </section>
 
-        {/* 7. Commercial Terms */}
+        {/* 7. Commercial Slabs & Payout Matrix */}
         <section className="mb-10">
           <h3 className="text-xs font-black uppercase tracking-wider text-[#FF5733] mb-1">
             Section 07
           </h3>
           <h2 className="text-lg font-black text-slate-900 mb-3">
-            Commercial Structure &amp; Pricing Framework
+            Commercial Slabs &amp; Payout Matrix
+          </h2>
+
+          {/* Commercial Commission Table */}
+          <div className="rounded-2xl border border-slate-200 overflow-hidden mb-6 shadow-sm">
+            <div className="bg-[#0A1931] px-4 py-3 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <h4 className="font-bold text-xs text-white">Default Commission Payout Structure</h4>
+                <p className="text-[11px] text-slate-300">Instant real-time wallet settlement on every transaction</p>
+              </div>
+              <span className="px-2.5 py-1 rounded bg-[#FF5733] text-white text-[10px] font-black uppercase tracking-wider w-fit">
+                Real-Time 24x7 IMPS
+              </span>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+                    <th className="py-2.5 px-4">Service / Transaction Slab</th>
+                    <th className="py-2.5 px-4 w-32">Type</th>
+                    <th className="py-2.5 px-4 w-36">Payout / Rate</th>
+                    <th className="py-2.5 px-4">Settlement &amp; Notes</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {((proposal.commercialSlabs && proposal.commercialSlabs.length > 0)
+                    ? proposal.commercialSlabs
+                    : DEFAULT_PROPOSAL_CONFIG.commercialSlabs
+                  ).map((slab, i) => (
+                    <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}>
+                      <td className="py-2.5 px-4 font-bold text-slate-800">{slab.service}</td>
+                      <td className="py-2.5 px-4 text-slate-600 font-medium capitalize">
+                        {slab.commissionType === 'fixed' ? 'Fixed (₹)' : 'Percentage (%)'}
+                      </td>
+                      <td className="py-2.5 px-4 font-mono font-black text-[#FF5733]">
+                        {slab.commissionType === 'fixed' ? `₹${Number(slab.value).toFixed(2)}` : `${Number(slab.value).toFixed(2)}%`}
+                      </td>
+                      <td className="py-2.5 px-4 text-slate-500 text-[11px]">
+                        {slab.notes || 'Instant wallet credit'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 text-[11px] text-slate-500 italic">
+              * Note: All commissions are credited directly to your master wallet in real-time. Custom tier overrides can be configured directly in your admin panel.
+            </div>
+          </div>
+
+          <h3 className="text-xs font-black uppercase tracking-wider text-[#FF5733] mb-1">
+            Section 08
+          </h3>
+          <h2 className="text-lg font-black text-slate-900 mb-3">
+            Commercial Pricing Framework
           </h2>
           <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3">
             <p className="text-slate-700 leading-relaxed">

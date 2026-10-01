@@ -350,6 +350,7 @@ export function synthesizeProposal(
     technologyInfrastructure,
     implementationRoadmap,
     commercialTerms,
+    commercialSlabs: config.commercialSlabs || [],
     callToAction: {
       title: 'Ready to Explore Your Turnkey Platform?',
       description: 'Experience a personalized demonstration of your white-label admin panel, distributor management, and live banking switches.',

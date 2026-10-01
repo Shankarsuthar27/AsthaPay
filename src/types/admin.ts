@@ -57,6 +57,7 @@ export interface GeneratedProposal {
   technologyInfrastructure: string[];
   implementationRoadmap: RoadmapPhase[];
   commercialTerms: CommercialTerms;
+  commercialSlabs?: CommercialSlab[];
   callToAction: {
     title: string;
     description: string;

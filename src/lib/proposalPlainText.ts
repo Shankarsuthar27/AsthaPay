@@ -1,12 +1,22 @@
 // src/lib/proposalPlainText.ts
 // Client-safe & Server-safe Executive Plain-Text FinTech Proposal Formatter
+// Matches official White-Label Commercial Proposal reference format
 
-import { GeneratedProposal } from '@/types/admin';
+import { GeneratedProposal, CommercialSlab, RoadmapPhase } from '@/types/admin';
 import { ProposalModularConfig, DEFAULT_PROPOSAL_CONFIG } from '@/lib/proposalConfig';
 
 /**
- * Generates an easy-to-understand, friendly, executive plain-text proposal email body
- * Pure plain text without HTML tags - ideal for plain-text email clients, SMS, and clipboard copy.
+ * Formats rate value for plain-text display
+ */
+function formatSlabRateText(slab: CommercialSlab): string {
+  if (slab.commissionType === 'fixed') {
+    return `₹${Number(slab.value).toFixed(2)}`;
+  }
+  return `${Number(slab.value).toFixed(2)}%`;
+}
+
+/**
+ * Generates official clean plain-text proposal matching the executive commercial matrix format
  */
 export function generateProposalPlainText(
   proposal: GeneratedProposal,
@@ -14,94 +24,101 @@ export function generateProposalPlainText(
 ): string {
   const { 
     client, 
-    requirements, 
     proposalId, 
+    generatedAt,
+    commercialTerms,
   } = proposal;
 
   const config = customConfig || DEFAULT_PROPOSAL_CONFIG;
-  const brand = config.companyInfo?.brandName || 'AsthaPay';
   const company = config.companyInfo?.companyName || 'Asthasoft Technologies Pvt. Ltd.';
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const proposalUrl = `${appUrl}/proposals/${proposalId}`;
-  const pdfDownloadUrl = `${appUrl}/api/proposals/${proposalId}/pdf`;
-  const attachmentFilename = `${(client.companyName || 'Partner').replace(/[^a-zA-Z0-9_-]/g, '_')}-fintech-proposal.pdf`;
+  const brand = config.companyInfo?.brandName || 'AsthaPay';
+  const address = config.companyInfo?.address || 'Glitz cinema , Jalore Rajasthan 343001';
 
-  // Selected services list
-  const selectedList = (requirements?.selectedServices && requirements.selectedServices.length > 0)
-    ? requirements.selectedServices.map((s, idx) => `  ${idx + 1}. ${s}`).join('\n')
-    : '  1. Aadhaar Enabled Payment System (AePS)\n  2. Domestic Money Transfer (DMT)\n  3. Micro ATM / mPOS\n  4. BBPS Utility Bill Payments';
+  const clientCompany = client.companyName || 'Metro Digital Services';
+  const clientName = client.fullName || 'Rahul Verma';
+  const clientEmail = client.businessEmail || 'rahul@metrodigital.in';
+  const clientPhone = client.mobileNumber || '+91 98111 22334';
+  const refId = proposalId || 'FIN-2026-LIVE';
+  const dateStr = generatedAt || '1 October 2026';
 
-  return `Dear ${client.fullName || 'Valued Partner'},
+  // Slabs
+  const slabs: CommercialSlab[] = (proposal.commercialSlabs && proposal.commercialSlabs.length > 0)
+    ? proposal.commercialSlabs
+    : config.commercialSlabs || DEFAULT_PROPOSAL_CONFIG.commercialSlabs;
 
-Greetings from ${company}.
+  const slabsRows = slabs.map((s) => `${s.service}\t${formatSlabRateText(s)}\t${s.notes || 'Instant credit'}`).join('\n');
 
-We are pleased to present our White-Label Fintech Software Proposal for ${client.companyName || 'your esteemed organization'}. Our end-to-end platform is built to streamline digital payments, optimize distribution networks, and deliver enterprise-grade reliability for your operations.
+  // Roadmap
+  const roadmap: RoadmapPhase[] = (proposal.implementationRoadmap && proposal.implementationRoadmap.length > 0)
+    ? proposal.implementationRoadmap
+    : config.implementationRoadmap || DEFAULT_PROPOSAL_CONFIG.implementationRoadmap;
 
-With our white-label solution, you maintain complete brand ownership—including your custom domain, tailored user interface, dedicated AWS server infrastructure, and proprietary APIs.
+  const roadmapText = roadmap.map((phase) => {
+    return `${phase.phase}\n${phase.duration}\n${phase.title}\n\n${phase.description}`;
+  }).join('\n\n');
 
+  // Terms
+  const terms = (config.termsAndConditions && config.termsAndConditions.length > 0)
+    ? config.termsAndConditions
+    : DEFAULT_PROPOSAL_CONFIG.termsAndConditions;
 
-Standard Deliverables Across All Packages:
+  const termsText = terms.join('\n');
 
-• Custom responsive website and corporate branding
-• Dedicated Android mobile application
-• Dedicated AWS cloud server hosting and setup
-• Domain registration and complete Web Admin Panel
-• Complimentary automated SMS & email transactional alerts
+  return `${brand}
+Enterprise Turnkey B2B FinTech & Banking Switch Infrastructure
 
-Selected Services for Launch (${requirements?.selectedServices?.length || 4}):
-${selectedList}
+${address}
 
-Proposal Documents & Access:
-• Commercials & Commission Matrix: ${attachmentFilename}
-• Interactive Online Proposal: ${proposalUrl}
-• Direct Download: ${pdfDownloadUrl}
+Commercial Proposal
+REF: ${refId}
 
+Date: ${dateStr}
 
-Core Platform Capabilities:
+Prepared Specifically For
+${clientCompany}
 
-• Multi-Tier Hierarchy: Create unlimited Retailer, Distributor, and Master Distributor accounts.
-• Flexible Wallet Top-Ups: Native support for UPI QR, Virtual Accounts, Cash Deposit, and IMPS/NEFT/RTGS.
-• Digital Onboarding: Streamlined e-KYC via real-time PAN and verification services.
-• Instant Settlements: Automated, real-time payouts for AEPS and mATM transactions.
-• Hardware Ready: Out-of-the-box compatibility with branded mATM and kiosk devices.
-• API Re-distribution: Publish and commercialize your own downstream APIs to external partners.
-• Business Operations: Automated TDS/GST invoicing, member daybooks, ticket-based dispute resolution, and dynamic content management.
+Attn: ${clientName}
 
+${clientEmail} • ${clientPhone}
 
-Commercial Terms & Conditions:
+Platform Architecture
+Enterprise White-Label Switch
 
-• Applicable Taxes: 18% GST applies to all quoted rates.
-• Payment Schedule: 70% advance upon contract signing; 30% balance due prior to credential delivery.
-• Setup Policy: Initial setup and deployment fees are non-refundable.
-• App Store Setup: Google Play Console registration ($25 USD) is billed separately.
-• Annual Maintenance (AMC): INR 8,000 + 18% GST.
+Web Portal • Android APK • Micro ATM
 
-Required Onboarding Documents:
-1. Authorized Signatory Photo ID
-2. Proof of Business Address
-3. PAN Card Copy
-4. Business Registration / Incorporation Certificate
-5. Cancelled Cheque (for payout account verification)
+24x7 Instant Settlement Rails
 
+Executive Overview
+Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform, AsthaPay has engineered a comprehensive multi-tiered infrastructure solution. Under this deployment, ${clientCompany} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.
 
-Engagement Summary:
+Commercial Pricing & License Terms
+Platform Setup Fee\t${commercialTerms?.setupFee || 'Customized based on selected platform tier and white-label mobile app provisioning.'}
+Monthly Maintenance / AMC\t${commercialTerms?.monthlyFee || 'Covers cloud server scaling, multi-bank switch routing, SSL certificates, and technical support.'}
+API Charges\t${commercialTerms?.apiCharges || 'Included in enterprise package with zero per-hit overhead on standard transactions.'}
+Transaction Charges\t${commercialTerms?.transactionCharges || 'Zero debit MDR for AePS and Micro ATM; standard IMPS commercial slabs apply for DMT.'}
+Hardware mPOS / PIN-Pad\t${commercialTerms?.hardwareCharges || 'Hardware mPOS and Biometric scanners available at volume distributor rates.'}
+* Note: ${commercialTerms?.note || 'Commercial pricing will be finalized based on the selected services, transaction volume, infrastructure requirements, and integration scope discussed during your live product demonstration.'}
 
+Proposed Commercial Commission Matrix
+Service\tCommercial Rate\tNotes & Settlement
+${slabsRows}
 
-• Reference ID: ${proposalId}
-• Client Company: ${client.companyName}
-• Primary Contact: ${client.fullName} (${client.mobileNumber}, ${client.businessEmail})
-• Architecture Model: ${requirements.partnershipModel || 'White-Label B2B Portal & App'}
-• Target Network Size: ${requirements.retailNetwork || '50–200 Retailers'}
+Implementation Roadmap
+${roadmapText}
 
-We look forward to demonstrating the platform and supporting your business expansion.
+Terms & Conditions
+${termsText}
 
-Warm regards,
+For ${clientCompany}
 
-Business Development & Solutions Team
-${company}
-Brand: ${brand}
-Support: ${config.companyInfo?.supportEmail || 'info@asthasoftindia.com'}
-Direct Line: ${config.companyInfo?.phone || '+91-7023318111'}
-Website: ${config.companyInfo?.websiteUrl || 'https://asthapay.in'}
-Address: ${config.companyInfo?.address || 'Glitz cinema, Jalore, Rajasthan 343001'}`.trim();
+Authorized Signatory
+
+Name & Designation
+
+For ${company}
+
+AsthaPay Solutions
+Authorized FinTech Solutions Director
+
+Turnkey FinTech Switch Division`.trim();
 }

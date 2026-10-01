@@ -66,13 +66,14 @@ export const DEFAULT_PROPOSAL_CONFIG: ProposalModularConfig = {
     note: 'Commercial pricing will be finalized based on the selected services, transaction volume, infrastructure requirements, and integration scope discussed during your live product demonstration.',
   },
   commercialSlabs: [
-    { service: 'AePS Cash Withdrawal (₹3000 - ₹10,000)', commissionType: 'fixed', value: 13.0, notes: 'Highest tier instant credit' },
-    { service: 'Micro ATM / mPOS (₹3000 - ₹10,000)', commissionType: 'fixed', value: 13.5, notes: 'Multi-bank switch routing' },
+    { service: 'AePS Cash Withdrawal (Rs. 3,000 - Rs. 10,000)', commissionType: 'fixed', value: 13.0, notes: 'Highest tier instant credit' },
+    { service: 'Micro ATM / mPOS Cash Withdrawal', commissionType: 'fixed', value: 13.5, notes: 'Multi-bank switch routing' },
     { service: 'Domestic Money Transfer (DMT)', commissionType: 'percentage', value: 0.45, notes: 'IMPS 24x7 instant settlement' },
-    { service: 'BBPS Electricity & Utility Bills', commissionType: 'fixed', value: 2.5, notes: 'Per bill cash-back / rebate' },
+    { service: 'BBPS Electricity & Utility Bills', commissionType: 'fixed', value: 2.5, notes: 'Per bill cashback / rebate' },
     { service: 'NSDL / UTI PAN Card Application', commissionType: 'fixed', value: 12.0, notes: 'E-KYC biometric instant PAN' },
-    { service: 'IRCTC Authorized Agent Ticket', commissionType: 'fixed', value: 40.0, notes: 'AC Class booking fee allowance' },
-    { service: 'UPI Cash at POS / QR Payout', commissionType: 'percentage', value: 0.20, notes: 'Zero chargeback guarantee' },
+    { service: 'IRCTC Authorized Agent Rail Ticket', commissionType: 'fixed', value: 40.0, notes: 'AC Class booking allowance' },
+    { service: 'Prepaid Mobile & DTH Recharge', commissionType: 'percentage', value: 3.50, notes: 'All-operator instant top-up' },
+    { service: 'UPI Cash at POS / Dynamic QR Payout', commissionType: 'percentage', value: 0.20, notes: 'Zero chargeback guarantee' },
   ],
   servicesCatalog: {
     'Aadhaar Enabled Payment System (AePS)': {
