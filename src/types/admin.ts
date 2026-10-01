@@ -39,6 +39,7 @@ export interface CommercialTerms {
 export interface GeneratedProposal {
   proposalId: string;
   generatedAt: string;
+  selectedPlan?: string;
   client: {
     fullName: string;
     businessEmail: string;
@@ -49,6 +50,7 @@ export interface GeneratedProposal {
     partnershipModel: string;
     retailNetwork: string;
     selectedServices: string[];
+    selectedPlan?: string;
     additionalRequirements?: string;
   };
   executiveSummary: string;
@@ -76,6 +78,7 @@ export interface Lead {
   businessType: string;     // Partnership Model
   estimatedRetailers: string; // Retail Network size
   selectedServices: string[];
+  selectedPlan?: string;
   additionalRequirements?: string;
   source?: string;          // Form source / referral
   utmCampaign?: string;

@@ -54,6 +54,7 @@ export default function ProposalViewPage() {
             partnershipModel: matchedLead.businessType || 'White-Label B2B Portal & App',
             retailNetwork: matchedLead.estimatedRetailers || '100 - 500 Retailers',
             selectedServices: matchedLead.selectedServices || ['AePS Biometric', 'Micro ATM / mPOS'],
+            selectedPlan: matchedLead.selectedPlan,
             additionalRequirements: matchedLead.additionalRequirements,
           });
           synth.proposalId = matchedLead.proposalId || proposalId;
@@ -67,6 +68,7 @@ export default function ProposalViewPage() {
             companyName: 'FinTech Enterprise',
             partnershipModel: 'White-Label B2B Portal & App',
             retailNetwork: '200 - 1,000+ Retailers',
+            selectedPlan: 'Advanced Plan',
             selectedServices: [
               'Aadhaar Enabled Payment System (AePS)',
               'Domestic Money Transfer (DMT)',
@@ -209,8 +211,15 @@ export default function ProposalViewPage() {
             </div>
 
             <div className="space-y-1 text-xs">
-              <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Solution Model:</span>
-              <p className="font-black text-[#0A1931] text-sm">{proposal.requirements.partnershipModel}</p>
+              <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Solution Model &amp; Package Tier:</span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <p className="font-black text-[#0A1931] text-sm">{proposal.requirements.partnershipModel}</p>
+                {(proposal.selectedPlan || proposal.requirements.selectedPlan) && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-orange-100 text-[#FF5733] border border-orange-200">
+                    {proposal.selectedPlan || proposal.requirements.selectedPlan}
+                  </span>
+                )}
+              </div>
               <p className="text-slate-600 font-medium">Planned Retail Network: <strong className="text-slate-900">{proposal.requirements.retailNetwork}</strong></p>
             </div>
           </div>
@@ -257,6 +266,14 @@ export default function ProposalViewPage() {
                   <td className="py-2.5 px-4 font-bold text-slate-600">Target Launch Services</td>
                   <td className="py-2.5 px-4 font-bold text-slate-900">{proposal.requirements.selectedServices.length} Turnkey Services Selected</td>
                 </tr>
+                {(proposal.selectedPlan || proposal.requirements.selectedPlan) && (
+                  <tr className="border-b border-slate-100">
+                    <td className="py-2.5 px-4 font-bold text-slate-600">Selected Platform Tier</td>
+                    <td className="py-2.5 px-4 font-extrabold text-[#FF5733]">
+                      {proposal.selectedPlan || proposal.requirements.selectedPlan}
+                    </td>
+                  </tr>
+                )}
                 <tr>
                   <td className="py-2.5 px-4 font-bold text-slate-600">Operating Brand / Entity</td>
                   <td className="py-2.5 px-4 font-extrabold text-slate-900">{proposal.client.companyName}</td>

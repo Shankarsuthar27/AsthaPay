@@ -155,6 +155,7 @@ export interface ProposalInput {
   partnershipModel: string;
   retailNetwork: string;
   selectedServices: string[];
+  selectedPlan?: string;
   additionalRequirements?: string;
   customProposalId?: string;
 }
@@ -174,7 +175,8 @@ export function synthesizeProposal(
   // 1. DYNAMIC EXECUTIVE SUMMARY
   let executiveSummary = '';
   if (input.partnershipModel.includes('White-Label')) {
-    executiveSummary = `Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform supporting an anticipated network of ${input.retailNetwork}, ${config.companyInfo.brandName} has engineered a comprehensive, multi-tiered infrastructure solution. Under this deployment, ${input.companyName || 'your organization'} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch switches, instant commission distribution, and seamless retailer onboarding.`;
+    const planSuffix = input.selectedPlan ? ` under the ${input.selectedPlan}` : '';
+    executiveSummary = `Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform${planSuffix} supporting an anticipated network of ${input.retailNetwork}, ${config.companyInfo.brandName} has engineered a comprehensive, multi-tiered infrastructure solution. Under this deployment, ${input.companyName || 'your organization'} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.`;
   } else if (input.partnershipModel.includes('Master Distributor')) {
     executiveSummary = `To facilitate your strategy as a Master Distributor managing an expansive network of ${input.retailNetwork}, ${config.companyInfo.brandName} provides a robust multi-level distribution switch. This architecture is purpose-built to empower your downline distributors and retail endpoints with high-earning banking services, real-time wallet settlements, and autonomous credit management under your central operational command.`;
   } else if (input.partnershipModel.includes('REST APIs')) {
@@ -332,6 +334,7 @@ export function synthesizeProposal(
   return {
     proposalId,
     generatedAt: currentDate,
+    selectedPlan: input.selectedPlan,
     client: {
       fullName: input.fullName,
       businessEmail: input.businessEmail,
@@ -342,6 +345,7 @@ export function synthesizeProposal(
       partnershipModel: input.partnershipModel,
       retailNetwork: input.retailNetwork,
       selectedServices: input.selectedServices,
+      selectedPlan: input.selectedPlan,
       additionalRequirements: input.additionalRequirements,
     },
     executiveSummary,

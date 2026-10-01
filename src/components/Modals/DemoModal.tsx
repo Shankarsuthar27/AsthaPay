@@ -63,28 +63,66 @@ const RETAIL_NETWORKS = [
   'Enterprise Bank Switch',
 ];
 
-const ALL_SERVICES = [
+export const BASIC_SERVICES = [
   'Aadhaar Enabled Payment System (AePS)',
   'Domestic Money Transfer (DMT)',
   'Micro ATM',
-  'Aadhaar Pay',
-  'BBPS',
   'Mobile Recharge',
   'DTH Recharge',
   'Electricity Bill Payment',
   'FASTag Recharge',
+];
+
+export const ADVANCED_SERVICES = [
+  'Aadhaar Pay',
+  'BBPS',
   'PAN Card Services',
   'Insurance Services',
   'Travel Booking',
   'UPI Services',
+  'Distributor & Retailer Management',
+];
+
+export const PRO_SERVICES = [
   'Banking APIs',
   'Payout APIs',
   'Account Verification',
   'KYC / eKYC',
   'Merchant Onboarding',
-  'Distributor & Retailer Management',
   'Commission Management',
   'Other FinTech Services',
+];
+
+export const ALL_SERVICES = [
+  ...BASIC_SERVICES,
+  ...ADVANCED_SERVICES,
+  ...PRO_SERVICES,
+];
+
+export const SERVICE_TIER_MAP: Record<string, 'Basic' | 'Advanced' | 'Pro'> = {};
+BASIC_SERVICES.forEach((s) => { SERVICE_TIER_MAP[s] = 'Basic'; });
+ADVANCED_SERVICES.forEach((s) => { SERVICE_TIER_MAP[s] = 'Advanced'; });
+PRO_SERVICES.forEach((s) => { SERVICE_TIER_MAP[s] = 'Pro'; });
+
+export const PLANS_CONFIG = [
+  {
+    id: 'Basic' as const,
+    name: 'Basic Plan',
+    countText: '7 Services',
+    services: BASIC_SERVICES,
+  },
+  {
+    id: 'Advanced' as const,
+    name: 'Advanced Plan',
+    countText: '14 Services',
+    services: [...BASIC_SERVICES, ...ADVANCED_SERVICES],
+  },
+  {
+    id: 'Pro' as const,
+    name: 'Pro Plan',
+    countText: 'All 21 Services',
+    services: ALL_SERVICES,
+  },
 ];
 
 export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
@@ -99,48 +137,73 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
   const [phoneDigits, setPhoneDigits] = useState('');
   const [honeypot, setHoneypot] = useState('');
 
+  const [selectedPlan, setSelectedPlan] = useState<'Basic' | 'Advanced' | 'Pro' | 'Custom'>('Advanced');
+
   const [formData, setFormData] = useState({
     fullName: '',
     businessEmail: '',
     companyName: '',
     partnershipModel: 'White-Label B2B Portal & App',
     retailNetwork: '50–200 Retailers',
-    selectedServices: [
-      'Aadhaar Enabled Payment System (AePS)',
-      'Domestic Money Transfer (DMT)',
-      'Micro ATM',
-      'BBPS',
-      'Payout APIs',
-    ],
+    selectedServices: [...BASIC_SERVICES, ...ADVANCED_SERVICES], // 14 services by default (Advanced Plan)
     additionalRequirements: '',
   });
 
   if (!isOpen) return null;
 
+  const handlePlanSelect = (planId: 'Basic' | 'Advanced' | 'Pro') => {
+    setSelectedPlan(planId);
+    const plan = PLANS_CONFIG.find((p) => p.id === planId);
+    if (plan) {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: [...plan.services],
+      }));
+    }
+  };
+
   const handleServiceToggle = (serviceName: string) => {
+    let nextServices: string[];
     if (formData.selectedServices.includes(serviceName)) {
       if (formData.selectedServices.length === 1) return; // keep at least 1
-      setFormData({
-        ...formData,
-        selectedServices: formData.selectedServices.filter((s) => s !== serviceName),
-      });
+      nextServices = formData.selectedServices.filter((s) => s !== serviceName);
     } else {
-      setFormData({
-        ...formData,
-        selectedServices: [...formData.selectedServices, serviceName],
-      });
+      nextServices = [...formData.selectedServices, serviceName];
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      selectedServices: nextServices,
+    }));
+
+    // Auto-detect plan match
+    const isBasicMatch =
+      BASIC_SERVICES.length === nextServices.length &&
+      BASIC_SERVICES.every((s) => nextServices.includes(s));
+    const isAdvancedMatch =
+      BASIC_SERVICES.length + ADVANCED_SERVICES.length === nextServices.length &&
+      [...BASIC_SERVICES, ...ADVANCED_SERVICES].every((s) => nextServices.includes(s));
+    const isProMatch = ALL_SERVICES.length === nextServices.length;
+
+    if (isBasicMatch) {
+      setSelectedPlan('Basic');
+    } else if (isAdvancedMatch) {
+      setSelectedPlan('Advanced');
+    } else if (isProMatch) {
+      setSelectedPlan('Pro');
+    } else {
+      setSelectedPlan('Custom');
     }
   };
 
   const handleSelectAllServices = () => {
-    setFormData({ ...formData, selectedServices: [...ALL_SERVICES] });
+    setSelectedPlan('Pro');
+    setFormData((prev) => ({ ...prev, selectedServices: [...ALL_SERVICES] }));
   };
 
   const handleResetServices = () => {
-    setFormData({
-      ...formData,
-      selectedServices: ['Aadhaar Enabled Payment System (AePS)', 'Domestic Money Transfer (DMT)', 'Micro ATM', 'BBPS'],
-    });
+    setSelectedPlan('Basic');
+    setFormData((prev) => ({ ...prev, selectedServices: [...BASIC_SERVICES] }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -182,6 +245,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
           companyName: formData.companyName.trim() || `${formData.fullName.trim()}'s Network`,
           partnershipModel: formData.partnershipModel,
           retailNetwork: formData.retailNetwork,
+          selectedPlan: `${selectedPlan} Plan`,
           selectedServices: formData.selectedServices,
           additionalRequirements: formData.additionalRequirements.trim(),
           honeypot: honeypot || undefined,
@@ -432,19 +496,35 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Select Services to Launch (21 Services) */}
+              {/* Select Plan & Services */}
               <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-bold text-slate-800">
-                    Select Services You Want to Launch ({formData.selectedServices.length} of {ALL_SERVICES.length}) *
-                  </label>
-                  <div className="flex items-center gap-2 text-[10px]">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+                  <div className="flex items-center gap-2">
+                    <label className="block text-xs font-bold text-slate-800">
+                      Select Plan &amp; Services ({formData.selectedServices.length} of {ALL_SERVICES.length}) *
+                    </label>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        selectedPlan === 'Basic'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : selectedPlan === 'Advanced'
+                          ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                          : selectedPlan === 'Pro'
+                          ? 'bg-orange-50 text-[#FF5733] border border-orange-200'
+                          : 'bg-slate-100 text-slate-700 border border-slate-200'
+                      }`}
+                    >
+                      {selectedPlan === 'Custom' ? 'Custom Selection' : `${selectedPlan} Plan`}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-[11px]">
                     <button
                       type="button"
                       onClick={handleSelectAllServices}
                       className="text-[#FF5733] font-bold hover:underline"
                     >
-                      Select All
+                      Select All (21)
                     </button>
                     <span className="text-slate-300">&bull;</span>
                     <button
@@ -457,7 +537,32 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-48 overflow-y-auto p-2 bg-slate-50 rounded-2xl border border-slate-200/80">
+                {/* 3 Simple Plan Toggle Buttons */}
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100/90 rounded-xl mb-2.5">
+                  {PLANS_CONFIG.map((plan) => {
+                    const isActive = selectedPlan === plan.id;
+                    return (
+                      <button
+                        type="button"
+                        key={plan.id}
+                        onClick={() => handlePlanSelect(plan.id)}
+                        className={`py-1.5 px-2 rounded-lg text-center transition-all ${
+                          isActive
+                            ? 'bg-white text-slate-900 shadow-xs border border-slate-200/90 font-bold'
+                            : 'text-slate-600 hover:text-slate-900 font-medium'
+                        }`}
+                      >
+                        <span className="block text-xs font-bold leading-tight">{plan.name}</span>
+                        <span className={`block text-[10px] leading-tight mt-0.5 ${isActive ? 'text-[#FF5733] font-bold' : 'text-slate-400'}`}>
+                          {plan.countText}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Clean Services Checklist (Clean 3-column layout matching reference screenshot) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5 max-h-52 overflow-y-auto p-2.5 bg-slate-50/80 rounded-2xl border border-slate-200/80">
                   {ALL_SERVICES.map((service) => {
                     const isChecked = formData.selectedServices.includes(service);
                     return (
@@ -465,17 +570,17 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
                         type="button"
                         key={service}
                         onClick={() => handleServiceToggle(service)}
-                        className={`p-2 rounded-xl border text-left text-[11px] flex items-center justify-between transition-all ${
+                        className={`px-3 py-2 rounded-xl text-left text-xs flex items-center justify-between transition-all ${
                           isChecked
-                            ? 'bg-white border-[#FF5733] text-slate-900 shadow-2xs font-bold'
-                            : 'bg-transparent border-transparent text-slate-600 hover:bg-white/70'
+                            ? 'bg-white border border-[#FF5733] text-slate-900 shadow-2xs font-bold'
+                            : 'bg-transparent border border-transparent text-slate-700 hover:bg-white/60'
                         }`}
                       >
-                        <span className="truncate pr-1">{service}</span>
+                        <span className="truncate pr-1.5">{service}</span>
                         {isChecked ? (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5733] shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-[#FF5733] shrink-0" />
                         ) : (
-                          <div className="w-3.5 h-3.5 rounded-full border border-slate-300 shrink-0" />
+                          <div className="w-4 h-4 rounded-full border border-slate-300 shrink-0" />
                         )}
                       </button>
                     );

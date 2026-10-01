@@ -63,6 +63,27 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
   const refId = cleanText(proposal.proposalId) || 'FIN-2026-LIVE';
   const dateStr = cleanText(proposal.generatedAt) || '1 October 2026';
 
+  const rawPlan = proposal.selectedPlan || proposal.requirements?.selectedPlan;
+  const selectedPlan = cleanText(rawPlan) || 'Advanced Plan';
+  const selectedServices = proposal.requirements?.selectedServices || [];
+  const servicesCount = selectedServices.length > 0
+    ? selectedServices.length
+    : (selectedPlan.toLowerCase().includes('basic') ? 7 : selectedPlan.toLowerCase().includes('pro') ? 21 : 14);
+
+  // Friendly short summary of included services for the plan
+  let servicesListSummary = '';
+  if (selectedPlan.toLowerCase().includes('basic')) {
+    servicesListSummary = 'AePS, DMT, Micro ATM, Mobile/DTH, Electricity, FASTag (7 Services)';
+  } else if (selectedPlan.toLowerCase().includes('pro')) {
+    servicesListSummary = 'All 21 Services: Banking & Payout APIs, AePS, DMT, Micro ATM, BBPS, KYC Switch';
+  } else if (selectedPlan.toLowerCase().includes('advanced')) {
+    servicesListSummary = 'Basic (7) + Aadhaar Pay, BBPS, PAN, Insurance, Travel, UPI, Retailer Management (14 Services)';
+  } else {
+    servicesListSummary = selectedServices.length > 0
+      ? selectedServices.slice(0, 5).join(', ') + (selectedServices.length > 5 ? ` + ${selectedServices.length - 5} more` : '')
+      : 'Configured FinTech Services';
+  }
+
   const slabs: CommercialSlab[] = (proposal.commercialSlabs && proposal.commercialSlabs.length > 0)
     ? proposal.commercialSlabs
     : DEFAULT_PROPOSAL_CONFIG.commercialSlabs;
@@ -101,7 +122,7 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-    doc.text('ASTHAPAY TECHNOLOGIES -- COMMERCIAL PROPOSAL', margin, 15);
+    doc.text(`ASTHAPAY TECHNOLOGIES -- COMMERCIAL PROPOSAL (${selectedPlan.toUpperCase()})`, margin, 15);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
@@ -136,15 +157,15 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
 
   // Proposal Reference Badge (Right side)
   doc.setFillColor(brandCoral[0], brandCoral[1], brandCoral[2]);
-  doc.roundedRect(pageWidth - margin - 145, y + 10, 132, 34, 4, 4, 'F');
+  doc.roundedRect(pageWidth - margin - 148, y + 8, 140, 38, 4, 4, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7.5);
   doc.setTextColor(255, 255, 255);
-  doc.text('COMMERCIAL PROPOSAL', pageWidth - margin - 79, y + 22, { align: 'center' });
+  doc.text('COMMERCIAL PROPOSAL', pageWidth - margin - 78, y + 19, { align: 'center' });
   doc.setFontSize(8.5);
-  doc.text(`REF: ${refId}`, pageWidth - margin - 79, y + 32, { align: 'center' });
+  doc.text(`REF: ${refId}`, pageWidth - margin - 78, y + 29, { align: 'center' });
   doc.setFontSize(7);
-  doc.text(`Date: ${dateStr}`, pageWidth - margin - 79, y + 41, { align: 'center' });
+  doc.text(`PLAN: ${selectedPlan.toUpperCase()}`, pageWidth - margin - 78, y + 38, { align: 'center' });
 
   y += 64;
 
@@ -152,7 +173,7 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
   doc.setFillColor(bgLight[0], bgLight[1], bgLight[2]);
   doc.setDrawColor(borderLight[0], borderLight[1], borderLight[2]);
   doc.setLineWidth(1);
-  doc.roundedRect(margin, y, contentWidth, 56, 5, 5, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 58, 5, 5, 'FD');
 
   // Left: Prepared Specifically For
   doc.setFont('helvetica', 'bold');
@@ -163,40 +184,52 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
   doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-  doc.text(companyName.substring(0, 36), margin + 12, y + 28);
+  doc.text(companyName.substring(0, 36), margin + 12, y + 27);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text(`Attn: ${clientName}`, margin + 12, y + 40);
+  doc.text(`Attn: ${clientName}`, margin + 12, y + 38);
 
   doc.setFontSize(7.5);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  doc.text(`${clientEmail}  *  ${clientPhone}`, margin + 12, y + 50);
+  doc.text(`${clientEmail}  *  ${clientPhone}`, margin + 12, y + 49);
 
-  // Right: Platform Architecture
-  const archColX = margin + 280;
+  // Right: Platform Architecture & Package
+  const archColX = margin + 270;
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  doc.text('PLATFORM ARCHITECTURE:', archColX, y + 14);
+  doc.text('PLATFORM ARCHITECTURE & PACKAGE:', archColX, y + 14);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-  doc.text('Enterprise White-Label Switch', archColX, y + 27);
+  doc.text('Enterprise White-Label Switch', archColX, y + 25);
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
-  doc.setTextColor(textBody[0], textBody[1], textBody[2]);
-  doc.text('Web Portal * Android APK * Micro ATM', archColX, y + 39);
+  // Distinctive Plan Badge Pill
+  const isBasic = selectedPlan.toLowerCase().includes('basic');
+  const isPro = selectedPlan.toLowerCase().includes('pro');
+  const pillBg = isBasic ? [236, 253, 245] : isPro ? [255, 247, 237] : [239, 246, 255];
+  const pillText = isBasic ? [5, 150, 105] : isPro ? [234, 88, 12] : [29, 78, 216];
+  const pillBorder = isBasic ? [167, 243, 208] : isPro ? [254, 215, 170] : [191, 219, 254];
+
+  doc.setFillColor(pillBg[0], pillBg[1], pillBg[2]);
+  doc.setDrawColor(pillBorder[0], pillBorder[1], pillBorder[2]);
+  doc.setLineWidth(0.6);
+  doc.roundedRect(archColX, y + 29, 210, 13, 3, 3, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.5);
-  doc.setTextColor(emeraldGreen[0], emeraldGreen[1], emeraldGreen[2]);
-  doc.text('* 24x7 Instant Settlement Rails', archColX, y + 49);
+  doc.setFontSize(7.2);
+  doc.setTextColor(pillText[0], pillText[1], pillText[2]);
+  doc.text(`* ${selectedPlan.toUpperCase()} (${servicesCount} SERVICES CONFIGURED)`, archColX + 5, y + 38.5);
 
-  y += 66;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7);
+  doc.setTextColor(textBody[0], textBody[1], textBody[2]);
+  doc.text('Web Portal * Android APK * Micro ATM * 24x7 Settlement', archColX, y + 50);
+
+  y += 68;
 
   // 3. EXECUTIVE OVERVIEW
   doc.setFont('helvetica', 'bold');
@@ -208,7 +241,7 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.8);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  const execText = `Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform, AsthaPay has engineered a comprehensive multi-tiered infrastructure solution. Under this deployment, ${companyName} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.`;
+  const execText = `Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform under the ${selectedPlan} (${servicesCount} FinTech services configured), AsthaPay has engineered a comprehensive multi-tiered infrastructure solution. Under this deployment, ${companyName} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.`;
   const splitExec = doc.splitTextToSize(cleanText(execText), contentWidth);
   doc.text(splitExec, margin, y);
   y += splitExec.length * 10.5 + 8;
@@ -235,8 +268,12 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
 
   const pricingRows = [
     {
+      term: 'Selected Platform Tier',
+      desc: `${selectedPlan} (${servicesCount} Services: ${servicesListSummary})`,
+    },
+    {
       term: 'Platform Setup Fee',
-      desc: cleanText(proposal.commercialTerms?.setupFee) || 'Customized based on selected platform tier and white-label mobile app provisioning.',
+      desc: cleanText(proposal.commercialTerms?.setupFee) || `Customized for ${selectedPlan} deployment including white-label portal, Android APK, and switch routing.`,
     },
     {
       term: 'Monthly Maintenance / AMC',
@@ -258,7 +295,7 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
 
   pricingRows.forEach((pr, idx) => {
     const isEven = idx % 2 === 0;
-    const rowH = 15;
+    const rowH = 14;
     doc.setFillColor(isEven ? 255 : bgLight[0], isEven ? 255 : bgLight[1], isEven ? 255 : bgLight[2]);
     doc.rect(margin, y, contentWidth, rowH, 'F');
 
@@ -269,13 +306,13 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7.2);
     doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-    doc.text(pr.term, margin + 8, y + 10.5);
+    doc.text(pr.term, margin + 8, y + 10);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7);
+    doc.setFontSize(6.8);
     doc.setTextColor(textDark[0], textDark[1], textDark[2]);
     const splitPrDesc = doc.splitTextToSize(pr.desc, pCol2W - 14);
-    doc.text(splitPrDesc[0] || pr.desc, margin + pCol1W + 8, y + 10.5);
+    doc.text(splitPrDesc[0] || pr.desc, margin + pCol1W + 8, y + 10);
 
     y += rowH;
   });
@@ -287,13 +324,13 @@ export function generateProposalPdfBuffer(proposal: GeneratedProposal): Buffer {
   doc.setFontSize(6.5);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
   doc.text('* Note: Commercial pricing will be finalized based on the selected services, transaction volume, infrastructure requirements, and integration scope discussed during your live product demonstration.', margin + 8, y + 9.5);
-  y += 22;
+  y += 20;
 
   // 5. PROPOSED COMMERCIAL COMMISSION MATRIX TABLE
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9.5);
   doc.setTextColor(brandCoral[0], brandCoral[1], brandCoral[2]);
-  doc.text('Proposed Commercial Commission Matrix', margin, y);
+  doc.text(`Proposed Commercial Commission Matrix (${selectedPlan})`, margin, y);
   y += 10;
 
   // Table Header

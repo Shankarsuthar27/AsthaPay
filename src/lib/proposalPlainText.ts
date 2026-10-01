@@ -62,6 +62,25 @@ export function generateProposalPlainText(
     ? config.termsAndConditions
     : DEFAULT_PROPOSAL_CONFIG.termsAndConditions;
 
+  const selectedPlan = proposal.selectedPlan || proposal.requirements?.selectedPlan || 'Advanced Plan';
+  const selectedServices = proposal.requirements?.selectedServices || [];
+  const servicesCount = selectedServices.length > 0
+    ? selectedServices.length
+    : (selectedPlan.toLowerCase().includes('basic') ? 7 : selectedPlan.toLowerCase().includes('pro') ? 21 : 14);
+
+  let servicesListSummary = '';
+  if (selectedPlan.toLowerCase().includes('basic')) {
+    servicesListSummary = 'AePS, DMT, Micro ATM, Mobile/DTH, Electricity, FASTag (7 Services)';
+  } else if (selectedPlan.toLowerCase().includes('pro')) {
+    servicesListSummary = 'All 21 Services: Banking & Payout APIs, AePS, DMT, Micro ATM, BBPS, KYC Switch';
+  } else if (selectedPlan.toLowerCase().includes('advanced')) {
+    servicesListSummary = 'Basic (7) + Aadhaar Pay, BBPS, PAN, Insurance, Travel, UPI, Retailer Management (14 Services)';
+  } else {
+    servicesListSummary = selectedServices.length > 0
+      ? selectedServices.slice(0, 5).join(', ') + (selectedServices.length > 5 ? ` + ${selectedServices.length - 5} more` : '')
+      : 'Configured FinTech Services';
+  }
+
   const termsText = terms.join('\n');
 
   return `${brand}
@@ -71,6 +90,7 @@ ${address}
 
 Commercial Proposal
 REF: ${refId}
+Selected Plan: ${selectedPlan}
 
 Date: ${dateStr}
 
@@ -81,6 +101,9 @@ Attn: ${clientName}
 
 ${clientEmail} • ${clientPhone}
 
+Selected Package & Platform Tier
+${selectedPlan} (${servicesCount} FinTech Services Configured)
+
 Platform Architecture
 Enterprise White-Label Switch
 
@@ -89,17 +112,18 @@ Web Portal • Android APK • Micro ATM
 24x7 Instant Settlement Rails
 
 Executive Overview
-Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform, AsthaPay has engineered a comprehensive multi-tiered infrastructure solution. Under this deployment, ${clientCompany} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.
+Based on your objective to deploy a fully branded turnkey White-Label B2B FinTech platform under the ${selectedPlan} (${servicesCount} FinTech services configured), AsthaPay has engineered a comprehensive multi-tiered infrastructure solution. Under this deployment, ${clientCompany} will launch and manage its own independent web and mobile banking ecosystem, backed by institutional multi-bank switch routing, instant commission distribution, and seamless retailer onboarding.
 
 Commercial Pricing & License Terms
-Platform Setup Fee\t${commercialTerms?.setupFee || 'Customized based on selected platform tier and white-label mobile app provisioning.'}
+Selected Platform Tier\t${selectedPlan} (${servicesCount} Services: ${servicesListSummary})
+Platform Setup Fee\t${commercialTerms?.setupFee || `Customized for ${selectedPlan} deployment including white-label portal, Android APK, and switch routing.`}
 Monthly Maintenance / AMC\t${commercialTerms?.monthlyFee || 'Covers cloud server scaling, multi-bank switch routing, SSL certificates, and technical support.'}
 API Charges\t${commercialTerms?.apiCharges || 'Included in enterprise package with zero per-hit overhead on standard transactions.'}
 Transaction Charges\t${commercialTerms?.transactionCharges || 'Zero debit MDR for AePS and Micro ATM; standard IMPS commercial slabs apply for DMT.'}
 Hardware mPOS / PIN-Pad\t${commercialTerms?.hardwareCharges || 'Hardware mPOS and Biometric scanners available at volume distributor rates.'}
 * Note: ${commercialTerms?.note || 'Commercial pricing will be finalized based on the selected services, transaction volume, infrastructure requirements, and integration scope discussed during your live product demonstration.'}
 
-Proposed Commercial Commission Matrix
+Proposed Commercial Commission Matrix (${selectedPlan})
 Service\tCommercial Rate\tNotes & Settlement
 ${slabsRows}
 

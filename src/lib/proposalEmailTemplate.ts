@@ -59,9 +59,13 @@ export function generateProposalEmailHtml(
       20+ Services Under one panel
     </h2>
 
-    <p style="margin: 0 0 12px 0; text-decoration: underline; color: #78350F; font-size: 14px;">
+    <p style="margin: 0 0 8px 0; text-decoration: underline; color: #78350F; font-size: 14px;">
       Our Available Package: (Client can choose as per requirements)
     </p>
+
+    <div style="background-color: #FFF7ED; border: 1px solid #FFEDD5; padding: 8px 12px; margin: 8px 0 16px 0; border-radius: 6px; font-size: 13px;">
+      <strong style="color: #9A3412;">Selected Deployment Tier:</strong> <span style="display:inline-block;background:#FF5733;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-weight:bold;font-size:12px;">${proposal.selectedPlan || requirements?.selectedPlan || 'Advanced Plan'}</span> (${requirements?.selectedServices?.length || 14} FinTech Services Configured)
+    </div>
 
     <!-- Highlighted Value Proposition Callout with Yellow Background matching reference image -->
     <div style="background-color: #FEF08A; padding: 4px 6px; margin: 16px 0; border-radius: 2px; color: #000000; line-height: 1.6; font-size: 14px;">

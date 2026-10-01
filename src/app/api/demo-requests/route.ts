@@ -136,6 +136,7 @@ export async function POST(req: NextRequest) {
       partnershipModel,
       retailNetwork,
       selectedServices: sanitizedServices,
+      selectedPlan: body.selectedPlan || 'Custom',
       additionalRequirements: cleanNotes,
       customProposalId: body.customProposalId || body.proposalId,
     });
@@ -183,6 +184,7 @@ export async function POST(req: NextRequest) {
           partnership_model: partnershipModel,
           retail_network: retailNetwork,
           selected_services: sanitizedServices,
+          selected_plan: body.selectedPlan || 'Custom',
           additional_requirements: cleanNotes || null,
           proposal_content: proposal,
           proposal_pdf_url: pdfDownloadUrl,
@@ -205,6 +207,7 @@ export async function POST(req: NextRequest) {
           businessType: partnershipModel,
           estimatedRetailers: retailNetwork,
           selectedServices: sanitizedServices,
+          selectedPlan: body.selectedPlan || 'Custom',
           additionalRequirements: cleanNotes || null,
           proposalContent: proposal,
           proposalPdfUrl: pdfDownloadUrl,

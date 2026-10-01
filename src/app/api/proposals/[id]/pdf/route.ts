@@ -53,6 +53,7 @@ export async function GET(
               partnershipModel: docData.partnership_model || docData.businessType || 'White-Label B2B Portal & App',
               retailNetwork: docData.retail_network || docData.estimatedRetailers || '10–50 Retailers',
               selectedServices: docData.selected_services || docData.selectedServices || ['AePS', 'DMT', 'BBPS'],
+              selectedPlan: docData.selected_plan || docData.selectedPlan || 'Advanced Plan',
               additionalRequirements: docData.additional_requirements || docData.additionalRequirements,
             });
             proposal.proposalId = proposalId;
@@ -72,6 +73,7 @@ export async function GET(
         companyName: 'FinTech Enterprise',
         partnershipModel: 'White-Label B2B Portal & App',
         retailNetwork: '200–1,000+ Retailers',
+        selectedPlan: 'Advanced Plan',
         selectedServices: [
           'Aadhaar Enabled Payment System (AePS)',
           'Domestic Money Transfer (DMT)',
