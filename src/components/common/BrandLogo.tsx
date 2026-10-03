@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface BrandLogoProps {
   variant?: 'light' | 'dark';
@@ -46,8 +47,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   }[size];
 
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className={`flex items-center ${sizeStyles.gap} group cursor-pointer select-none ${className}`}
       aria-label="AsthaPay"
     >
@@ -80,6 +81,6 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           FinTech &amp; Banking Rails
         </span>
       </div>
-    </a>
+    </Link>
   );
 };

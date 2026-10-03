@@ -135,7 +135,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
                               {category.services.map((srv) => (
                                 <a
                                   key={srv.id}
-                                  href={`#${category.id}`}
+                                  href={`/#${category.id}`}
                                   onClick={handleLinkClick}
                                   className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors truncate"
                                 >
@@ -143,7 +143,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
                                 </a>
                               ))}
                               <a
-                                href={`#${category.id}`}
+                                href={`/#${category.id}`}
                                 onClick={handleLinkClick}
                                 className="inline-flex items-center gap-1 text-[11px] font-bold text-[#FF5733] pt-0.5"
                               >
@@ -182,7 +182,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
                     {partnerDropdownItems.map((item, idx) => (
                       <a
                         key={idx}
-                        href={item.href}
+                        href={item.href.startsWith('#') ? `/${item.href}` : item.href}
                         onClick={handleLinkClick}
                         className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors"
                       >
@@ -196,7 +196,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
               {/* 3. Pricing */}
               <div>
                 <a
-                  href="#pricing"
+                  href="/#pricing"
                   onClick={handleLinkClick}
                   className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
                 >
@@ -227,7 +227,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
                     {resourcesDropdownItems.map((item, idx) => (
                       <a
                         key={idx}
-                        href={item.href}
+                        href={item.href.startsWith('#') ? `/${item.href}` : item.href}
                         onClick={handleLinkClick}
                         className="block py-1 text-xs font-semibold text-slate-600 hover:text-[#FF5733] transition-colors"
                       >
@@ -241,7 +241,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
               {/* 5. About Us */}
               <div>
                 <a
-                  href="#why-us"
+                  href="/#why-us"
                   onClick={handleLinkClick}
                   className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
                 >
@@ -252,7 +252,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onOpenD
               {/* 6. Contact Us */}
               <div>
                 <a
-                  href="#contact"
+                  href="/#contact"
                   onClick={handleLinkClick}
                   className="block py-1 text-[#0A1931] font-bold text-[15.5px] hover:text-[#FF5733] transition-colors"
                 >

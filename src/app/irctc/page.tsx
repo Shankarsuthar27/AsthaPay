@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IrctcHeader } from '@/components/Irctc/IrctcHeader';
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper';
 import { IrctcHero } from '@/components/Irctc/IrctcHero';
 import { IrctcVerifyBanner } from '@/components/Irctc/IrctcVerifyBanner';
 import { IrctcBenefits } from '@/components/Irctc/IrctcBenefits';
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
 
 export default function IrctcPage() {
   return (
-    <main className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-[#D8232A]/20 selection:text-[#D8232A]">
-      {/* 1. Header Navigation */}
-      <IrctcHeader />
+    <main className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-brand-coral/20 selection:text-brand-coral">
+      {/* 1. Header Navigation - Unified AsthaPay Navbar */}
+      <NavbarWrapper />
 
       {/* 2. Hero Section with Scenic Railway Background & Integrated Enquiry Form */}
       <IrctcHero />

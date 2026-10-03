@@ -36,13 +36,15 @@ export const SimpleDropdown: React.FC<SimpleDropdownProps> = ({
           </div>
         )}
         <div className="space-y-0.5">
-          {items.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              onClick={onClose}
-              className="p-2 rounded-xl hover:bg-slate-50 transition-colors flex items-start gap-2.5 group"
-            >
+          {items.map((item, index) => {
+            const targetHref = item.href.startsWith('#') ? `/${item.href}` : item.href;
+            return (
+              <a
+                key={index}
+                href={targetHref}
+                onClick={onClose}
+                className="p-2 rounded-xl hover:bg-slate-50 transition-colors flex items-start gap-2.5 group"
+              >
               {item.iconName && (
                 <div className="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-brand-coral group-hover:text-white text-slate-600 flex items-center justify-center shrink-0 transition-colors mt-0.5">
                   <DynamicIcon name={item.iconName} className="w-3.5 h-3.5" />
@@ -67,7 +69,8 @@ export const SimpleDropdown: React.FC<SimpleDropdownProps> = ({
               </div>
               <ChevronRight className="w-3 h-3 text-slate-300 group-hover:text-brand-coral group-hover:translate-x-0.5 transition-all shrink-0 mt-1" />
             </a>
-          ))}
+          );
+        })}
         </div>
       </div>
     </div>

@@ -31,6 +31,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose, onSelectSer
       const element = document.getElementById(activeCategoryId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = `/#${activeCategoryId}`;
       }
     }
   };
@@ -118,7 +120,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose, onSelectSer
                   <p className="text-[11px] text-slate-600 mt-0.5 line-clamp-1">{currentCategory.shortDesc}</p>
                 </div>
                 <a
-                  href={`#${currentCategory.id}`}
+                  href={`/#${currentCategory.id}`}
                   onClick={onClose}
                   className="text-[11px] font-bold text-brand-coral hover:text-brand-coral-hover flex items-center gap-1 shrink-0 px-2 py-0.5 rounded-lg bg-brand-coral/10 hover:bg-brand-coral/20 transition-all"
                 >
@@ -132,7 +134,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose, onSelectSer
                 {currentCategory.services.map((service) => (
                   <a
                     key={service.id}
-                    href={`#${currentCategory.id}`}
+                    href={`/#${currentCategory.id}`}
                     onClick={() => handleServiceClick(service.id)}
                     className="p-2.5 rounded-xl border border-slate-100 hover:border-brand-coral/30 hover:bg-brand-coral-light/30 transition-all duration-200 group flex items-start gap-2.5"
                   >
@@ -166,7 +168,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose, onSelectSer
                 <span className="font-semibold text-slate-700">Direct Bank Switch Integration (ICICI, Axis, YES Bank, NSDL)</span>
               </div>
               <a
-                href="#contact"
+                href="/#contact"
                 onClick={onClose}
                 className="text-brand-navy font-bold hover:text-brand-coral flex items-center gap-1 transition-colors"
               >

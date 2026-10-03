@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
               <span>Helpline: 1800-123-4567</span>
             </a>
             <span className="text-slate-700">|</span>
-            <a href="#portal" className="text-brand-coral hover:text-brand-coral-hover font-semibold flex items-center gap-1">
+            <a href="/#portal" className="text-brand-coral hover:text-brand-coral-hover font-semibold flex items-center gap-1">
               <User className="w-3 h-3" /> Agent / Distributor Login
             </a>
           </div>
@@ -155,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
 
               {/* Pricing */}
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-brand-navy hover:bg-slate-100/70 transition-all"
               >
                 Pricing
@@ -225,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal }) => {
 
               {/* Contact Us */}
               <a
-                href="#contact"
+                href="/#contact"
                 className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 hover:text-brand-navy hover:bg-slate-100/70 transition-all"
               >
                 Contact Us

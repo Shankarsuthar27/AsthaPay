@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IrctcHeader } from '@/components/Irctc/IrctcHeader';
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper';
 import { IrctcAboutSection } from '@/components/Irctc/IrctcAboutSection';
 import { IrctcFooter } from '@/components/Irctc/IrctcFooter';
 
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function IrctcAboutPage() {
   return (
-    <main className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-[#D8232A]/20 selection:text-[#D8232A]">
-      <IrctcHeader />
+    <main className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-brand-coral/20 selection:text-brand-coral">
+      <NavbarWrapper />
       <IrctcAboutSection />
       <IrctcFooter />
     </main>
